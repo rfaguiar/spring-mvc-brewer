@@ -8,11 +8,6 @@
 
 	<web>
 		<link target="/">
-			<dir name="C:/Users/Rogerio/Documents/spring-Brewer/brewer/target/m2e-wtp/web-resources">
-				<exclude name="/"/>
-			</dir>
-		</link>
-		<link target="/">
 			<dir name="C:/Users/Rogerio/Documents/spring-Brewer/brewer/src/main/webapp">
 			</dir>
 		</link>
