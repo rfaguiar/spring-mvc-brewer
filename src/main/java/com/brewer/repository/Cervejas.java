@@ -1,4 +1,4 @@
-package com.brewer.brewer.repository;
+package com.brewer.repository;
 
 import java.util.Optional;
 
