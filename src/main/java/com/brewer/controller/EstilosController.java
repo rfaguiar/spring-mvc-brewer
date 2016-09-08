@@ -19,17 +19,18 @@ import com.brewer.service.CadastroEstiloService;
 import com.brewer.service.exception.NomeEstiloJaCadastradoException;
 
 @Controller
+@RequestMapping("/estilos")
 public class EstilosController {
 
 	@Autowired
 	private CadastroEstiloService cadastroEstiloService;
 	
-	@RequestMapping("/estilos/novo")
+	@RequestMapping("/novo")
 	public String novo(Estilo estilo){
 		return "/estilo/CadastroEstilo";
 	}
 	
-	@RequestMapping(value = "/estilos/novo", method = RequestMethod.POST)
+	@RequestMapping(value = "/novo", method = RequestMethod.POST)
 	public String cadastrar(@Valid Estilo estilo, BindingResult result, Model model, RedirectAttributes attributes){
 		if(result.hasErrors()){
 			return novo(estilo);
@@ -46,18 +47,14 @@ public class EstilosController {
 		return "redirect:/estilos/novo";
 	}
 	
-	@RequestMapping(value = "/estilos", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody ResponseEntity<?> salvar(@RequestBody @Valid Estilo estilo, BindingResult result){
 		if(result.hasErrors()){
 			return ResponseEntity.badRequest().body(result.getFieldError("nome").getDefaultMessage());
 		}
 		
-		try {
-			estilo = cadastroEstiloService.salvar(estilo);
-		} catch (NomeEstiloJaCadastradoException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
-		
+		estilo = cadastroEstiloService.salvar(estilo);
+				
 		return ResponseEntity.ok(estilo);
 	}
 }
