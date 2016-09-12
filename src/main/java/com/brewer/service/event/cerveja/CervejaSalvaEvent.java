@@ -5,11 +5,10 @@ import org.springframework.util.StringUtils;
 import com.brewer.model.Cerveja;
 
 public class CervejaSalvaEvent {
-	
-	private Cerveja cerveja;	
+
+	private Cerveja cerveja;
 
 	public CervejaSalvaEvent(Cerveja cerveja) {
-		super();
 		this.cerveja = cerveja;
 	}
 
@@ -17,9 +16,8 @@ public class CervejaSalvaEvent {
 		return cerveja;
 	}
 	
-	public boolean isFoto(){
+	public boolean temFoto() {
 		return !StringUtils.isEmpty(cerveja.getFoto());
 	}
-	
 	
 }

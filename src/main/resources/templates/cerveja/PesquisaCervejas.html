@@ -30,22 +30,22 @@
 		</div>
 		
 		<div class="container-fluid">
-			<form method="GET" >
+			<form method="GET" th:object="${cervejaFilter}">
 				<div class="row">
 					<div class="form-group col-sm-6">
 						<label class="control-label" for="sku">SKU</label>
-						<input type="text" class="form-control" id="sku" autofocus="autofocus"/>
+						<input type="text" class="form-control" id="sku" autofocus="autofocus" th:field="*{sku}"/>
 					</div>
 					
 					<div class="form-group col-sm-6">
 						<label class="control-label" for="nome">Nome</label>
-						<input type="text" class="form-control" id="nome"/>
+						<input type="text" class="form-control" id="nome" th:field="*{nome}"/>
 					</div>
 				</div>
 				<div class="row">
 					<div class="form-group col-sm-6">
 						<label class="control-label" for="estilo">Estilo</label>
-						<select id="estilo" class="form-control">
+						<select id="estilo" class="form-control" th:field="*{estilo}">
 							<option value="">Todos estilos</option>
 							<option th:each="estilo : ${estilos}" th:text="${estilo.nome}" th:value="${estilo.codigo}"></option>
 						</select>
@@ -53,7 +53,7 @@
 					
 					<div class="form-group col-sm-6">
 						<label class="control-label" for="sabor">Sabor</label>
-						<select id="sabor" class="form-control">
+						<select id="sabor" class="form-control" th:field="*{sabor}">
 							<option value="">Todos sabores</option>
 							<option th:each="sabor : ${sabores}" th:text="${sabor.descricao}" th:value="${sabor}"></option>
 						</select>
@@ -66,7 +66,7 @@
 							<div>
 								<th:block th:each="origem : ${origens}">
 									<div class="radio radio-inline">
-										<input th:id="|id_${origem}|" type="radio" th:value="${origem}" name="origem" >
+										<input th:id="|id_${origem}|" type="radio" th:value="${origem}" th:field="*{origem}" >
 										<label th:for="|id_${origem}|" th:text="${origem.descricao}"></label>
 									</div>
 								</th:block>
@@ -78,11 +78,11 @@
 					</div>
 					
 					<div class="form-group col-sm-6">
-						<label for="precoDe">Preço unitário</label>
+						<label for="valorDe">Valor unitário</label>
 						<div class="form-inline">
-							<input type="text" class="form-control aw-form-control-inline-sm js-decimal" id="precoDe"/>
-							<label for="precoAte" class="aw-form-label-between">até</label>
-							<input type="text" class="form-control aw-form-control-inlin-sm js-decimal" id="precoAte"/>
+							<input type="text" class="form-control aw-form-control-inline-sm js-decimal" id="valorDe" th:field="*{valorDe}"/>
+							<label for="valorAte" class="aw-form-label-between">até</label>
+							<input type="text" class="form-control aw-form-control-inlin-sm js-decimal" id="valorAte" th:field="*{valorAte}"/>
 						</div>
 					</div>
 				</div>
@@ -106,7 +106,7 @@
 					<tbody>
 						<tr th:each="cerveja : ${cervejas}">
 							<td class="text-center">
-								<img th:src="@{/fotos/thumbnail.{foto}(foto=${cerveja.fotoOuMock})}" class="img-responsive">
+								<img th:src="@{/fotos/thumbnail.{foto}(foto=${cerveja.fotoOuMock})}" class="img-responsive"/>
 							</td>
 							<td class="text-center" th:text="${cerveja.sku}"></td>
 							<td th:text="${cerveja.nome}"></td>

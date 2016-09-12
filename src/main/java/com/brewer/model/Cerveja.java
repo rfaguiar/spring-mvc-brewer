@@ -44,7 +44,7 @@ public class Cerveja implements Serializable{
 	private String nome;
 	
 	@NotBlank(message = "A descrição é obrigatória")
-	@Size(min = 1, max = 50, message = "O tamanho da descrição deve estar entre 1 e 50")
+	@Size(min = 1, max = 500, message = "O tamanho da descrição deve estar entre 1 e 500")
 	private String descricao;
 	
 	@NotNull(message = "Valor é obrigatório")
@@ -219,8 +219,8 @@ public class Cerveja implements Serializable{
 		this.contentType = contentType;
 	}
 	
-	public String getFotoOuMock(){
-		return StringUtils.isEmpty(foto)?foto:"cerveja-mock.png";
+	public String getFotoOuMock() {
+		return !StringUtils.isEmpty(foto) ? foto : "cerveja-mock.png";
 	}
 	
 }

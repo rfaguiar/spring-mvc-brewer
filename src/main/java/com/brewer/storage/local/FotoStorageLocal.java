@@ -99,7 +99,7 @@ public class FotoStorageLocal implements FotoStorage {
 				.size(40, 68)
 				.toFiles(Rename.PREFIX_DOT_THUMBNAIL);
 		} catch (IOException e) {
-			throw new RuntimeException("Erro gerand thumbnail", e);
+			throw new RuntimeException("Erro gerando thumbnail", e);
 		};
 		
 	}
@@ -109,7 +109,7 @@ public class FotoStorageLocal implements FotoStorage {
 		try {
 			return Files.readAllBytes(this.local.resolve(foto));
 		} catch (IOException e) {
-			throw new RuntimeException("Erro lendo a foto temporaria", e);
+			throw new RuntimeException("Erro lendo a foto", e);
 		}
 	}
 }
