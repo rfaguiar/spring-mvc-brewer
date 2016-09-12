@@ -21,15 +21,15 @@
 		<div class="container-fluid">
 			<form method="POST" th:object="${clientes}" class="form-vertical  js-form-loading">
 				<div class="row">				
-					<div class="col-sm-12 form-group">
-						<label for="nome">Nome</label>
+					<div class="col-sm-12 form-group bw-required">
+						<label class="control-label" for="nome">Nome</label>
 						<input id="nome" type="text" class="form-control"/>
 					</div>						
 				</div>
 				
 				<div class="row">				
-					<div class="col-sm-4 form-group">
-						<label for="tipo">Tipo pessoa</label>
+					<div class="col-sm-4 form-group bw-required">
+						<label class="control-label" for="tipo">Tipo pessoa</label>
 						<div>
 							<div class="radio radio-inline">
 								<input type="radio" name="tipo"/>
@@ -37,62 +37,62 @@
 							</div>
 							<div class="radio radio-inline">
 								<input type="radio" name="tipo"/>
-								<label>Jurídica</label>
+								<label class="control-label">Jurídica</label>
 							</div>
 						</div>
 					</div>	
 					
-					<div class="col-sm-8 form-group">
-						<label for="cpfCnpj">CPF/CNPJ</label>
+					<div class="col-sm-8 form-group bw-required">
+						<label class="control-label" for="cpfCnpj">CPF/CNPJ</label>
 						<input id="cpf" type="text" class="form-control"/>
 					</div>
 										
 				</div>
 				
 				<div class="row">
-					<div class="col-sm-4 form-group">
-						<label for="telefone">Telefone</label>
+					<div class="col-sm-4 form-group bw-required">
+						<label class="control-label" for="telefone">Telefone</label>
 						<input id="telefone" type="text" class="form-control"/>
 					</div>
 					
-					<div class="col-sm-8 form-group">
-						<label for="email">E-mail</label>
+					<div class="col-sm-8 form-group bw-required">
+						<label class="control-label" for="email">E-mail</label>
 						<input id="email" type="email" class="form-control"/>
 					</div>
 				</div>
 				
 				<div class="row">
-					<div class="col-sm-4 form-group">
-						<label for="logradouro">Logradouro</label>
+					<div class="col-sm-4 form-group bw-required">
+						<label class="control-label" for="logradouro">Logradouro</label>
 						<input id="logradouro" type="text" class="form-control"/>
 					</div>
 					
-					<div class="col-sm-4 form-group">
-						<label for="numero">Número</label>
+					<div class="col-sm-4 form-group bw-required">
+						<label class="control-label" for="numero">Número</label>
 						<input id="numero" type="text" class="form-control"/>
 					</div>
 					
-					<div class="col-sm-4 form-group">
-						<label for="complemento">Complemento</label>
+					<div class="col-sm-4 form-group bw-required">
+						<label class="control-label" for="complemento">Complemento</label>
 						<input id="complemento" type="text" class="form-control"/>
 					</div>
 				</div>
 				
 				<div class="row">
-					<div class="col-sm-4 form-group">
-						<label for="cep">CEP</label>
+					<div class="col-sm-4 form-group bw-required">
+						<label class="control-label" for="cep">CEP</label>
 						<input id="cep" type="text" class="form-control"/>
 					</div>
 					
-					<div class="col-sm-4 form-group">
-						<label for="estado">Estado</label>
+					<div class="col-sm-4 form-group bw-required">
+						<label class="control-label" for="estado">Estado</label>
 						<select id="estado" class="form-control">
 							<option value="">Selecione o estado</option>
 						</select>
 					</div>
 					
-					<div class="col-sm-4 form-group">
-						<label for="cidade">Cidade</label>
+					<div class="col-sm-4 form-group bw-required">
+						<label class="control-label" for="cidade">Cidade</label>
 						<select id="complemento" class="form-control">
 							<option value="">Selecione o cidade</option>
 						</select>

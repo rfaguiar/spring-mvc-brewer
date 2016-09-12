@@ -22,6 +22,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.util.StringUtils;
 
 import com.brewer.validation.SKU;
 
@@ -77,6 +78,11 @@ public class Cerveja implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "codigo_estilo")
 	private Estilo estilo;
+	
+	private String foto;
+	
+	@Column(name = "content_type")
+	private String contentType;
 	
 	@PrePersist
 	@PreUpdate
@@ -195,6 +201,26 @@ public class Cerveja implements Serializable{
 
 	public void setEstilo(Estilo estilo) {
 		this.estilo = estilo;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+	
+	public String getFotoOuMock(){
+		return StringUtils.isEmpty(foto)?foto:"cerveja-mock.png";
 	}
 	
 }
