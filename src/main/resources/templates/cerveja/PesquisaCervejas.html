@@ -95,8 +95,22 @@
 					<thead>
 						<tr>
 							<th class="table-cervejas-col-foto"></th>
-							<th class="table-cervejas-col-sku">SKU</th>
-							<th class="table-cervejas-col-nome">Nome</th>
+							<th class="table-cervejas-col-sku">
+								<a th:href="${pagina.urlOrdenada('sku')}" th:remove="${pagina.vazia} ? tag">
+									<span>SKU</span>
+									<span class="dropup" th:remove="${pagina.descendente('sku')} ? tag" th:if="${pagina.ordenada('sku')}">
+										<span class="caret"></span>
+									</span>
+								</a>
+							</th>
+							<th class="table-cervejas-col-nome">
+								<a th:href="${pagina.urlOrdenada('nome')}" th:remove="${pagina.vazia} ? tag">
+									<span>Nome</span>
+									<span class="dropup" th:remove="${pagina.descendente('nome')} ? tag" th:if="${pagina.ordenada('nome')}">
+										<span class="caret"></span>
+									</span>
+								</a>
+							</th>
 							<th class="table-cervejas-col-estilo">Estilo</th>
 							<th class="table-cervejas-col-origem">Origem</th>
 							<th class="table-cervejas-col-valor">Valor</th>
@@ -104,7 +118,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="cerveja : ${pagina.content}">
+						<tr th:each="cerveja : ${pagina.conteudo}">
 							<td class="text-center">
 								<img th:src="@{/fotos/thumbnail.{foto}(foto=${cerveja.fotoOuMock})}" class="img-responsive"/>
 							</td>
@@ -122,28 +136,28 @@
 								</a>
 							</td>
 						</tr>
-						<tr th:if="${#lists.isEmpty(pagina.content)}">
+						<tr th:if="${pagina.vazia}">
 							<td colspan="7">Nenhuma cerveja encontrada</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 			
-			<div class="col-sm-12 text-center" th:if="${not #lists.isEmpty(pagina.content)}">
+			<div class="col-sm-12 text-center" th:if="${not pagina.vazia}">
 				<nav>
-					<ul class="pagination pagination-sm" th:with="paginaAtual=${pagina.number}">
-						<li th:class="${pagina.first} ? disabled">
-							<a th:href="|?page=${paginaAtual - 1}|" th:remove="${pagina.first} ? tag"><span>&laquo;</span></a>
+					<ul class="pagination pagination-sm" th:with="paginaAtual=${pagina.atual}">
+						<li th:class="${pagina.primeira} ? disabled">
+							<a th:href="${pagina.urlParaPagina(paginaAtual - 1)}" th:remove="${pagina.primeira} ? tag"><span>&laquo;</span></a>
 						</li>
 						
-						<th:block th:each="p : ${#numbers.sequence(1, pagina.totalPages)}" th:with="numeroPagina=${p - 1}">
+						<th:block th:each="p : ${#numbers.sequence(1, pagina.total)}" th:with="numeroPagina=${p - 1}">
 							<li th:class="${paginaAtual == numeroPagina} ? active">
-								<a th:href="|?page=${numeroPagina}|">[[${p}]]</a>
+								<a th:href="${pagina.urlParaPagina(numeroPagina)}">[[${p}]]</a>
 							</li>						
 						</th:block>
 						
-						<li th:class="${pagina.last} ? disabled">
-							<a th:href="|?page=${paginaAtual + 1}|" th:remove="${pagina.last} ? tag"><span>&raquo;</span></a>
+						<li th:class="${pagina.ultima} ? disabled">
+							<a th:href="${pagina.urlParaPagina(paginaAtual + 1)}" th:remove="${pagina.ultima} ? tag"><span>&raquo;</span></a>
 						</li>
 					</ul>
 				</nav>
