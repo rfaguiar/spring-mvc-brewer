@@ -2,8 +2,8 @@
 <html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="layout/LayoutPadrao"
-	>
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	layout:decorate="layout/LayoutPadrao">
 <head>
 	<title>Cadastro de Cliente</title>
 </head>
@@ -32,14 +32,13 @@
 					<div class="col-sm-4 form-group bw-required">
 						<label class="control-label" for="tipo">Tipo pessoa</label>
 						<div>
-							<div class="radio radio-inline">
-								<input class="js-radio-tipo-pessoa" type="radio" name="tipoPessoa" id="id_fisica" data-documento="CPF" data-mascara="000.000.000-00"/>
-								<label class="control-label" for="id_fisica">Física</label>
-							</div>
-							<div class="radio radio-inline">
-								<input class="js-radio-tipo-pessoa" type="radio" name="tipoPessoa" id="id_juridica" data-documento="CNPJ" data-mascara="00.000.000/0000-00"/>
-								<label class="control-label" for="id_juridica">Jurídica</label>
-							</div>
+							<th:block th:each="tipoPessoa : ${tiposPessoa}">
+								<div class="radio  radio-inline">
+									<input type="radio" th:id="|id_${tipoPessoa}|" class="js-radio-tipo-pessoa" 
+										name="tipoPessoa" data:documento="${tipoPessoa.documento}" data:mascara="${tipoPessoa.mascara}"> 
+									<label class="control-label" th:for="|id_${tipoPessoa}|" th:text="${tipoPessoa.descricao}">Física</label>
+								</div>
+							</th:block>
 						</div>
 					</div>	
 					
@@ -80,23 +79,29 @@
 				</div>
 				
 				<div class="row">
-					<div class="col-sm-4 form-group bw-required">
-						<label class="control-label" for="cep">CEP</label>
-						<input id="cep" type="text" class="form-control"/>
+					<div class="form-group  col-sm-4">
+						<label for="cep">CEP</label>
+						<input type="text" class="form-control  js-cep" id="cep"/>
 					</div>
 					
-					<div class="col-sm-4 form-group bw-required">
-						<label class="control-label" for="estado">Estado</label>
+					<div class="form-group  col-sm-4">
+						<label for="estado">Estado</label>
 						<select id="estado" class="form-control">
-							<option value="">Selecione o estado</option>
-						</select>
+		                    <option value="">Selecione o estado</option>
+		                    <option th:each="estado : ${estados}" th:value="${estado.codigo}" th:text="${estado.nome}">São Paulo</option>
+		                </select>
 					</div>
 					
 					<div class="col-sm-4 form-group bw-required">
 						<label class="control-label" for="cidade">Cidade</label>
-						<select id="complemento" class="form-control">
-							<option value="">Selecione o cidade</option>
-						</select>
+						<div class="bw-field-action">
+							<select id="cidade" class="form-control" data:url="@{/cidades}" ></select>
+							
+							<div class="bw-field-action__icon js-img-loading" style="display: none">
+								<img th:src="@{/images/mini-loading.gif}">
+							</div>
+						</div>
+						
 					</div>
 				</div>
 				
@@ -110,7 +115,7 @@
 
 	<th:block layout:fragment="javascript-extra">
 		<script th:src="@{/javascripts/cliente.mascara-cpf-cnpj.js}"></script>
-		
+		<script th:src="@{/javascripts/cliente.combo-estado-cidade.js}"></script>
 	</th:block>
 	
 </body>
