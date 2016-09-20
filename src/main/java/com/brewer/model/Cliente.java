@@ -10,6 +10,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -55,6 +57,17 @@ public class Cliente implements Serializable {
 
 	@Embedded
 	private Endereco endereco;
+	
+	@PrePersist
+	@PreUpdate
+	private void preInsertPreUpdate(){
+		//remove os pontos traços e barras do cpf e cnpj
+		this.cpfOuCnpj = TipoPessoa.removerFormatacao(this.cpfOuCnpj);
+	}
+	
+	public String getCpfOuCnpjSemFormatacao(){
+		return TipoPessoa.removerFormatacao(this.cpfOuCnpj);
+	}
 
 	public Long getCodigo() {
 		return codigo;

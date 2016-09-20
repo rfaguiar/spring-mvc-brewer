@@ -25,6 +25,7 @@ public class CidadesController {
 	@Autowired
 	private Cidades cidades;
 	
+	
 	@RequestMapping("/novo")
 	public String novo(Cidade cidade){
 		return "/cidade/CadastroCidade";

@@ -36,4 +36,8 @@ public enum TipoPessoa {
 		return grupo;
 	}	
 	
+	public static String removerFormatacao(String cpfOuCnpj){
+		return cpfOuCnpj.replaceAll("\\.|-|/", "");
+	}
+	
 }

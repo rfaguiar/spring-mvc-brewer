@@ -28,7 +28,7 @@ public class OrderElementTagProcessor extends AbstractElementTagProcessor {
 		IAttribute text = tag.getAttribute("text");
 		
 		IModel model = modelFactory.createModel();
-		model.add(modelFactory.createStandaloneElementTag("th:block", "th:replace", String.format("fragments/Ordenacao :: order(%s, %s, %s)", page.getValue(), field.getValue(), text.getValue())));
+		model.add(modelFactory.createStandaloneElementTag("th:block", "th:replace", String.format("fragments/Ordenacao :: order(%s, %s, '%s')", page.getValue(), field.getValue(), text.getValue())));
 		
 		structureHandler.replaceWith(model, true);
 	}
