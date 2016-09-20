@@ -27,6 +27,8 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import com.brewer.controller.CervejasController;
+import com.brewer.controller.converter.CidadeConverter;
+import com.brewer.controller.converter.EstadoConverter;
 import com.brewer.controller.converter.EstiloConverter;
 import com.brewer.thymeleaf.BrewerDialect;
 import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
@@ -86,6 +88,8 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	public FormattingConversionService mvcConversionService(){
 		DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
 		conversionService.addConverter(new EstiloConverter());
+		conversionService.addConverter(new CidadeConverter());
+		conversionService.addConverter(new EstadoConverter());
 		
 		NumberStyleFormatter bigDecimalFormatter = new NumberStyleFormatter("#,##0.00");
 		conversionService.addFormatterForFieldType(BigDecimal.class, bigDecimalFormatter);
