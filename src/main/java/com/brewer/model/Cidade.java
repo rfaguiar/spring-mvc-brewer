@@ -17,6 +17,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "cidade")
 public class Cidade implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
@@ -27,6 +29,10 @@ public class Cidade implements Serializable{
 	@JoinColumn(name = "codigo_estado")
 	@JsonIgnore
 	private Estado estado;
+	
+	public boolean temEstado(){
+		return estado != null;
+	}
 	
 	public Long getCodigo() {
 		return codigo;

@@ -25,6 +25,14 @@ public class Endereco implements Serializable {
 	@Transient
 	private Estado estado;
 	
+	
+	public String getNomeCidadeSiglaEstado(){
+		if(this.cidade != null){
+			return this.cidade.getNome() + "/" + this.cidade.getEstado().getSigla();
+		}
+		return null;
+	}
+	
 	public String getLogradouro() {
 		return logradouro;
 	}
@@ -61,4 +69,5 @@ public class Endereco implements Serializable {
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
+	
 }
