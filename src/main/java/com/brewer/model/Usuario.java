@@ -1,14 +1,52 @@
 package com.brewer.model;
 
-public class Usuario {
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+
+import com.brewer.validation.AtributoConfirmacao;
+
+@AtributoConfirmacao(atributo = "senha", atributoConfirmacao = "confirmacaoSenha", message = "Confirmação da senha não confere")
+@Entity
+@Table(name = "usuario")
+public class Usuario extends BaseEntity implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+		
+	@NotBlank(message = "Nome é obrigatório")
 	private String nome;
+	
+	@NotBlank(message = "E-mail é obrigatório")
+	@Email(message = "E-mail inválido")
 	private String email;
-	private String dataNascimento;
+		
 	private String senha;
-	private String confirmSenha;
-	private String status;
-	private String grupo;
+	
+	@Transient
+	private String confirmacaoSenha;
+	
+	private Boolean ativo;
+	
+	@NotNull(message = "Selecione pelo menos um grupo")
+	@ManyToMany
+	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "codigo_usuario"),
+			inverseJoinColumns = @JoinColumn(name = "codigo_grupo"))
+	private List<Grupo> grupos;
+	
+	@Column(name = "data_nascimento")
+	private LocalDate dataNascimento;
 	
 	
 	public String getNome() {
@@ -23,35 +61,35 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getDataNascimento() {
-		return dataNascimento;
-	}
-	public void setDataNascimento(String dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
 	public String getSenha() {
 		return senha;
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	public String getConfirmSenha() {
-		return confirmSenha;
+	public Boolean getAtivo() {
+		return ativo;
 	}
-	public void setConfirmSenha(String confirmSenha) {
-		this.confirmSenha = confirmSenha;
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
 	}
-	public String getStatus() {
-		return status;
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
 	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	public String getGrupo() {
-		return grupo;
-	}
-	public void setGrupo(String grupo) {
-		this.grupo = grupo;
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 	
+	public List<Grupo> getGrupos() {
+		return grupos;
+	}
+	public void setGrupos(List<Grupo> grupos) {
+		this.grupos = grupos;
+	}
+	public String getConfirmacaoSenha() {
+		return confirmacaoSenha;
+	}
+	public void setConfirmacaoSenha(String confirmacaoSenha) {
+		this.confirmacaoSenha = confirmacaoSenha;
+	}
 }
