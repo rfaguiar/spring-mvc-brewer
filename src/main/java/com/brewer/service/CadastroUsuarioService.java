@@ -34,8 +34,8 @@ public class CadastroUsuarioService {
 		}
 		
 		if(usuario.isNovo()){
-			usuario.setSenha(this.PasswordEncoder.encode(usuario.getSenha()));
-			usuario.setConfirmacaoSenha(this.PasswordEncoder.encode(usuario.getSenha()));
+			usuario.setSenha(this.PasswordEncoder.encode(usuario.getSenha()));			
+			usuario.setConfirmacaoSenha(usuario.getSenha());
 		}
 		
 		usuarios.save(usuario);
