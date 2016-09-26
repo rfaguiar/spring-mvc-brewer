@@ -24,33 +24,9 @@
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
 </head>
-
 <body class="aw-layout-simple-page">
-
-	<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
-	<input type="hidden" name="_csrf_header" th:value="${_csrf.headerName}"/>
-	
-	
-	<div class="aw-layout-page">
-		
-		<div th:replace="layout/fragments/BarraNavegacao :: navbar"></div>
-		
-		<div th:replace="layout/fragments/MenuLateral :: layout-sidebar"></div>
-		
-		<section class="aw-layout-content  js-content" layout:fragment="conteudo"></section>
-			
-		<div th:replace="layout/fragments/Footer :: layout-footer"></div>	
-			
-	</div>
-	<script th:src="@{/layout/javascripts/vendors.min.js}"></script>
-	<script th:src="@{/layout/javascripts/algaworks.min.js}"></script>
-	<script th:src="@{/javascripts/vendors/jquery.maskMoney.min.js}"></script>
-	<script th:src="@{/javascripts/vendors/bootstrap-datepicker.min.js}"></script>
-	<script th:src="@{/javascripts/vendors/bootstrap-datepicker.pt-BR.min.js}"></script>
-	<script th:src="@{/javascripts/vendors/jquery.mask.min.js}"></script>
-	<script th:src="@{/javascripts/brewer.js}"></script>
-	
-	
-	<th:block layout:fragment="javascript-extra"></th:block>
+	<div class="aw-layout-simple-page__container">
+		<th:block layout:fragment="conteudo"></th:block>
+	</div>	
 </body>
 </html>
