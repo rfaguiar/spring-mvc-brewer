@@ -36,18 +36,18 @@ public class CervejasImpl implements CervejasQueries{
 		paginacaoUtil.preparar(criteria, pageable);
 		
 		//filtros e consulta
-		adicionarfiltro(filtro, criteria);
+		adicionarFiltro(filtro, criteria);
 		return new PageImpl<>(criteria.list(), pageable, total(filtro));
 	}
 
 	private Long total(CervejaFilter filtro) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cerveja.class);
-		adicionarfiltro(filtro, criteria);
+		adicionarFiltro(filtro, criteria);
 		criteria.setProjection(Projections.rowCount());		
 		return (Long) criteria.uniqueResult();
 	}
 
-	private void adicionarfiltro(CervejaFilter filtro, Criteria criteria) {
+	private void adicionarFiltro(CervejaFilter filtro, Criteria criteria) {
 		if(filtro != null){
 			if(!StringUtils.isEmpty(filtro.getSku())){
 				criteria.add(Restrictions.eq("sku", filtro.getSku()));
