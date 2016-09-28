@@ -76,7 +76,7 @@
 
 /*
 ###################
-# PÁGINAS DO SISTEMA
+# Pï¿½GINAS DO SISTEMA
 ###################
 */
 
@@ -147,9 +147,15 @@
 	text-align: right;
 }
 
+/* Colunas - Pesquisa de usuÃ¡rios */
+
+.table-usuarios-col-status {
+	width: 30px;
+}
+
 /*
 ###############################
-# CUSTOMIZAÇÃO DE COMPONENTES
+# CUSTOMIZAï¿½ï¿½O DE COMPONENTES
 ###############################
 */
 
