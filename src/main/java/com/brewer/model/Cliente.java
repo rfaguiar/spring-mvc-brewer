@@ -22,6 +22,7 @@ import org.hibernate.validator.group.GroupSequenceProvider;
 import com.brewer.model.validation.ClienteGroupSequenceProvider;
 import com.brewer.model.validation.group.CnpjGroup;
 import com.brewer.model.validation.group.CpfGroup;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "cliente")
@@ -49,6 +50,7 @@ public class Cliente extends BaseEntity implements Serializable {
 	@Email(message = "E-mail inválido")
 	private String email;
 
+	@JsonIgnore
 	@Embedded
 	private Endereco endereco;
 	
