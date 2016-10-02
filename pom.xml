@@ -69,6 +69,8 @@
 		<!-- Thymeleaf - Extras Spring Security -->
 		<thymeleaf-extras-springsecurity.version>3.0.0.RELEASE</thymeleaf-extras-springsecurity.version>
 	
+		<!-- JUnit -->
+		<junit.version>4.12</junit.version>
 	</properties>
 
 	<build>
@@ -281,6 +283,13 @@
 		    <scope>compile</scope>
 		</dependency>
 
+		<!-- JUnit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 </project>

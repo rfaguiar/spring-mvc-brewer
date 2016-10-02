@@ -40,6 +40,7 @@ import com.brewer.controller.converter.CidadeConverter;
 import com.brewer.controller.converter.EstadoConverter;
 import com.brewer.controller.converter.EstiloConverter;
 import com.brewer.controller.converter.GrupoConverter;
+import com.brewer.session.TabelaItensVenda;
 import com.brewer.thymeleaf.BrewerDialect;
 import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
 import com.google.common.cache.CacheBuilder;
@@ -49,7 +50,7 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 
 @Configuration
-@ComponentScan(basePackageClasses = { CervejasController.class })
+@ComponentScan(basePackageClasses = { CervejasController.class, TabelaItensVenda.class })
 @EnableWebMvc
 @EnableSpringDataWebSupport
 @EnableCaching
