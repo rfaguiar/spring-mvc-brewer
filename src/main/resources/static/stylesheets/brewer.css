@@ -76,7 +76,7 @@
 
 /*
 ###################
-# P√ÅGINAS DO SISTEMA
+# P¡GINAS DO SISTEMA
 ###################
 */
 
@@ -157,13 +157,13 @@
 	text-align: right;
 }
 
-/* Colunas - Pesquisa de usu√°rios */
+/* Colunas - Pesquisa de usu·rios */
 .table-usuarios-col-status {
 	width: 30px;
 	text-align: center;
 }
 
-/* Tabela Cervejas p√°gina de Venda */
+/* Tabela Cervejas p·gina de Venda */
 .bw-tabela-cervejas {
 	margin-bottom: 15px;
 }
@@ -182,7 +182,7 @@
 
 /*
 ######################################
-# CUSTOMIZA√á√ÉO DE COMPONENTES
+# CUSTOMIZA«√O DE COMPONENTES
 ######################################
 */
 
@@ -203,7 +203,7 @@
 
 /* Tabela Item */
 .bw-tabela-item {
-	position: relative; /* Para que o painel de exclus√£o apare√ßa dentro da linha */
+	position: relative; /* Para que o painel de exclus„o apareÁa dentro da linha */
 	
 	padding: 15px 0;
 	
@@ -274,7 +274,41 @@
 	font-size: 1.6em;
 }
 
+.bw-tabela-item__painel-exclusao {
+    position: absolute;
+    top: 0;
+    right: 100000px;
+	height: 100%;
+    width: 50%;
+    
+    text-align: center;
+    padding-top: 35px;
+    
+	background-color: #f0ad4e;
+	
+	opacity: 0;
+	transition: opacity 0.5s;
+}
+
+.solicitando-exclusao .bw-tabela-item__painel-exclusao {
+	right: 0;
+	opacity: 1;
+}
+
+.bw-tabela-item__titulo-exclusao {
+    display: block;
+    margin-bottom: 5px;
+    
+	color: #fff;
+    font-size: 1.3em;
+}
+
 @media (min-width: 768px) { /* screen-sm-min */
+	.bw-tabela-item__painel-exclusao {
+		width: 40%;
+		padding-top: 10px;
+	}
+	
 	.bw-tabela-item__coluna {
 		float: left;
 		margin-left: 0px;
