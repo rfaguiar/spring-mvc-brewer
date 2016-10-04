@@ -12,6 +12,7 @@
 }
 
 
+
 /*
 ######################
 # COMPONENTES
@@ -76,7 +77,7 @@
 
 /*
 ###################
-# P¡GINAS DO SISTEMA
+# P√ÅGINAS DO SISTEMA
 ###################
 */
 
@@ -157,13 +158,13 @@
 	text-align: right;
 }
 
-/* Colunas - Pesquisa de usu·rios */
+/* Colunas - Pesquisa de usu√°rios */
 .table-usuarios-col-status {
 	width: 30px;
 	text-align: center;
 }
 
-/* Tabela Cervejas p·gina de Venda */
+/* Tabela Cervejas p√°gina de Venda */
 .bw-tabela-cervejas {
 	margin-bottom: 15px;
 }
@@ -182,7 +183,7 @@
 
 /*
 ######################################
-# CUSTOMIZA«√O DE COMPONENTES
+# CUSTOMIZA√á√ÉO DE COMPONENTES
 ######################################
 */
 
@@ -201,9 +202,14 @@
 	padding: 0px 5px !important;
 }
 
+/* Box */
+.negativo .aw-box__value {
+	color: red;
+}
+
 /* Tabela Item */
 .bw-tabela-item {
-	position: relative; /* Para que o painel de exclus„o apareÁa dentro da linha */
+	position: relative; /* Para que o painel de exclus√£o apare√ßa dentro da linha */
 	
 	padding: 15px 0;
 	

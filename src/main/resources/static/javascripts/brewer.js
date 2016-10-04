@@ -16,23 +16,6 @@ Brewer.MaskMoney = (function() {
 	
 }());
 
-Brewer.Security = (function() {
-	function Security() {
-		this.token = $('input[name=_csrf]').val();
-		this.header = $('input[name=_csrf_header]').val();
-		
-	}
-	
-	Security.prototype.enable = function() {
-		$(document).ajaxSend(function(event, jqxhr, settings) {
-			jqxhr.setRequestHeader(this.header, this.token);
-		}.bind(this));
-	}
-	
-	return Security;
-	
-}());
-
 Brewer.MaskPhoneNumber = (function() {
 	
 	function MaskPhoneNumber() {
@@ -72,26 +55,49 @@ Brewer.MaskCep = (function() {
 }());
 
 Brewer.MaskDate = (function() {
+	
 	function MaskDate() {
 		this.inputDate = $('.js-date');
-		this.inputDate.datepicker({
-			orientation: 'bottom',
-			language: 'pt-BR',
-			autoclose: 'true'
-		});
 	}
 	
 	MaskDate.prototype.enable = function() {
 		this.inputDate.mask('00/00/0000');
+		this.inputDate.datepicker({
+			orientation: 'bottom',
+			language: 'pt-BR',
+			autoclose: true
+		});
 	}
 	
 	return MaskDate;
 	
 }());
 
+Brewer.Security = (function() {
+	
+	function Security() {
+		this.token = $('input[name=_csrf]').val();
+		this.header = $('input[name=_csrf_header]').val();
+	}
+	
+	Security.prototype.enable = function() {
+		$(document).ajaxSend(function(event, jqxhr, settings) {
+			jqxhr.setRequestHeader(this.header, this.token);
+		}.bind(this));
+	}
+	
+	return Security;
+	
+}());
+
+numeral.language('pt-br');
+
 Brewer.formatarMoeda = function(valor) {
-	numeral.language('pt-br');
 	return numeral(valor).format('0,0.00');
+}
+
+Brewer.recuperarValor = function(valorFormatado) {
+	return numeral().unformat(valorFormatado);
 }
 
 $(function() {
