@@ -41,7 +41,7 @@ import com.brewer.controller.converter.CidadeConverter;
 import com.brewer.controller.converter.EstadoConverter;
 import com.brewer.controller.converter.EstiloConverter;
 import com.brewer.controller.converter.GrupoConverter;
-import com.brewer.session.tabelasItensSession;
+import com.brewer.session.TabelasItensSession;
 import com.brewer.thymeleaf.BrewerDialect;
 import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
 import com.google.common.cache.CacheBuilder;
@@ -51,7 +51,7 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 
 @Configuration
-@ComponentScan(basePackageClasses = { CervejasController.class, tabelasItensSession.class })
+@ComponentScan(basePackageClasses = { CervejasController.class, TabelasItensSession.class })
 @EnableWebMvc
 @EnableSpringDataWebSupport
 @EnableCaching
@@ -116,6 +116,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		//API de Datas do Java 8		
 		DateTimeFormatterRegistrar dateTimeFormatter = new DateTimeFormatterRegistrar();
 		dateTimeFormatter.setDateFormatter(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		dateTimeFormatter.setTimeFormatter(DateTimeFormatter.ofPattern("HH:mm"));
 		dateTimeFormatter.registerFormatters(conversionService);
 				
 		return conversionService;

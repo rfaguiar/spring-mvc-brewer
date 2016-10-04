@@ -12,11 +12,11 @@ import com.brewer.model.ItemVenda;
 
 @SessionScope
 @Component
-public class tabelasItensSession {
+public class TabelasItensSession {
 
 	private Set<TabelaItensVenda> tabelas = new HashSet<>();
 
-	public void adicionarIten(String uuid, Cerveja cerveja, int quantidade) {
+	public void adicionarItem(String uuid, Cerveja cerveja, int quantidade) {
 		TabelaItensVenda tabela = buscarTabelaPorId(uuid);
 		tabela.adicionarIten(cerveja, quantidade);
 		tabelas.add(tabela);
@@ -28,7 +28,7 @@ public class tabelasItensSession {
 		tabela.alterarQuantidadeItens(cerveja, novaQuantidade);
 	}
 
-	public void excluir(String uuid, Cerveja cerveja) {
+	public void excluirItem(String uuid, Cerveja cerveja) {
 		TabelaItensVenda tabela = buscarTabelaPorId(uuid);
 		tabela.excluir(cerveja);
 	}
