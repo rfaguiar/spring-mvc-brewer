@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.brewer.brewer.mail.Mailer;
 import com.brewer.controller.page.PageWrapper;
 import com.brewer.controller.validator.VendaValidator;
 import com.brewer.model.Cerveja;
@@ -53,6 +54,9 @@ public class VendasController {
 	
 	@Autowired
 	private Vendas vendas;
+	
+	@Autowired
+	private Mailer mailer;
 	
 	@InitBinder("venda")
 	public void inicializarValidador(WebDataBinder binder) {
@@ -113,6 +117,10 @@ public class VendasController {
 		venda.setUsuario(usuarioSistema.getUsuario());
 		
 		cadastroVendaService.salvar(venda);
+		
+		mailer.enviar(venda);		
+		System.out.println("####### Logo depois da chama do metodo enviar.");
+		
 		attributes.addFlashAttribute("mensagem", "Venda salva e e-mail enviado");
 		return new ModelAndView("redirect:/vendas/nova");
 	}

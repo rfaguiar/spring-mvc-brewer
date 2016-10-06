@@ -82,6 +82,10 @@ public class Cerveja extends BaseEntity implements Serializable{
 	private void prePersisteUpdate(){
 		sku = sku.toUpperCase();
 	}
+	
+	public boolean temFoto(){
+		return !StringUtils.isEmpty(this.foto);
+	}
 
 	public String getSku() {
 		return sku;
