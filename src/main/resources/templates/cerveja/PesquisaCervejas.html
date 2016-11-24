@@ -119,7 +119,8 @@
 							<td th:text="${cerveja.origem.descricao}"></td>
 							<td class="text-right" th:text="|R$ ${cerveja.valor}|"></td>
 							<td class="text-center">
-								<a class="btn btn-link btn-xs js-tooltip" title="Editar">
+								<a class="btn btn-link btn-xs js-tooltip" title="Editar" 
+									th:href="@{/cervejas/{codigo}(codigo=${cerveja.codigo})}">
 									<i class="glyphicon glyphicon-pencil"></i>
 								</a>
 								<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Excluir" href="#" 

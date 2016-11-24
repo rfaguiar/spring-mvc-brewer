@@ -3,6 +3,7 @@ package com.brewer.repository.helper.cerveja;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Criteria;
@@ -26,6 +27,8 @@ public class CervejasImpl implements CervejasQueries{
 
 	@PersistenceContext
 	private EntityManager manager;
+	
+	private EntityManagerFactory em;
 	
 	@Autowired
 	private PaginacaoUtil paginacaoUtil;
