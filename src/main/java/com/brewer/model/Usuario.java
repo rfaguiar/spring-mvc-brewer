@@ -59,7 +59,7 @@ public class Usuario extends BaseEntity implements Serializable{
 	public boolean isNovo(){
 		return getCodigo() == null;
 	}
-	
+		
 	public String getNome() {
 		return nome;
 	}
