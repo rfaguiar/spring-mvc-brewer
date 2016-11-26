@@ -123,7 +123,8 @@
 									th:href="@{/cervejas/{codigo}(codigo=${cerveja.codigo})}">
 									<i class="glyphicon glyphicon-pencil"></i>
 								</a>
-								<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Excluir" href="#" 
+								<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Excluir" 
+									th:href="@{/vendas/{codigo}(codigo=${venda.codigo})}" 
 									data:url="@{/cervejas/{codigo}(codigo=${cerveja.codigo})}"
 									data:objeto="${cerveja.nome}">
 									<i class="glyphicon glyphicon-remove"></i>
