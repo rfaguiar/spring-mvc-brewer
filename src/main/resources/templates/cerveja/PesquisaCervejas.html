@@ -113,20 +113,19 @@
 							<td class="text-center">
 								<img th:src="@{/fotos/thumbnail.{foto}(foto=${cerveja.fotoOuMock})}" class="img-responsive"/>
 							</td>
-							<td class="text-center" th:text="${cerveja.sku}"></td>
-							<td th:text="${cerveja.nome}"></td>
-							<td th:text="${cerveja.estilo.nome}"></td>
-							<td th:text="${cerveja.origem.descricao}"></td>
-							<td class="text-right" th:text="|R$ ${cerveja.valor}|"></td>
+							<td class="text-center" th:text="${cerveja.sku}">AA1234</td>
+							<td th:text="${cerveja.nome}">Cerveja Stella</td>
+							<td th:text="${cerveja.estilo.nome}">Lager</td>
+							<td th:text="${cerveja.origem.descricao}">Internacional</td>
+							<td class="text-right" th:text="|R$ ${cerveja.valor}|">R$ 8.00</td>
 							<td class="text-center">
-								<a class="btn btn-link btn-xs js-tooltip" title="Editar" 
-									th:href="@{/cervejas/{codigo}(codigo=${cerveja.codigo})}">
+								<a class="btn  btn-link  btn-xs  js-tooltip" title="Editar" 
+										th:href="@{/cervejas/{codigo}(codigo=${cerveja.codigo})}"> 
 									<i class="glyphicon glyphicon-pencil"></i>
 								</a>
-								<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Excluir" 
-									th:href="@{/vendas/{codigo}(codigo=${venda.codigo})}" 
-									data:url="@{/cervejas/{codigo}(codigo=${cerveja.codigo})}"
-									data:objeto="${cerveja.nome}">
+								<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Excluir" href="#" 
+										data:url="@{/cervejas/{codigo}(codigo=${cerveja.codigo})}"
+										data:objeto="${cerveja.nome}">
 									<i class="glyphicon glyphicon-remove"></i>
 								</a>
 							</td>

@@ -25,7 +25,7 @@
 					<div class="aw-box__icon">
 						<i class="fa  fa-heartbeat  fa-3x"></i>
 					</div>
-					<div class="aw-box__value">R$90.542,59</div>
+					<div class="aw-box__value">R$[[${{valorItensEstoque.valor}}]]</div>
 					<div class="aw-box__title">Valor do estoque</div>
 				</div>
 			</div>
@@ -35,7 +35,7 @@
 					<div class="aw-box__icon">
 						<i class="fa  fa-hashtag  fa-3x"></i>
 					</div>
-					<div class="aw-box__value">123</div>
+					<div class="aw-box__value" th:text="${valorItensEstoque.totalItens}">123</div>
 					<div class="aw-box__title">Itens no estoque</div>
 				</div>
 			</div>
@@ -45,7 +45,7 @@
 					<div class="aw-box__icon">
 						<i class="fa  fa-users  fa-3x"></i>
 					</div>
-					<div class="aw-box__value">9</div>
+					<div class="aw-box__value" th:text="${totalClientes}">9</div>
 					<div class="aw-box__title">Total de clientes</div>
 				</div>
 			</div>
@@ -90,12 +90,12 @@
 						<h2 class="aw-graph-box__title">Vendas por mês <small>últimos 6 meses</small></h2>
 					</div>
 					<div class="aw-graph-box__content">
-						<div class="aw-graph-box__no-data">
+						<!-- <div class="aw-graph-box__no-data">
 							<i class="fa  fa-line-chart  fa-2x"></i>
 							<span>Não há dados</span>
-						</div>
+						</div> -->
 						<div>
-							<canvas id="lineChart" height="160"></canvas>
+							<canvas id="graficoVendasPorMes" height="160"></canvas>
 						</div>
 					</div>
 				</div>
@@ -107,12 +107,12 @@
 						<h2 class="aw-graph-box__title">Vendas por origem <small>últimos 6 meses</small></h2>
 					</div>
 					<div class="aw-graph-box__content">
-						<div class="aw-graph-box__no-data">
+						<!-- <div class="aw-graph-box__no-data">
 							<i class="fa  fa-line-chart  fa-2x"></i>
 							<span>Não há dados</span>
-						</div>
+						</div> -->
 						<div>
-							<canvas id="barChart" height="160"></canvas>
+							<canvas id="graficoVendasPorOrigem" height="160"></canvas>
 						</div>
 					</div>
 				</div>
@@ -122,6 +122,8 @@
 </section>
 
 <th:block layout:fragment="javascript-extra">
+	<script th:src="@{/javascripts/vendors/Chart.min.js}"></script>
+	<script th:src="@{/javascripts/dashboard.graficos.js}"></script>
 </th:block>
 
 </html>

@@ -31,7 +31,7 @@ public class Cerveja extends BaseEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@SKU
-	@NotBlank(message = "SKU é obrigatorio")
+	@NotBlank
 	private String sku;
 	
 	@NotBlank(message = "Nome é obrigatorio")

@@ -1,5 +1,6 @@
 package com.brewer.controller;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,12 +21,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.brewer.brewer.mail.Mailer;
 import com.brewer.controller.page.PageWrapper;
 import com.brewer.controller.validator.VendaValidator;
+import com.brewer.dto.VendaMes;
+import com.brewer.dto.VendaOrigem;
 import com.brewer.model.Cerveja;
 import com.brewer.model.ItemVenda;
 import com.brewer.model.StatusVenda;
@@ -183,6 +187,16 @@ public class VendasController {
 		
 		attributes.addFlashAttribute("mensgaem", "Venda cancelada com sucesso");
 		return new ModelAndView("redirect:/vendas/" + venda.getCodigo());
+	}
+	
+	@GetMapping("/totalPorMes")
+	public @ResponseBody List<VendaMes> listarTotalTotalVendaPorMes(){
+		return vendas.totalPorMes();
+	}
+	
+	@GetMapping("/porOrigem")
+	public @ResponseBody List<VendaOrigem> vendasPorNacionalidade() {
+		return this.vendas.totalPorOrigem();
 	}
 	
 	private void setUuid(Venda venda) {

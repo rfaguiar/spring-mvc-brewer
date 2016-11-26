@@ -1,10 +1,12 @@
 package com.brewer.repository.helper.venda;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.MonthDay;
 import java.time.Year;
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -23,6 +25,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.brewer.dto.VendaMes;
+import com.brewer.dto.VendaOrigem;
 import com.brewer.model.StatusVenda;
 import com.brewer.model.TipoPessoa;
 import com.brewer.model.Venda;
@@ -87,7 +91,44 @@ public class VendasImpl implements VendasQueries {
 					.setParameter("status", StatusVenda.EMITIDA)
 					.getSingleResult());
 		return optional.orElse(BigDecimal.ZERO);
-}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<VendaMes> totalPorMes() {
+		List<VendaMes> vendasMes = manager.createNamedQuery("Vendas.totalPorMes").getResultList();
+		LocalDate hoje = LocalDate.now();
+		
+		for(int i = 1; i <= 6; i++){
+			String mesIdeal = String.format("%d/%02d", hoje.getYear(), hoje.getMonthValue());
+			boolean possuiMes = vendasMes.stream().filter(v -> mesIdeal.equals(v.getMes())).findAny().isPresent();
+			if(!possuiMes){
+				vendasMes.add(i -1, new VendaMes(mesIdeal, 0));
+			}
+			hoje = hoje.minusMonths(1);
+		}
+		
+		return vendasMes;
+	}
+	
+	@Override
+	public List<VendaOrigem> totalPorOrigem() {
+		List<VendaOrigem> vendasNacionalidade = manager.createNamedQuery("Vendas.porOrigem", VendaOrigem.class).getResultList();
+		
+		LocalDate now = LocalDate.now();
+		for (int i = 1; i <= 6; i++) {
+			String mesIdeal = String.format("%d/%02d", now.getYear(), now.getMonth().getValue());
+			
+			boolean possuiMes = vendasNacionalidade.stream().filter(v -> v.getMes().equals(mesIdeal)).findAny().isPresent();
+			if (!possuiMes) {
+				vendasNacionalidade.add(i - 1, new VendaOrigem(mesIdeal, 0, 0));
+			}
+			
+			now = now.minusMonths(1);
+		}
+		
+		return vendasNacionalidade;
+	}
 	
 	private Long total(VendaFilter filtro) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Venda.class);

@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.brewer.dto.CervejaDTO;
+import com.brewer.dto.ValorItensEstoque;
 import com.brewer.model.Cerveja;
 import com.brewer.repository.filter.CervejaFilter;
 import com.brewer.repository.paginacao.PaginacaoUtil;
@@ -99,5 +100,11 @@ public class CervejasImpl implements CervejasQueries{
 				.getResultList();
 		
 		return cervejasFiltradas;
+	}
+	
+	@Override
+	public ValorItensEstoque valorItensEstoque() {
+		String query = "select new com.brewer.dto.ValorItensEstoque(sum(valor * quantidadeEstoque), sum(quantidadeEstoque)) from Cerveja";
+		return manager.createQuery(query, ValorItensEstoque.class).getSingleResult();
 	}
 }
