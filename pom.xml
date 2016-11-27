@@ -19,7 +19,7 @@
 		<maven-compiler-pluging.version>3.2</maven-compiler-pluging.version>
 		<flyway-maven-plugin.version>4.0.2</flyway-maven-plugin.version>
 		<mysql-connector-java.version>5.1.39</mysql-connector-java.version>
-		
+
 		<!-- Spring MVC -->
 		<spring-framework.version>4.3.0.RELEASE</spring-framework.version>
 
@@ -27,21 +27,21 @@
 		<servlet.version>3.1.0</servlet.version>
 		
 		<!-- Thymeleaf -->
-		<thymeleaf.version>3.0.0.RELEASE</thymeleaf.version>
+		<thymeleaf.version>3.0.1.RELEASE</thymeleaf.version>
 		
 		<!-- Bean Validation / Hibernate Validator -->
 		<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
 		
 		<!-- Thymeleaf - Layout Dialect -->
 		<thymeleaf-layout-dialect.version>2.0.1</thymeleaf-layout-dialect.version>
-	
+		
 		<!-- Logging -->
 		<log4j.version>2.6</log4j.version>
 		<jcl-over-slf4j.version>1.7.21</jcl-over-slf4j.version>
 		
 		<!-- JPA / Hibernate -->
 		<hibernate.version>5.1.0.Final</hibernate.version>
-	
+		
 		<!-- Spring Data JPA -->
 		<spring-data-jpa.version>1.10.2.RELEASE</spring-data-jpa.version>
 		
@@ -52,30 +52,34 @@
  		<!-- https://github.com/coobird/thumbnailator -->
 		<thumbnailator.version>0.4.8</thumbnailator.version>
 		
-		
 		<!-- Thymeleaf extras data attribute -->
 		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
-
+		
 		<!-- Cache - Guava -->
 		<guava.version>19.0</guava.version>
 		
 		<!-- Apache Bean Utils -->
 		<commons-beanutils.version>1.9.2</commons-beanutils.version>
-
+		
 		<!-- Spring Security -->
 		<spring-security.version>4.1.1.RELEASE</spring-security.version>
-
-
+		
 		<!-- Thymeleaf - Extras Spring Security -->
 		<thymeleaf-extras-springsecurity.version>3.0.0.RELEASE</thymeleaf-extras-springsecurity.version>
-	
+		
 		<!-- JUnit -->
 		<junit.version>4.12</junit.version>
+		
 		<!-- Java Mail -->
 		<javax.mail.version>1.5.6</javax.mail.version>
+		
+		<!-- AWS SDK - S3 -->
+		<aws-java-sdk-s3.version>1.10.77</aws-java-sdk-s3.version>
 	</properties>
 
 	<build>
+		<finalName>${artifactId}</finalName>
+	
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -122,7 +126,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
+		
 		<!-- Servlet API -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -151,10 +155,10 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate-validator.version}</version>
-			<scope>compile</scope>
-		</dependency>
-		
-		<!-- Thymeleaf - Layout Dialect -->
+            <scope>compile</scope>
+        </dependency>
+        
+        <!-- Thymeleaf - Layout Dialect -->
 		<dependency>
     		<groupId>nz.net.ultraq.thymeleaf</groupId>
     		<artifactId>thymeleaf-layout-dialect</artifactId>
@@ -182,7 +186,7 @@
 			<artifactId>jcl-over-slf4j</artifactId>
 			<version>${jcl-over-slf4j.version}</version>
 		</dependency>
-			
+		
 		<!-- JPA / Hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -212,6 +216,7 @@
 		    <groupId>org.springframework.data</groupId>
 		    <artifactId>spring-data-jpa</artifactId>
 		    <version>${spring-data-jpa.version}</version>
+		    <scope>compile</scope>
 		</dependency>
 		
 		<!-- Jackson - JSON -->
@@ -237,7 +242,7 @@
     		<version>${thymeleaf-extras-data-attribute.version}</version>
     		<scope>compile</scope>
 		</dependency>
-
+		
 		<!-- Cache - Guava -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
@@ -268,15 +273,13 @@
 			<version>${spring-security.version}</version>
 			<scope>compile</scope>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
 			<version>${spring-security.version}</version>
 			<scope>compile</scope>
 		</dependency>
-
-
+		
 		<!-- Thymeleaf - Extras Spring Security -->
 		<dependency>
 		    <groupId>org.thymeleaf.extras</groupId>
@@ -284,7 +287,7 @@
 		    <version>${thymeleaf-extras-springsecurity.version}</version>
 		    <scope>compile</scope>
 		</dependency>
-
+		
 		<!-- JUnit -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -299,8 +302,15 @@
             <artifactId>javax.mail</artifactId>
             <version>${javax.mail.version}</version>
             <scope>compile</scope>
+        </dependency>
+        
+        <!-- AWS SDK - S3 -->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-s3</artifactId>
+			<version>${aws-java-sdk-s3.version}</version>
 		</dependency>
-
+        
 	</dependencies>
-
+	
 </project>
