@@ -1,6 +1,14 @@
 language: java
 script:
  - mvn install
- - mvn sonar:sonar -Dsonar.organization=rfaguiar-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=SONAR_TOKEN
+ - mvn sonar:sonar -Dsonar.organization=rfaguiar-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=
 jdk:
  - oraclejdk8
+addons:
+  sonarcloud:
+    organization: $SONAR_KEY # "sonarcloud_organization_key"  the key of the org you chose at step #3
+    token:
+      secure: $SONAR_TOKEN # encrypted value of your token
+script:
+  # other script steps might be done before running the actual analysis
+  - sonar-scanner
