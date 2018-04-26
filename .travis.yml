@@ -6,9 +6,9 @@ jdk:
  - oraclejdk8
 addons:
   sonarcloud:
-    organization: $SONAR_KEY # "sonarcloud_organization_key"  the key of the org you chose at step #3
+    organization: "brewer-spring-mvc" # "sonarcloud_organization_key"  the key of the org you chose at step #3
     token:
       secure: $SONAR_TOKEN # encrypted value of your token
 script:
   # other script steps might be done before running the actual analysis
-  - sonar-scanner
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
