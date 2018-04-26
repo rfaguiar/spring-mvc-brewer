@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/rfaguiar/spring-mvc-brewer.svg?branch=master)](https://travis-ci.org/rfaguiar/spring-mvc-brewer) [![Quality Gate](https://sonarcloud.io/dashboard?id=com.brewer%3Abrewer)](https://sonarcloud.io/api/project_badges/measure?project=com.brewer%3Abrewer&metric=alert_status) [![Coverage](https://sonarcloud.io/component_measures?id=com.brewer%3Abrewer&metric=coverage)](https://sonarcloud.io/api/project_badges/measure?project=com.brewer%3Abrewer&metric=coverage)
+[![Build Status](https://travis-ci.org/rfaguiar/spring-mvc-brewer.svg?branch=master)](https://travis-ci.org/rfaguiar/spring-mvc-brewer) [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=com.brewer%3Abrewer&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.brewer%3Abrewer) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=com.brewer%3Abrewer&metric=coverage)](https://sonarcloud.io/component_measures?id=com.brewer%3Abrewer&metric=coverage)
 
 * webrunner
     > java -jar target/dependency/webappp-runner.jar target/brewer.war --contex-xml target/brewer/META-INF/context.xml
