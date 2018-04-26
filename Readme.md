@@ -18,9 +18,9 @@
 * flyway-migrações do bd  
     > mvn -Dflyway.user=root -Dflyway.password=root -Dflyway.url=jdbc:mysql://localhost:3306/brewer?useSSL=false flyway:migrate  
 
-#### Aplicação na cloud do heroku pode estar dormindo, tenha paciência:  
+#### Aplicação na cloud do heroku pode estar dormindo, tenha paciência  
     
-    [link para aplicação no heroku!](https://brewer-springmvc-app1.herokuapp.com)  
+    https://brewer-springmvc-app1.herokuapp.com  
     
     user: admin@brewer.com  
     pass: admin  
