@@ -3,6 +3,7 @@ package com.brewer.service;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import com.brewer.service.exception.VendaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,7 +27,7 @@ public class CadastroVendaService {
 	@Transactional
 	public Venda salvar(Venda venda) {
 		if(venda.isSalvarProibido()){
-			throw new RuntimeException("Usúario tentando salvar uma venda proibida");
+			throw new VendaException("Usúario tentando salvar uma venda proibida");
 		}
 		if (venda.isNova()) {
 			venda.setDataCriacao(LocalDateTime.now());

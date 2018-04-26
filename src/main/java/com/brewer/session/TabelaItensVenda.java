@@ -1,16 +1,15 @@
 package com.brewer.session;
 
+import com.brewer.model.Cerveja;
+import com.brewer.model.ItemVenda;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.SessionScope;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
-
-import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.SessionScope;
-
-import com.brewer.model.Cerveja;
-import com.brewer.model.ItemVenda;
 
 @SessionScope
 @Component
@@ -50,8 +49,11 @@ class TabelaItensVenda {
 	}
 	
 	public void alterarQuantidadeItens(Cerveja cerveja, Integer novaQuantidade){
-		ItemVenda itemVenda = buscarItemPorCerveja(cerveja).get();
-		itemVenda.setQuantidade(novaQuantidade);
+		Optional<ItemVenda> optVenda = buscarItemPorCerveja(cerveja);
+		if (optVenda.isPresent()) {
+			optVenda.get()
+					.setQuantidade(novaQuantidade);
+		}
 	}
 	
 	public void excluir(Cerveja cerveja){
@@ -71,10 +73,9 @@ class TabelaItensVenda {
 	}
 	
 	private Optional<ItemVenda> buscarItemPorCerveja(Cerveja cerveja) {
-		Optional<ItemVenda> itemVendaOptional = itens.stream()
+        return itens.stream()
 				.filter(i -> i.getCerveja().equals(cerveja))
 				.findAny();
-		return itemVendaOptional;
 	}	
 	
 	public String getUuid() {

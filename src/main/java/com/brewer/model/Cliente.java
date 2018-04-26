@@ -1,6 +1,7 @@
 package com.brewer.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -118,4 +119,35 @@ public class Cliente extends BaseEntity implements Serializable {
 		this.endereco = endereco;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Cliente)) return false;
+		if (!super.equals(o)) return false;
+		Cliente cliente = (Cliente) o;
+		return Objects.equals(nome, cliente.nome) &&
+				tipoPessoa == cliente.tipoPessoa &&
+				Objects.equals(cpfOuCnpj, cliente.cpfOuCnpj) &&
+				Objects.equals(telefone, cliente.telefone) &&
+				Objects.equals(email, cliente.email) &&
+				Objects.equals(endereco, cliente.endereco);
+	}
+
+	@Override
+	public int hashCode() {
+
+		return Objects.hash(super.hashCode(), nome, tipoPessoa, cpfOuCnpj, telefone, email, endereco);
+	}
+
+	@Override
+	public String toString() {
+		return "Cliente{" +
+				"nome='" + nome + '\'' +
+				", tipoPessoa=" + tipoPessoa +
+				", cpfOuCnpj='" + cpfOuCnpj + '\'' +
+				", telefone='" + telefone + '\'' +
+				", email='" + email + '\'' +
+				", endereco=" + endereco +
+				'}';
+	}
 }

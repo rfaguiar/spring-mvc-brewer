@@ -44,4 +44,10 @@ public class UsuarioGrupo {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "UsuarioGrupo{" +
+				"id=" + id +
+				'}';
+	}
 }

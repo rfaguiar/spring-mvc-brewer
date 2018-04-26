@@ -26,9 +26,10 @@ import com.brewer.model.Venda;
 
 @Component
 public class Mailer {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(Mailer.class);
-	
+	private static final String MOCK_CERVEJA = "mockCerveja";
+
 	@Autowired
 	private JavaMailSender mailSender;
 	
@@ -55,7 +56,7 @@ public class Mailer {
 				fotos.put(cid, cerveja.getFoto() + "|" + cerveja.getContentType());
 			} else {
 				adicionarMockCerveja = true;
-				context.setVariable("mockCerveja", "mockCerveja");
+				context.setVariable(MOCK_CERVEJA, MOCK_CERVEJA);
 			}
 		}
 		
@@ -72,42 +73,21 @@ public class Mailer {
 			helper.addInline("logo", new ClassPathResource("static/images/logo-gray.png"));
 			
 			if (adicionarMockCerveja) {
-				helper.addInline("mockCerveja", new ClassPathResource("static/images/cerveja-mock.png"));
+				helper.addInline(MOCK_CERVEJA, new ClassPathResource("static/images/cerveja-mock.png"));
 			}
-			
-			for (String cid : fotos.keySet()) {
-				String[] fotoContentType = fotos.get(cid).split("\\|");
+
+			for (Map.Entry<String, String> entry : fotos.entrySet()) {
+                String value = entry.getValue();
+				String[] fotoContentType = value.split("\\|");
 				String foto = fotoContentType[0];
 				String contentType = fotoContentType[1];
 				byte[] arrayFoto = fotoStorage.recuperarThumbnail(foto);
-				helper.addInline(cid, new ByteArrayResource(arrayFoto), contentType);
+				helper.addInline(value, new ByteArrayResource(arrayFoto), contentType);
 			}
 		
 			mailSender.send(mimeMessage);
 		} catch (MessagingException e) {
 			logger.error("Erro enviando e-mail", e);
 		}
-		
-		
-		/* TESTE ASSINCRONO
-		System.out.println(">>>>>>>>>> enviando e-mail ......." );
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.println(">>>>>>>>>> e-mail enviado ......." );*/
-		
-		/*SimpleMailMessage mensagem = new SimpleMailMessage();
-		mensagem.setFrom("rfaguiar1@gmail.com");
-		mensagem.setTo(venda.getCliente().getEmail());
-		mensagem.setSubject("Venda efetuada");
-		mensagem.setText("Obrigado, sua venda foi processada!");
-		
-		mailSender.send(mensagem);
-		
-		System.out.println(">>>>>>>>>> e-mail enviado ......." );*/
 	}
 }

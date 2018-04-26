@@ -1,1 +1,15 @@
-/target/
+/target/*
+.settings/*
+.idea/*
+.metadata/*
+Servers/*
+null/*
+.classpath
+.project
+
+
+
+
+
+
+

@@ -4,6 +4,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.ConstraintValidatorContext.ConstraintViolationBuilder;
 
+import com.brewer.validation.validator.exception.ConfirmacaoValidatorException;
 import org.apache.commons.beanutils.BeanUtils;
 
 import com.brewer.validation.AtributoConfirmacao;
@@ -29,7 +30,7 @@ public class AtributoConfirmacaoValidator implements ConstraintValidator<Atribut
 			valido = ambosSaoNull(valorAtributo, valorAtributoConfirmacao) || ambosSaoIguais(valorAtributo, valorAtributoConfirmacao);
 			
 		} catch (Exception e) {
-			throw new RuntimeException("Erro REcuperando valorews dos atributos", e);
+			throw new ConfirmacaoValidatorException("Erro Recuperando valores dos atributos", e);
 		}
 		
 		if(!valido){

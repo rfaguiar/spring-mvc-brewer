@@ -1,9 +1,17 @@
 package com.brewer.repository.filter;
 
+import com.brewer.brewer.Constantes;
+import com.brewer.model.StatusVenda;
+import com.brewer.model.TipoPessoa;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.util.StringUtils;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
-import com.brewer.model.StatusVenda;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class VendaFilter {
 
@@ -82,4 +90,40 @@ public class VendaFilter {
 		this.cpfOuCnpjCliente = cpfOuCnpjCliente;
 	}
 
+    public Criteria getCriteriaFiltros(Criteria criteria) {
+		if (!StringUtils.isEmpty(codigo)) {
+			criteria.add(Restrictions.eq("codigo", codigo));
+		}
+
+		if (status != null) {
+			criteria.add(Restrictions.eq(Constantes.STATUS, status));
+		}
+
+		if (desde != null) {
+			LocalDateTime desdeDate = LocalDateTime.of(this.desde, LocalTime.of(0, 0));
+			criteria.add(Restrictions.ge("dataCriacao", desdeDate));
+		}
+
+		if (ate != null) {
+			LocalDateTime ateDate = LocalDateTime.of(this.ate, LocalTime.of(23, 59));
+			criteria.add(Restrictions.le("dataCriacao", ateDate));
+		}
+
+		if (valorMinimo != null) {
+			criteria.add(Restrictions.ge("valorTotal", valorMinimo));
+		}
+
+		if (valorMaximo != null) {
+			criteria.add(Restrictions.le("valorTotal", valorMaximo));
+		}
+
+		if (!StringUtils.isEmpty(nomeCliente)) {
+			criteria.add(Restrictions.ilike("c.nome", nomeCliente, MatchMode.ANYWHERE));
+		}
+
+		if (!StringUtils.isEmpty(cpfOuCnpjCliente)) {
+			criteria.add(Restrictions.eq("c.cpfOuCnpj", TipoPessoa.removerFormatacao(cpfOuCnpjCliente)));
+		}
+		return criteria;
+    }
 }

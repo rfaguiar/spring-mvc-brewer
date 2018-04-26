@@ -42,11 +42,10 @@ public class TabelasItensSession {
 	}
 	
 	private TabelaItensVenda buscarTabelaPorId(String uuid) {
-		TabelaItensVenda tabela = tabelas.stream()
+		return tabelas.stream()
 				.filter(t -> t.getUuid().equals(uuid))
 				.findAny()
 				.orElse(new TabelaItensVenda(uuid));
-		return tabela;
 	}
 
 

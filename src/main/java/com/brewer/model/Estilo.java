@@ -2,6 +2,7 @@ package com.brewer.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -29,6 +30,28 @@ public class Estilo extends BaseEntity implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Estilo)) return false;
+		if (!super.equals(o)) return false;
+		Estilo estilo = (Estilo) o;
+		return Objects.equals(nome, estilo.nome) &&
+				Objects.equals(cervejas, estilo.cervejas);
+	}
+
+	@Override
+	public int hashCode() {
+
+		return Objects.hash(super.hashCode(), nome, cervejas);
+	}
+
+	@Override
+	public String toString() {
+		return "Estilo{" +
+				"nome='" + nome + '\'' +
+				", cervejas=" + cervejas +
+				'}';
+	}
 }

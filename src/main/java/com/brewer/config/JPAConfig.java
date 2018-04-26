@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -27,9 +28,17 @@ public class JPAConfig {
 
 	@Bean
 	public DataSource dataSource(){
-		JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
-		dataSourceLookup.setResourceRef(true);
-		return dataSourceLookup.getDataSource("jdbc/brewerDB");
+//		JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
+//		dataSourceLookup.setResourceRef(true);
+//		return dataSourceLookup.getDataSource("jdbc/brewerDB");
+
+        DriverManagerDataSource ds = new DriverManagerDataSource();
+        ds.setDriverClassName("com.mysql.jdbc.Driver");
+        ds.setUrl("jdbc:mysql://localhost:3306/brewer?useSSL=false");
+        ds.setUsername("root");
+        ds.setPassword("root");
+        return ds;
+
 	}
 	
 	@Bean

@@ -48,10 +48,8 @@ public class EstilosImpl implements EstilosQueries {
 	}
 	
 	private void adicionarfiltro(EstiloFilter filtro, Criteria criteria) {
-		if(filtro != null){
-			if(!StringUtils.isEmpty(filtro.getNome())){
-				criteria.add(Restrictions.eq("nome", filtro.getNome()));
-			}
+		if(filtro != null && !StringUtils.isEmpty(filtro.getNome())){
+			criteria.add(Restrictions.eq("nome", filtro.getNome()));
 		}
 	}
 

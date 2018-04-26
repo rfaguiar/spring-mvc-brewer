@@ -95,8 +95,7 @@ public class UsuariosImpl implements UsuariosQueries {
 			if (!StringUtils.isEmpty(filtro.getEmail())) {
 				criteria.add(Restrictions.ilike("email", filtro.getEmail(), MatchMode.START));
 			}
-			
-//			criteria.createAlias("grupos", "g", JoinType.LEFT_OUTER_JOIN);
+
 			if (filtro.getGrupos() != null && !filtro.getGrupos().isEmpty()) {
 				List<Criterion> subqueries = new ArrayList<>();
 				for (Long codigoGrupo : filtro.getGrupos().stream().mapToLong(Grupo::getCodigo).toArray()) {

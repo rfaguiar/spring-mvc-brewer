@@ -1,5 +1,8 @@
 package com.brewer.model;
 
+import org.hibernate.annotations.DynamicUpdate;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -7,20 +10,8 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Table(name = "venda")
@@ -208,10 +199,54 @@ public class Venda extends BaseEntity{
 	}
 	
 	private BigDecimal calcularValorTotal(BigDecimal valorTotalItens, BigDecimal valorFrete, BigDecimal valorDesconto) {
-		BigDecimal valorTotal = valorTotalItens
+        return valorTotalItens
 				.add(Optional.ofNullable(valorFrete).orElse(BigDecimal.ZERO))
 				.subtract(Optional.ofNullable(valorDesconto).orElse(BigDecimal.ZERO));
-		return valorTotal;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Venda)) return false;
+		if (!super.equals(o)) return false;
+		Venda venda = (Venda) o;
+		return Objects.equals(dataCriacao, venda.dataCriacao) &&
+				Objects.equals(valorFrete, venda.valorFrete) &&
+				Objects.equals(valorDesconto, venda.valorDesconto) &&
+				Objects.equals(valorTotal, venda.valorTotal) &&
+				Objects.equals(observacao, venda.observacao) &&
+				Objects.equals(dataHoraEntrega, venda.dataHoraEntrega) &&
+				Objects.equals(cliente, venda.cliente) &&
+				Objects.equals(usuario, venda.usuario) &&
+				status == venda.status &&
+				Objects.equals(itens, venda.itens) &&
+				Objects.equals(uuid, venda.uuid) &&
+				Objects.equals(dataEntrega, venda.dataEntrega) &&
+				Objects.equals(horarioEntrega, venda.horarioEntrega);
+	}
+
+	@Override
+	public int hashCode() {
+
+		return Objects.hash(super.hashCode(), dataCriacao, valorFrete, valorDesconto, valorTotal, observacao, dataHoraEntrega, cliente, usuario, status, itens, uuid, dataEntrega, horarioEntrega);
+	}
+
+	@Override
+	public String toString() {
+		return "Venda{" +
+				"dataCriacao=" + dataCriacao +
+				", valorFrete=" + valorFrete +
+				", valorDesconto=" + valorDesconto +
+				", valorTotal=" + valorTotal +
+				", observacao='" + observacao + '\'' +
+				", dataHoraEntrega=" + dataHoraEntrega +
+				", cliente=" + cliente +
+				", usuario=" + usuario +
+				", status=" + status +
+				", itens=" + itens +
+				", uuid='" + uuid + '\'' +
+				", dataEntrega=" + dataEntrega +
+				", horarioEntrega=" + horarioEntrega +
+				'}';
+	}
 }

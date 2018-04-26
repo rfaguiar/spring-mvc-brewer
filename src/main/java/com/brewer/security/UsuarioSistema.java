@@ -1,6 +1,7 @@
 package com.brewer.security;
 
 import java.util.Collection;
+import java.util.Objects;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -20,5 +21,27 @@ public class UsuarioSistema extends User {
 
 	public Usuario getUsuario() {
 		return usuario;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof UsuarioSistema)) return false;
+		if (!super.equals(o)) return false;
+		UsuarioSistema that = (UsuarioSistema) o;
+		return Objects.equals(usuario, that.usuario);
+	}
+
+	@Override
+	public int hashCode() {
+
+		return Objects.hash(super.hashCode(), usuario);
+	}
+
+	@Override
+	public String toString() {
+		return "UsuarioSistema{" +
+				"usuario=" + usuario +
+				'}';
 	}
 }

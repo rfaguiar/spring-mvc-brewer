@@ -3,6 +3,7 @@ package com.brewer.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -102,5 +103,39 @@ public class Usuario extends BaseEntity implements Serializable{
 	}
 	public void setConfirmacaoSenha(String confirmacaoSenha) {
 		this.confirmacaoSenha = confirmacaoSenha;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Usuario)) return false;
+		if (!super.equals(o)) return false;
+		Usuario usuario = (Usuario) o;
+		return Objects.equals(nome, usuario.nome) &&
+				Objects.equals(email, usuario.email) &&
+				Objects.equals(senha, usuario.senha) &&
+				Objects.equals(confirmacaoSenha, usuario.confirmacaoSenha) &&
+				Objects.equals(ativo, usuario.ativo) &&
+				Objects.equals(grupos, usuario.grupos) &&
+				Objects.equals(dataNascimento, usuario.dataNascimento);
+	}
+
+	@Override
+	public int hashCode() {
+
+		return Objects.hash(super.hashCode(), nome, email, senha, confirmacaoSenha, ativo, grupos, dataNascimento);
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario{" +
+				"nome='" + nome + '\'' +
+				", email='" + email + '\'' +
+				", senha='" + senha + '\'' +
+				", confirmacaoSenha='" + confirmacaoSenha + '\'' +
+				", ativo=" + ativo +
+				", grupos=" + grupos +
+				", dataNascimento=" + dataNascimento +
+				'}';
 	}
 }

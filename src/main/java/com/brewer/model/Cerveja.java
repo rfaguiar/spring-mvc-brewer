@@ -2,6 +2,7 @@ package com.brewer.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -86,8 +87,6 @@ public class Cerveja extends BaseEntity implements Serializable{
 	private void prePersisteUpdate(){
 		sku = sku.toUpperCase();
 	}
-	
-	
 	
 	public boolean isNova(){
 		return getCodigo() == null;
@@ -197,16 +196,56 @@ public class Cerveja extends BaseEntity implements Serializable{
 		return !StringUtils.isEmpty(foto) ? foto : "cerveja-mock.png";
 	}
 
-
-
 	public boolean isNovaFoto() {
 		return novaFoto;
 	}
 
-
-
 	public void setNovaFoto(boolean novaFoto) {
 		this.novaFoto = novaFoto;
 	}
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Cerveja)) return false;
+		if (!super.equals(o)) return false;
+		Cerveja cerveja = (Cerveja) o;
+		return novaFoto == cerveja.novaFoto &&
+				Objects.equals(sku, cerveja.sku) &&
+				Objects.equals(nome, cerveja.nome) &&
+				Objects.equals(descricao, cerveja.descricao) &&
+				Objects.equals(valor, cerveja.valor) &&
+				Objects.equals(teorAlcoolico, cerveja.teorAlcoolico) &&
+				Objects.equals(comissao, cerveja.comissao) &&
+				Objects.equals(quantidadeEstoque, cerveja.quantidadeEstoque) &&
+				origem == cerveja.origem &&
+				sabor == cerveja.sabor &&
+				Objects.equals(estilo, cerveja.estilo) &&
+				Objects.equals(foto, cerveja.foto) &&
+				Objects.equals(contentType, cerveja.contentType);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(super.hashCode(), sku, nome, descricao, valor, teorAlcoolico, comissao, quantidadeEstoque, origem, sabor, estilo, foto, contentType, novaFoto);
+	}
+
+    @Override
+    public String toString() {
+        return "Cerveja{" +
+                "sku='" + sku + '\'' +
+                ", nome='" + nome + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", valor=" + valor +
+                ", teorAlcoolico=" + teorAlcoolico +
+                ", comissao=" + comissao +
+                ", quantidadeEstoque=" + quantidadeEstoque +
+                ", origem=" + origem +
+                ", sabor=" + sabor +
+                ", estilo=" + estilo +
+                ", foto='" + foto + '\'' +
+                ", contentType='" + contentType + '\'' +
+                ", novaFoto=" + novaFoto +
+                '}';
+    }
 }

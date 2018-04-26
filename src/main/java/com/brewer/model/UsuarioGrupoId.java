@@ -65,5 +65,12 @@ public class UsuarioGrupoId implements Serializable {
 			return false;
 		return true;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "UsuarioGrupoId{" +
+				"usuario=" + usuario +
+				", grupo=" + grupo +
+				'}';
+	}
 }

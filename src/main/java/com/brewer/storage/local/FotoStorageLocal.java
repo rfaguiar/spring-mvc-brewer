@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.UUID;
 
+import com.brewer.storage.exception.FotoStorageException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,11 +47,11 @@ public class FotoStorageLocal implements FotoStorage {
 			
 			if(logger.isDebugEnabled()){
 				logger.debug("Pastas criadas para salvar fotos.");
-				logger.debug("Pasta default: "+ this.local.toAbsolutePath());
-				logger.debug("Pasta temporária: "+ this.localTemporario.toAbsolutePath());
+				logger.debug(String.format("Pasta default: %s", this.local.toAbsolutePath()));
+				logger.debug(String.format("Pasta temporária: %s", this.localTemporario.toAbsolutePath()));
 			}
 		} catch (IOException e) {
-			throw new RuntimeException("Erro criando pasta para salvar foto", e);
+			throw new FotoStorageException("Erro criando pasta para salvar foto", e);
 		}
 		
 	}
@@ -65,7 +66,7 @@ public class FotoStorageLocal implements FotoStorage {
 				arquivo.transferTo(new File(this.localTemporario.toAbsolutePath().toString() + getDefault().getSeparator() + novoNome));
 			
 			} catch (IOException e) {
-				throw new RuntimeException("Erro salvando a foto na pasta temporatia", e);
+				throw new FotoStorageException("Erro salvando a foto na pasta temporatia", e);
 			}			
 		}
 		return novoNome;
@@ -84,7 +85,7 @@ public class FotoStorageLocal implements FotoStorage {
 		try {
 			return Files.readAllBytes(this.localTemporario.resolve(nomeFoto));
 		} catch (IOException e) {
-			throw new RuntimeException("Erro lendo a foto temporaria", e);
+			throw new FotoStorageException("Erro lendo a foto temporaria", e);
 		}
 	}
 
@@ -93,7 +94,7 @@ public class FotoStorageLocal implements FotoStorage {
 		try {
 			Files.move(this.localTemporario.resolve(foto), this.local.resolve(foto));
 		} catch (IOException e) {
-			throw new RuntimeException("Erro movendo a foto para destno final", e);
+			throw new FotoStorageException("Erro movendo a foto para destno final", e);
 		}
 		
 		try {
@@ -101,8 +102,8 @@ public class FotoStorageLocal implements FotoStorage {
 				.size(40, 68)
 				.toFiles(Rename.PREFIX_DOT_THUMBNAIL);
 		} catch (IOException e) {
-			throw new RuntimeException("Erro gerando thumbnail", e);
-		};
+			throw new FotoStorageException("Erro gerando thumbnail", e);
+		}
 		
 	}
 
@@ -111,7 +112,7 @@ public class FotoStorageLocal implements FotoStorage {
 		try {
 			return Files.readAllBytes(this.local.resolve(foto));
 		} catch (IOException e) {
-			throw new RuntimeException("Erro lendo a foto", e);
+			throw new FotoStorageException("Erro lendo a foto", e);
 		}
 	}
 

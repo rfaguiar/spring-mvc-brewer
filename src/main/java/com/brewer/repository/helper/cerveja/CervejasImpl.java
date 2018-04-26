@@ -1,11 +1,10 @@
 package com.brewer.repository.helper.cerveja;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
-
+import com.brewer.dto.CervejaDTO;
+import com.brewer.dto.ValorItensEstoque;
+import com.brewer.model.Cerveja;
+import com.brewer.repository.filter.CervejaFilter;
+import com.brewer.repository.paginacao.PaginacaoUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
@@ -18,19 +17,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import com.brewer.dto.CervejaDTO;
-import com.brewer.dto.ValorItensEstoque;
-import com.brewer.model.Cerveja;
-import com.brewer.repository.filter.CervejaFilter;
-import com.brewer.repository.paginacao.PaginacaoUtil;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
 
 public class CervejasImpl implements CervejasQueries{
 
 	@PersistenceContext
 	private EntityManager manager;
-	
-	private EntityManagerFactory em;
-	
 	@Autowired
 	private PaginacaoUtil paginacaoUtil;
 	
@@ -95,11 +89,9 @@ public class CervejasImpl implements CervejasQueries{
 		
 		String jpql = "select new com.brewer.dto.CervejaDTO(codigo, sku, nome, origem, valor, foto) "
 				+ "from Cerveja where lower(sku) like :skuOuNome or lower(nome) like :skuOuNome";
-		List<CervejaDTO> cervejasFiltradas = manager.createQuery(jpql, CervejaDTO.class)
+		return manager.createQuery(jpql, CervejaDTO.class)
 				.setParameter("skuOuNome", skuOuNome.toLowerCase() + "%")
 				.getResultList();
-		
-		return cervejasFiltradas;
 	}
 	
 	@Override

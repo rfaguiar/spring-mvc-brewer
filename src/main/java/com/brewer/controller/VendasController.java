@@ -1,10 +1,19 @@
 package com.brewer.controller;
 
-import java.util.List;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.brewer.brewer.mail.Mailer;
+import com.brewer.controller.page.PageWrapper;
+import com.brewer.controller.validator.VendaValidator;
+import com.brewer.dto.VendaMes;
+import com.brewer.dto.VendaOrigem;
+import com.brewer.model.*;
+import com.brewer.repository.Cervejas;
+import com.brewer.repository.Vendas;
+import com.brewer.repository.filter.VendaFilter;
+import com.brewer.security.UsuarioSistema;
+import com.brewer.service.CadastroVendaService;
+import com.brewer.session.TabelasItensSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -14,39 +23,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.brewer.brewer.mail.Mailer;
-import com.brewer.controller.page.PageWrapper;
-import com.brewer.controller.validator.VendaValidator;
-import com.brewer.dto.VendaMes;
-import com.brewer.dto.VendaOrigem;
-import com.brewer.model.Cerveja;
-import com.brewer.model.ItemVenda;
-import com.brewer.model.StatusVenda;
-import com.brewer.model.TipoPessoa;
-import com.brewer.model.Venda;
-import com.brewer.repository.Cervejas;
-import com.brewer.repository.Vendas;
-import com.brewer.repository.filter.VendaFilter;
-import com.brewer.security.UsuarioSistema;
-import com.brewer.service.CadastroVendaService;
-import com.brewer.session.TabelasItensSession;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/vendas")
 public class VendasController {
-	
-	@Autowired
+
+    private static final Logger logger = LoggerFactory.getLogger(VendasController.class);
+    private static final String MENSAGEM = "mensagem";
+    private static final String REDIRECT_VENDAS_NOVA = "redirect:/vendas/nova";
+
+    @Autowired
 	private Cervejas cervejas;
 	
 	@Autowired
@@ -93,8 +86,8 @@ public class VendasController {
 		venda.setUsuario(usuarioSistema.getUsuario());
 		
 		cadastroVendaService.salvar(venda);
-		attributes.addFlashAttribute("mensagem", "Venda salva com sucesso");
-		return new ModelAndView("redirect:/vendas/nova");
+		attributes.addFlashAttribute(MENSAGEM, "Venda salva com sucesso");
+		return new ModelAndView(REDIRECT_VENDAS_NOVA);
 	}
 
 	@PostMapping(value = "/nova", params = "emitir")
@@ -107,8 +100,8 @@ public class VendasController {
 		venda.setUsuario(usuarioSistema.getUsuario());
 		
 		cadastroVendaService.emitir(venda);
-		attributes.addFlashAttribute("mensagem", "Venda emitida com sucesso");
-		return new ModelAndView("redirect:/vendas/nova");
+		attributes.addFlashAttribute(MENSAGEM, "Venda emitida com sucesso");
+		return new ModelAndView(REDIRECT_VENDAS_NOVA);
 	}
 	
 	@PostMapping(value = "/nova", params = "enviarEmail")
@@ -122,11 +115,11 @@ public class VendasController {
 		
 		venda = cadastroVendaService.salvar(venda);
 		
-		mailer.enviar(venda);		
-		System.out.println("####### Logo depois da chama do metodo enviar.");
+		mailer.enviar(venda);
+        logger.debug("####### Logo depois da chama do metodo enviar.");
 		
-		attributes.addFlashAttribute("mensagem", String.format("Venda n° %d salva e e-mail enviado", venda.getCodigo()));
-		return new ModelAndView("redirect:/vendas/nova");
+		attributes.addFlashAttribute(MENSAGEM, String.format("Venda n° %d salva e e-mail enviado", venda.getCodigo()));
+		return new ModelAndView(REDIRECT_VENDAS_NOVA);
 	}
 	
 	@PostMapping("/item")

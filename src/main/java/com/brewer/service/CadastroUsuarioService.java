@@ -20,7 +20,7 @@ public class CadastroUsuarioService {
 	private Usuarios usuarios;
 	
 	@Autowired
-	private PasswordEncoder PasswordEncoder;
+	private PasswordEncoder passwordEncoder;
 	
 	@Transactional
 	public void salvar(Usuario usuario) {
@@ -34,14 +34,14 @@ public class CadastroUsuarioService {
 		}
 		
 		if(usuario.isNovo() || !StringUtils.isEmpty(usuario.getSenha())){
-			usuario.setSenha(this.PasswordEncoder.encode(usuario.getSenha()));			
+			usuario.setSenha(this.passwordEncoder.encode(usuario.getSenha()));
 			usuario.setConfirmacaoSenha(usuario.getSenha());
-		}else if(StringUtils.isEmpty(usuario.getSenha())){
+		}else if(usuarioExistente.isPresent() && StringUtils.isEmpty(usuario.getSenha())){
 			usuario.setSenha(usuarioExistente.get().getSenha());
 		}
 		usuario.setConfirmacaoSenha(usuario.getSenha());
 		
-		if(!usuario.isNovo() && usuario.getAtivo() == null){
+		if(usuarioExistente.isPresent() && !usuario.isNovo() && usuario.getAtivo() == null){
 			usuario.setAtivo(usuarioExistente.get().getAtivo());
 		}
 		

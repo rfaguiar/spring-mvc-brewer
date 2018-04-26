@@ -21,6 +21,8 @@ import com.brewer.security.AppUserDetailsService;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+	private static final String LOGIN = "/login";
+
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
@@ -46,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //				.anyRequest().denyAll()
 				.and()
 			.formLogin()
-				.loginPage("/login")
+				.loginPage(LOGIN)
 				.permitAll()
 				.and()
 			.logout()
@@ -56,11 +58,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.accessDeniedPage("/403")
 				.and()
 				.sessionManagement()
-					.invalidSessionUrl("/login")
+					.invalidSessionUrl(LOGIN)
 					.and()
 			.sessionManagement()
 				.maximumSessions(1)
-				.expiredUrl("/login");
+				.expiredUrl(LOGIN);
 	}
 	
 	@Bean

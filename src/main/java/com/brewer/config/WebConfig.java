@@ -1,10 +1,16 @@
 package com.brewer.config;
 
-import java.math.BigDecimal;
-import java.time.format.DateTimeFormatter;
-import java.util.concurrent.TimeUnit;
-
-import org.springframework.beans.BeansException;
+import com.brewer.config.format.BigDecimalFormatter;
+import com.brewer.controller.CervejasController;
+import com.brewer.controller.converter.CidadeConverter;
+import com.brewer.controller.converter.EstadoConverter;
+import com.brewer.controller.converter.EstiloConverter;
+import com.brewer.controller.converter.GrupoConverter;
+import com.brewer.session.TabelasItensSession;
+import com.brewer.thymeleaf.BrewerDialect;
+import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
+import com.google.common.cache.CacheBuilder;
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.guava.GuavaCacheManager;
@@ -23,10 +29,12 @@ import org.springframework.format.support.FormattingConversionService;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.i18n.FixedLocaleResolver;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
@@ -35,18 +43,10 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
-import com.brewer.config.format.BigDecimalFormatter;
-import com.brewer.controller.CervejasController;
-import com.brewer.controller.converter.CidadeConverter;
-import com.brewer.controller.converter.EstadoConverter;
-import com.brewer.controller.converter.EstiloConverter;
-import com.brewer.controller.converter.GrupoConverter;
-import com.brewer.session.TabelasItensSession;
-import com.brewer.thymeleaf.BrewerDialect;
-import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
-import com.google.common.cache.CacheBuilder;
-
-import nz.net.ultraq.thymeleaf.LayoutDialect;
+import java.math.BigDecimal;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 
 
@@ -58,10 +58,11 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 @EnableAsync
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
+	public static final String UTF_8 = "UTF-8";
 	private ApplicationContext applicationContext;
 
 	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+	public void setApplicationContext(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
 	}
 
@@ -69,7 +70,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	public ViewResolver viewResolver() {
 		ThymeleafViewResolver resolver = new ThymeleafViewResolver();
 		resolver.setTemplateEngine(templateEngine());
-		resolver.setCharacterEncoding("UTF-8");
+		resolver.setCharacterEncoding(UTF_8);
 		return resolver;
 	}
 
@@ -90,7 +91,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		resolver.setApplicationContext(applicationContext);
 		resolver.setPrefix("classpath:/templates/");
 		resolver.setSuffix(".html");
-		resolver.setCharacterEncoding("UTF-8");
+		resolver.setCharacterEncoding(UTF_8);
 		resolver.setTemplateMode(TemplateMode.HTML);
 		return resolver;
 	}
@@ -107,12 +108,10 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		conversionService.addConverter(new CidadeConverter());
 		conversionService.addConverter(new EstadoConverter());
 		conversionService.addConverter(new GrupoConverter());
-		
-		//NumberStyleFormatter bigDecimalFormatter = new NumberStyleFormatter("#,##0.00");
+
 		BigDecimalFormatter bigDecimalFormatter = new BigDecimalFormatter("#,##0.00");
 		conversionService.addFormatterForFieldType(BigDecimal.class, bigDecimalFormatter);
-		
-		//NumberStyleFormatter integerFormatter = new NumberStyleFormatter("#,##0");
+
 		BigDecimalFormatter integerFormatter = new BigDecimalFormatter("#,##0");
 		conversionService.addFormatterForFieldType(Integer.class, integerFormatter);
 		
@@ -125,10 +124,10 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		return conversionService;
 	}
 	
-	//@Bean
-	//public LocaleResolver localResolver(){
-	//	return new FixedLocaleResolver(new Locale("pt", "BR"));
-	//}
+	@Bean
+	public LocaleResolver localResolver(){
+		return new FixedLocaleResolver(new Locale("pt", "BR"));
+	}
 	
 	@Bean
 	public CacheManager cacheManager(){
@@ -145,13 +144,13 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	public MessageSource messageSource(){
 		ReloadableResourceBundleMessageSource bundle = new ReloadableResourceBundleMessageSource();
 		bundle.setBasename("classpath:/messages");
-		bundle.setDefaultEncoding("UTF-8");//http://www.utf8-chartable.de/
+		bundle.setDefaultEncoding(UTF_8);//http://www.utf8-chartable.de/
 		return bundle;
 	}
 	
 	@Bean
 	public DomainClassConverter<FormattingConversionService> domainClassConverter(){
-		return new DomainClassConverter<FormattingConversionService>(mvcConversionService());
+		return new DomainClassConverter<>(mvcConversionService());
 	}
 	
 	@Bean
