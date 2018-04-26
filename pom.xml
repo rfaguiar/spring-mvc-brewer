@@ -75,6 +75,9 @@
 		
 		<!-- AWS SDK - S3 -->
 		<aws-java-sdk-s3.version>1.10.77</aws-java-sdk-s3.version>
+
+        <!-- Apache Commons DBCP -->
+        <commons-dbcp2.version>2.1.1</commons-dbcp2.version>
 	</properties>
 
 	<build>
@@ -123,6 +126,48 @@
 
 		</plugins>
 	</build>
+
+    <profiles>
+        <profile>
+            <id>local-jndi</id>
+        </profile>
+
+        <profile>
+            <id>local</id>
+
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+            <dependencies>
+                <!-- MySQL Driver -->
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <version>${mysql-connector-java.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>prod</id>
+
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+            <dependencies>
+                <!-- MySQL Driver -->
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <version>${mysql-connector-java.version}</version>
+                    <scope>compile</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+
+    </profiles>
 
 	<dependencyManagement>
 		<dependencies>
@@ -231,7 +276,7 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql-connector-java.version}</version>
-			<!--<scope>provided</scope>-->
+			<scope>provided</scope>
 		</dependency>
 		
 		<!-- Spring Data JPA -->
@@ -333,7 +378,15 @@
 			<artifactId>aws-java-sdk-s3</artifactId>
 			<version>${aws-java-sdk-s3.version}</version>
 		</dependency>
-        
+
+        <!-- Apache Commons DBCP -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+            <version>${commons-dbcp2.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
 	</dependencies>
 	
 </project>

@@ -3,10 +3,7 @@ package com.brewer.config;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -23,12 +20,34 @@ public class MailConfig {
 	private Environment env;
 
 	@Bean
-	public JavaMailSender mailSender(){
+	@Profile("local")
+	public JavaMailSender mailSenderLocal(){
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 		mailSender.setHost("smtp.sendgrid.net");
 		mailSender.setPort(587);
 		mailSender.setUsername(env.getProperty("email.username"));
 		mailSender.setPassword(env.getProperty("password"));
+
+		Properties props = new Properties();
+		props.put("mail.transport.protocol", "smtp");
+		props.put("mail.smtp.auth", true);
+		props.put("mail.smtp.starttls.enable", true);
+		props.put("mail.debug", false);
+		props.put("mail.smtp.connectiontimeout", 10000);//milisegundos
+
+		mailSender.setJavaMailProperties(props);
+
+		return mailSender;
+	}
+
+	@Bean
+	@Profile("prod")
+	public JavaMailSender mailSenderProducao(){
+		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+		mailSender.setHost("smtp.sendgrid.net");
+		mailSender.setPort(587);
+		mailSender.setUsername(env.getProperty("email.username"));
+		mailSender.setPassword(env.getProperty("SEND_GRID_PASSWORD"));
 		
 		Properties props = new Properties();
 		props.put("mail.transport.protocol", "smtp");

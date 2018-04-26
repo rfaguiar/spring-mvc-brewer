@@ -1,13 +1,13 @@
 package com.brewer.config;
 
-import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
-
+import com.brewer.model.Cerveja;
+import com.brewer.repository.Cervejas;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -17,8 +17,10 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.brewer.repository.Cervejas;
-import com.brewer.model.Cerveja;
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 @Configuration
 @ComponentScan(basePackageClasses = Cervejas.class)
@@ -27,19 +29,43 @@ import com.brewer.model.Cerveja;
 public class JPAConfig {
 
 	@Bean
-	public DataSource dataSource(){
-//		JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
-//		dataSourceLookup.setResourceRef(true);
-//		return dataSourceLookup.getDataSource("jdbc/brewerDB");
+	@Profile("local-jndi")
+	public DataSource dataSourceLocalJndi(){
+		JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
+		dataSourceLookup.setResourceRef(true);
+		return dataSourceLookup.getDataSource("jdbc/brewerDB");
+	}
 
-        DriverManagerDataSource ds = new DriverManagerDataSource();
-        ds.setDriverClassName("com.mysql.jdbc.Driver");
-        ds.setUrl("jdbc:mysql://localhost:3306/brewer?useSSL=false");
-        ds.setUsername("root");
-        ds.setPassword("root");
-        return ds;
+	@Bean
+	@Profile("local")
+	public DataSource dataSourceLocal(){
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setUrl("jdbc:mysql://localhost:3306/brewer?useSSL=false");
+        dataSource.setUsername("root");
+        dataSource.setPassword("root");
+        dataSource.setInitialSize(5);
+        return dataSource;
 
 	}
+
+    @Bean
+    @Profile("prod")
+    public DataSource dataSourceProducao() throws URISyntaxException {
+        URI jdbUri = new URI(System.getenv("JAWSDB_URL"));
+
+        String username = jdbUri.getUserInfo().split(":")[0];
+        String password = jdbUri.getUserInfo().split(":")[1];
+        String port = String.valueOf(jdbUri.getPort());
+        String jdbUrl = "jdbc:mysql://" + jdbUri.getHost() + ":" + port + jdbUri.getPath();
+
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setUrl(jdbUrl);
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
+        dataSource.setInitialSize(9);
+        dataSource.setMaxTotal(9);
+        return dataSource;
+    }
 	
 	@Bean
 	public JpaVendorAdapter jpaVendorAdapter(){

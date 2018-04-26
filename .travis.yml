@@ -1,6 +1,6 @@
 language: java
 script:
- - mvn install
+ - mvn clean install -Pprod
  - mvn sonar:sonar -Dsonar.organization=rfaguiar-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=
 jdk:
  - oraclejdk8
