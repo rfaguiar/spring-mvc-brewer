@@ -4,6 +4,12 @@ script:
  - mvn sonar:sonar -Dsonar.organization=rfaguiar-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=
 jdk:
  - oraclejdk8
+deploy:
+  provider: heroku
+  api-key:
+   secure: $HEROKU_API_KEY
+  app: brewer-springmvc-app1
+
 addons:
   sonarcloud:
     organization: "rfaguiar-github" # "sonarcloud_organization_key"  the key of the org you chose at step #3
