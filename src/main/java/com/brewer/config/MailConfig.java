@@ -22,42 +22,31 @@ public class MailConfig {
 	@Bean
 	@Profile("local")
 	public JavaMailSender mailSenderLocal(){
-		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-		mailSender.setHost("smtp.sendgrid.net");
-		mailSender.setPort(587);
-		mailSender.setUsername(env.getProperty("email.username"));
-		mailSender.setPassword(env.getProperty("password"));
-
-		Properties props = new Properties();
-		props.put("mail.transport.protocol", "smtp");
-		props.put("mail.smtp.auth", true);
-		props.put("mail.smtp.starttls.enable", true);
-		props.put("mail.debug", false);
-		props.put("mail.smtp.connectiontimeout", 10000);//milisegundos
-
-		mailSender.setJavaMailProperties(props);
-
-		return mailSender;
+        return createJavaMailSender("email.username", "password");
 	}
 
 	@Bean
 	@Profile("prod")
 	public JavaMailSender mailSenderProducao(){
-		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-		mailSender.setHost("smtp.sendgrid.net");
-		mailSender.setPort(587);
-		mailSender.setUsername(env.getProperty("email.username"));
-		mailSender.setPassword(env.getProperty("SEND_GRID_PASSWORD"));
-		
-		Properties props = new Properties();
-		props.put("mail.transport.protocol", "smtp");
-		props.put("mail.smtp.auth", true);
-		props.put("mail.smtp.starttls.enable", true);
-		props.put("mail.debug", false);
-		props.put("mail.smtp.connectiontimeout", 10000);//milisegundos
-		
-		mailSender.setJavaMailProperties(props);
-		
-		return mailSender;
+		return createJavaMailSender("email.username", "SEND_GRID_PASSWORD");
 	}
+
+	private JavaMailSenderImpl createJavaMailSender(String username, String password) {
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost("smtp.sendgrid.net");
+        mailSender.setPort(587);
+        mailSender.setUsername(env.getProperty(username));
+        mailSender.setPassword(env.getProperty(password));
+
+        Properties props = new Properties();
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", true);
+        props.put("mail.smtp.starttls.enable", true);
+        props.put("mail.debug", false);
+        props.put("mail.smtp.connectiontimeout", 10000);//milisegundos
+
+        mailSender.setJavaMailProperties(props);
+
+        return mailSender;
+    }
 }

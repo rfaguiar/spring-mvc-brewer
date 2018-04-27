@@ -39,12 +39,7 @@ public class JPAConfig {
 	@Bean
 	@Profile("local")
 	public DataSource dataSourceLocal(){
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setUrl("jdbc:mysql://localhost:3306/brewer?useSSL=false");
-        dataSource.setUsername("root");
-        dataSource.setPassword("root");
-        dataSource.setInitialSize(5);
-        return dataSource;
+        return createBasicDatasource("jdbc:mysql://localhost:3306/brewer?useSSL=false", "root", "root");
 
 	}
 
@@ -57,14 +52,7 @@ public class JPAConfig {
         String password = jdbUri.getUserInfo().split(":")[1];
         String port = String.valueOf(jdbUri.getPort());
         String jdbUrl = "jdbc:mysql://" + jdbUri.getHost() + ":" + port + jdbUri.getPath();
-
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setUrl(jdbUrl);
-        dataSource.setUsername(username);
-        dataSource.setPassword(password);
-        dataSource.setInitialSize(9);
-        dataSource.setMaxTotal(9);
-        return dataSource;
+        return createBasicDatasource(jdbUrl, username, password);
     }
 	
 	@Bean
@@ -96,4 +84,14 @@ public class JPAConfig {
 		transactionManager.setEntityManagerFactory(entityManagerFactory);
 		return transactionManager;
 	}
+
+	private BasicDataSource createBasicDatasource(String jdbUrl, String username, String password) {
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setUrl(jdbUrl);
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
+        dataSource.setInitialSize(9);
+        dataSource.setMaxTotal(9);
+        return dataSource;
+    }
 }
