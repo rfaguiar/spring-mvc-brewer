@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import com.brewer.Constantes;
 import com.brewer.storage.FotoStorage;
+import com.brewer.storage.exception.FotoStorageException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
@@ -41,14 +42,14 @@ public class FotoStorageLocal implements FotoStorage {
             try {
                 arquivo.transferTo(new File(this.local.toAbsolutePath().toString() + getDefault().getSeparator() + novoNome));
             } catch (IOException e) {
-                throw new RuntimeException("Erro salvando a foto", e);
+                throw new FotoStorageException("Erro salvando a foto", e);
             }
         }
 
         try {
             Thumbnails.of(this.local.resolve(novoNome).toString()).size(40, 68).toFiles(Rename.PREFIX_DOT_THUMBNAIL);
         } catch (IOException e) {
-            throw new RuntimeException("Erro gerando thumbnail", e);
+            throw new FotoStorageException("Erro gerando thumbnail", e);
         }
 
         return novoNome;
@@ -57,12 +58,9 @@ public class FotoStorageLocal implements FotoStorage {
     @Override
     public byte[] recuperar(String nome) {
         try {
-            Path path_foto = this.local.resolve(nome);
-            logger.debug("recuperar FOTO URL: " + nome);
-            logger.debug("recuperar PATH URL: " + path_foto);
-            return Files.readAllBytes(path_foto);
+            return Files.readAllBytes(this.local.resolve(nome));
         } catch (IOException e) {
-            throw new RuntimeException("Erro lendo a foto", e);
+            throw new FotoStorageException("Erro lendo a foto", e);
         }
     }
 
@@ -84,7 +82,6 @@ public class FotoStorageLocal implements FotoStorage {
 
     @Override
     public String getUrl(String foto) {
-        logger.debug("getUrl FOTO URL: " + foto);
         return "http://localhost:8080/brewer/fotos/" + foto;
     }
 
@@ -94,10 +91,10 @@ public class FotoStorageLocal implements FotoStorage {
 
             if (logger.isDebugEnabled()) {
                 logger.debug("Pastas criadas para salvar fotos.");
-                logger.debug("Pasta default: " + this.local.toAbsolutePath());
+                logger.debug(String.format("Pasta default: %s", this.local.toAbsolutePath()));
             }
         } catch (IOException e) {
-            throw new RuntimeException("Erro criando pasta para salvar foto", e);
+            throw new FotoStorageException("Erro criando pasta para salvar foto", e);
         }
     }
 

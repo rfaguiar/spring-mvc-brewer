@@ -84,8 +84,8 @@ public class FotoStorageS3 implements FotoStorage {
     @Override
     public String getUrl(String foto) {
         if (!StringUtils.isEmpty(foto)) {
-            return amazonS3.getObject(new GetObjectRequest(bucketName, foto, Constantes.THUMBNAIL_PREFIX + foto))
-                    .getRedirectLocation();
+            //https://s3.amazonaws.com/brewer-s3
+            return String.format("https://s3.amazonaws.com/%s/%s", bucketName, foto);
         }
 
         return null;
