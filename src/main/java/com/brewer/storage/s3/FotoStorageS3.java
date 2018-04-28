@@ -84,7 +84,6 @@ public class FotoStorageS3 implements FotoStorage {
     @Override
     public String getUrl(String foto) {
         if (!StringUtils.isEmpty(foto)) {
-            //https://s3.amazonaws.com/brewer-s3
             return String.format("https://s3.amazonaws.com/%s/%s", bucketName, foto);
         }
 

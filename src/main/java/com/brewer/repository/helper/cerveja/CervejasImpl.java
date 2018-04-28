@@ -38,7 +38,8 @@ public class CervejasImpl implements CervejasQueries{
 		
 		//filtros e consulta
 		adicionarFiltro(filtro, criteria);
-		return new PageImpl<>(criteria.list(), pageable, total(filtro));
+		List<Cerveja> list = criteria.list();
+		return new PageImpl<>(list, pageable, total(filtro));
 	}
 
 	private Long total(CervejaFilter filtro) {

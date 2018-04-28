@@ -4,27 +4,20 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.brewer.repository.listener.CervejaEntityListener;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.util.StringUtils;
 
 import com.brewer.validation.SKU;
 
+@EntityListeners(CervejaEntityListener.class)
 @Entity
 @Table(name = "cerveja")
 public class Cerveja extends BaseEntity implements Serializable{
@@ -81,6 +74,12 @@ public class Cerveja extends BaseEntity implements Serializable{
 	
 	@Transient
 	private boolean novaFoto;
+
+    @Transient
+    private String urlFoto;
+
+    @Transient
+    private String urlThumbnailFoto;
 	
 	@PrePersist
 	@PreUpdate
@@ -191,8 +190,24 @@ public class Cerveja extends BaseEntity implements Serializable{
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
 	}
-	
-	public String getFotoOuMock() {
+
+    public String getUrlFoto() {
+        return urlFoto;
+    }
+
+    public void setUrlFoto(String urlFoto) {
+        this.urlFoto = urlFoto;
+    }
+
+    public String getUrlThumbnailFoto() {
+        return urlThumbnailFoto;
+    }
+
+    public void setUrlThumbnailFoto(String urlThumbnailFoto) {
+        this.urlThumbnailFoto = urlThumbnailFoto;
+    }
+
+    public String getFotoOuMock() {
 		return !StringUtils.isEmpty(foto) ? foto : "cerveja-mock.png";
 	}
 
@@ -204,31 +219,34 @@ public class Cerveja extends BaseEntity implements Serializable{
 		this.novaFoto = novaFoto;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof Cerveja)) return false;
-		if (!super.equals(o)) return false;
-		Cerveja cerveja = (Cerveja) o;
-		return novaFoto == cerveja.novaFoto &&
-				Objects.equals(sku, cerveja.sku) &&
-				Objects.equals(nome, cerveja.nome) &&
-				Objects.equals(descricao, cerveja.descricao) &&
-				Objects.equals(valor, cerveja.valor) &&
-				Objects.equals(teorAlcoolico, cerveja.teorAlcoolico) &&
-				Objects.equals(comissao, cerveja.comissao) &&
-				Objects.equals(quantidadeEstoque, cerveja.quantidadeEstoque) &&
-				origem == cerveja.origem &&
-				sabor == cerveja.sabor &&
-				Objects.equals(estilo, cerveja.estilo) &&
-				Objects.equals(foto, cerveja.foto) &&
-				Objects.equals(contentType, cerveja.contentType);
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cerveja)) return false;
+        if (!super.equals(o)) return false;
+        Cerveja cerveja = (Cerveja) o;
+        return novaFoto == cerveja.novaFoto &&
+                Objects.equals(sku, cerveja.sku) &&
+                Objects.equals(nome, cerveja.nome) &&
+                Objects.equals(descricao, cerveja.descricao) &&
+                Objects.equals(valor, cerveja.valor) &&
+                Objects.equals(teorAlcoolico, cerveja.teorAlcoolico) &&
+                Objects.equals(comissao, cerveja.comissao) &&
+                Objects.equals(quantidadeEstoque, cerveja.quantidadeEstoque) &&
+                origem == cerveja.origem &&
+                sabor == cerveja.sabor &&
+                Objects.equals(estilo, cerveja.estilo) &&
+                Objects.equals(foto, cerveja.foto) &&
+                Objects.equals(contentType, cerveja.contentType) &&
+                Objects.equals(urlFoto, cerveja.urlFoto) &&
+                Objects.equals(urlThumbnailFoto, cerveja.urlThumbnailFoto);
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(super.hashCode(), sku, nome, descricao, valor, teorAlcoolico, comissao, quantidadeEstoque, origem, sabor, estilo, foto, contentType, novaFoto);
-	}
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(super.hashCode(), sku, nome, descricao, valor, teorAlcoolico, comissao, quantidadeEstoque, origem, sabor, estilo, foto, contentType, novaFoto, urlFoto, urlThumbnailFoto);
+    }
 
     @Override
     public String toString() {
@@ -246,6 +264,8 @@ public class Cerveja extends BaseEntity implements Serializable{
                 ", foto='" + foto + '\'' +
                 ", contentType='" + contentType + '\'' +
                 ", novaFoto=" + novaFoto +
+                ", urlFoto='" + urlFoto + '\'' +
+                ", urlThumbnailFoto='" + urlThumbnailFoto + '\'' +
                 '}';
     }
 }

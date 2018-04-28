@@ -1,4 +1,4 @@
-package com.brewer.security;
+package com.brewer.config;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

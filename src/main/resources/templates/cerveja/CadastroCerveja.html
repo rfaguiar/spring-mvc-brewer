@@ -132,21 +132,22 @@
 					</div>
 					
 					<div class="row">
-						<div class="form-group col-sm-12">
-							<input type="hidden" th:field="*{foto}"/>
-							<input type="hidden" th:field="*{contentType}"/>
-							<input type="hidden" th:field="*{novaFoto}"/>
-							
-							<label class="control-label">Foto</label>
-							
-								<div class="js-container-foto-cerveja" th:attr="data-url-fotos=@{/fotos}">
-									<div id="upload-drop" class="bw-upload">
-										<i class="glyphicon glyphicon-cloud-upload"></i>
-										<span>Arraste a foto aqui ou</span>
-										<a class="bw-upload-form-file">Selecione<input id="upload-select" type="file" accept=".jpg,.jpeg,.png"></a>
-									</div>		
-								</div>				
-						</div>
+                        <div class="form-group col-sm-12">
+                            <input type="hidden" th:field="*{foto}">
+                            <input type="hidden" th:field="*{contentType}">
+                            <input type="hidden" th:field="*{novaFoto}">
+                            <input type="hidden" th:field="*{urlFoto}">
+
+                            <label class="control-label">Foto</label>
+
+                            <div class="js-container-foto-cerveja" th:attr="data-url-fotos=@{/fotos}">
+                                <div id="upload-drop" class="bw-upload">
+                                    <i class="glyphicon  glyphicon-cloud-upload"></i>
+                                    <span>Arraste a foto aqui ou </span>
+                                    <a class="bw-upload-form-file">selecione <input id="upload-select" type="file" accept=".jpg,.jpeg,.png"/></a>
+                                </div>
+                            </div>
+                        </div>
 					</div>
 					
 					<div class="form-group">
