@@ -13,9 +13,9 @@
 * variaveis de ambiente de producao  
     > JAWSDB_URL  
     > SEND_GRID_PASSWORD  
-    > BUCKET_NAME
-    > AWS_ACESS_KEY_ID
-    > AWS_SECRET_KEY_ID
+    > BUCKET_NAME  
+    > AWS_ACESS_KEY_ID  
+    > AWS_SECRET_KEY_ID  
 
 * flyway-migrações do bd  
     > mvn -Dflyway.user=root -Dflyway.password=root -Dflyway.url=jdbc:mysql://localhost:3306/brewer?useSSL=false flyway:migrate  
