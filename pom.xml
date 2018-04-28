@@ -21,7 +21,7 @@
 		<mysql-connector-java.version>5.1.39</mysql-connector-java.version>
 
 		<!-- Spring MVC -->
-		<spring-framework.version>4.3.0.RELEASE</spring-framework.version>
+		<spring-framework.version>5.0.2.RELEASE</spring-framework.version>
 
 		<!-- Servlet API -->
 		<servlet.version>3.1.0</servlet.version>
@@ -36,7 +36,7 @@
 		<thymeleaf-layout-dialect.version>2.0.1</thymeleaf-layout-dialect.version>
 		
 		<!-- Logging -->
-		<log4j.version>2.6</log4j.version>
+		<log4j.version>2.10.0</log4j.version>
 		<jcl-over-slf4j.version>1.7.21</jcl-over-slf4j.version>
 		
 		<!-- JPA / Hibernate -->
@@ -46,7 +46,7 @@
 		<spring-data-jpa.version>1.10.2.RELEASE</spring-data-jpa.version>
 		
 		<!-- Jackson - JSON -->
-		<jackson-core.version>2.7.5</jackson-core.version>
+		<jackson-core.version>2.9.2</jackson-core.version>
 		
 		<!-- thumbnailator - Gerar Thumbnail -->
  		<!-- https://github.com/coobird/thumbnailator -->
@@ -54,10 +54,7 @@
 		
 		<!-- Thymeleaf extras data attribute -->
 		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
-		
-		<!-- Cache - Guava -->
-		<guava.version>19.0</guava.version>
-		
+
 		<!-- Apache Bean Utils -->
 		<commons-beanutils.version>1.9.2</commons-beanutils.version>
 		
@@ -310,15 +307,7 @@
     		<version>${thymeleaf-extras-data-attribute.version}</version>
     		<scope>compile</scope>
 		</dependency>
-		
-		<!-- Cache - Guava -->
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>${guava.version}</version>
-			<scope>compile</scope>
-		</dependency>
-		
+
 		<!-- Spring Context Support -->
 		<dependency>
 			<groupId>org.springframework</groupId>

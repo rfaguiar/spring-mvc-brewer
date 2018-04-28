@@ -9,11 +9,10 @@ import com.brewer.controller.converter.GrupoConverter;
 import com.brewer.session.TabelasItensSession;
 import com.brewer.thymeleaf.BrewerDialect;
 import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
-import com.google.common.cache.CacheBuilder;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.guava.GuavaCacheManager;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.MessageSource;
@@ -46,7 +45,6 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 
 
@@ -131,13 +129,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	
 	@Bean
 	public CacheManager cacheManager(){
-		CacheBuilder<Object, Object> cacheBuilder = CacheBuilder.newBuilder()
-				.maximumSize(3)
-				.expireAfterAccess(20, TimeUnit.SECONDS);
-		
-		GuavaCacheManager cacheManager = new GuavaCacheManager();
-		cacheManager.setCacheBuilder(cacheBuilder);
-		return cacheManager;
+		return new ConcurrentMapCacheManager();
 	}
 	
 	@Bean
