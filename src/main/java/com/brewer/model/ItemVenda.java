@@ -64,31 +64,27 @@ public class ItemVenda extends BaseEntity {
 		this.venda = venda;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof ItemVenda)) return false;
-		if (!super.equals(o)) return false;
-		ItemVenda itemVenda = (ItemVenda) o;
-		return Objects.equals(quantidade, itemVenda.quantidade) &&
-				Objects.equals(valorUnitario, itemVenda.valorUnitario) &&
-				Objects.equals(cerveja, itemVenda.cerveja) &&
-				Objects.equals(venda, itemVenda.venda);
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ItemVenda)) return false;
+        if (!super.equals(o)) return false;
+        ItemVenda itemVenda = (ItemVenda) o;
+        return Objects.equals(quantidade, itemVenda.quantidade) &&
+                Objects.equals(valorUnitario, itemVenda.valorUnitario);
+    }
 
-	@Override
-	public int hashCode() {
+    @Override
+    public int hashCode() {
 
-		return Objects.hash(super.hashCode(), quantidade, valorUnitario, cerveja, venda);
-	}
+        return Objects.hash(super.hashCode(), quantidade, valorUnitario);
+    }
 
-	@Override
-	public String toString() {
-		return "ItemVenda{" +
-				"quantidade=" + quantidade +
-				", valorUnitario=" + valorUnitario +
-				", cerveja=" + cerveja +
-				", venda=" + venda +
-				'}';
-	}
+    @Override
+    public String toString() {
+        return "ItemVenda{" +
+                "quantidade=" + quantidade +
+                ", valorUnitario=" + valorUnitario +
+                '}';
+    }
 }

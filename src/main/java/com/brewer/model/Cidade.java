@@ -42,21 +42,19 @@ public class Cidade extends BaseEntity implements Serializable{
 		if (!(o instanceof Cidade)) return false;
 		if (!super.equals(o)) return false;
 		Cidade cidade = (Cidade) o;
-		return Objects.equals(nome, cidade.nome) &&
-				Objects.equals(estado, cidade.estado);
+		return Objects.equals(nome, cidade.nome);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(super.hashCode(), nome, estado);
+		return Objects.hash(super.hashCode(), nome);
 	}
 
-	@Override
-	public String toString() {
-		return "Cidade{" +
-				"nome='" + nome + '\'' +
-				", estado=" + estado +
-				'}';
-	}
+    @Override
+    public String toString() {
+        return "Cidade{" +
+                "nome='" + nome + '\'' +
+                '}';
+    }
 }

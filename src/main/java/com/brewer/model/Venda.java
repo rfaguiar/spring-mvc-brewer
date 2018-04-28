@@ -204,49 +204,43 @@ public class Venda extends BaseEntity{
 				.subtract(Optional.ofNullable(valorDesconto).orElse(BigDecimal.ZERO));
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof Venda)) return false;
-		if (!super.equals(o)) return false;
-		Venda venda = (Venda) o;
-		return Objects.equals(dataCriacao, venda.dataCriacao) &&
-				Objects.equals(valorFrete, venda.valorFrete) &&
-				Objects.equals(valorDesconto, venda.valorDesconto) &&
-				Objects.equals(valorTotal, venda.valorTotal) &&
-				Objects.equals(observacao, venda.observacao) &&
-				Objects.equals(dataHoraEntrega, venda.dataHoraEntrega) &&
-				Objects.equals(cliente, venda.cliente) &&
-				Objects.equals(usuario, venda.usuario) &&
-				status == venda.status &&
-				Objects.equals(itens, venda.itens) &&
-				Objects.equals(uuid, venda.uuid) &&
-				Objects.equals(dataEntrega, venda.dataEntrega) &&
-				Objects.equals(horarioEntrega, venda.horarioEntrega);
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Venda)) return false;
+        if (!super.equals(o)) return false;
+        Venda venda = (Venda) o;
+        return Objects.equals(dataCriacao, venda.dataCriacao) &&
+                Objects.equals(valorFrete, venda.valorFrete) &&
+                Objects.equals(valorDesconto, venda.valorDesconto) &&
+                Objects.equals(valorTotal, venda.valorTotal) &&
+                Objects.equals(observacao, venda.observacao) &&
+                Objects.equals(dataHoraEntrega, venda.dataHoraEntrega) &&
+                status == venda.status &&
+                Objects.equals(uuid, venda.uuid) &&
+                Objects.equals(dataEntrega, venda.dataEntrega) &&
+                Objects.equals(horarioEntrega, venda.horarioEntrega);
+    }
 
-	@Override
-	public int hashCode() {
+    @Override
+    public int hashCode() {
 
-		return Objects.hash(super.hashCode(), dataCriacao, valorFrete, valorDesconto, valorTotal, observacao, dataHoraEntrega, cliente, usuario, status, itens, uuid, dataEntrega, horarioEntrega);
-	}
+        return Objects.hash(super.hashCode(), dataCriacao, valorFrete, valorDesconto, valorTotal, observacao, dataHoraEntrega, status, uuid, dataEntrega, horarioEntrega);
+    }
 
-	@Override
-	public String toString() {
-		return "Venda{" +
-				"dataCriacao=" + dataCriacao +
-				", valorFrete=" + valorFrete +
-				", valorDesconto=" + valorDesconto +
-				", valorTotal=" + valorTotal +
-				", observacao='" + observacao + '\'' +
-				", dataHoraEntrega=" + dataHoraEntrega +
-				", cliente=" + cliente +
-				", usuario=" + usuario +
-				", status=" + status +
-				", itens=" + itens +
-				", uuid='" + uuid + '\'' +
-				", dataEntrega=" + dataEntrega +
-				", horarioEntrega=" + horarioEntrega +
-				'}';
-	}
+    @Override
+    public String toString() {
+        return "Venda{" +
+                "dataCriacao=" + dataCriacao +
+                ", valorFrete=" + valorFrete +
+                ", valorDesconto=" + valorDesconto +
+                ", valorTotal=" + valorTotal +
+                ", observacao='" + observacao + '\'' +
+                ", dataHoraEntrega=" + dataHoraEntrega +
+                ", status=" + status +
+                ", uuid='" + uuid + '\'' +
+                ", dataEntrega=" + dataEntrega +
+                ", horarioEntrega=" + horarioEntrega +
+                '}';
+    }
 }

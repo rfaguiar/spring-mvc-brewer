@@ -38,27 +38,25 @@ public class Grupo extends BaseEntity{
 		this.permissoes = permissoes;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof Grupo)) return false;
-		if (!super.equals(o)) return false;
-		Grupo grupo = (Grupo) o;
-		return Objects.equals(nome, grupo.nome) &&
-				Objects.equals(permissoes, grupo.permissoes);
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Grupo)) return false;
+        if (!super.equals(o)) return false;
+        Grupo grupo = (Grupo) o;
+        return Objects.equals(nome, grupo.nome);
+    }
 
-	@Override
-	public int hashCode() {
+    @Override
+    public int hashCode() {
 
-		return Objects.hash(super.hashCode(), nome, permissoes);
-	}
+        return Objects.hash(super.hashCode(), nome);
+    }
 
-	@Override
-	public String toString() {
-		return "Grupo{" +
-				"nome='" + nome + '\'' +
-				", permissoes=" + permissoes +
-				'}';
-	}
+    @Override
+    public String toString() {
+        return "Grupo{" +
+                "nome='" + nome + '\'' +
+                '}';
+    }
 }

@@ -1,15 +1,11 @@
 package com.brewer.model;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Objects;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.validator.constraints.NotBlank;
+import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "estilo")
@@ -44,10 +40,10 @@ public class Estilo extends BaseEntity implements Serializable{
 		return Objects.hash(super.hashCode(), nome);
 	}
 
-	@Override
-	public String toString() {
-		return "Estilo{" +
-				"nome='" + nome + '\'' +
-				'}';
-	}
+    @Override
+    public String toString() {
+        return "Estilo{" +
+                "nome='" + nome + '\'' +
+                '}';
+    }
 }

@@ -79,15 +79,13 @@ public class Endereco implements Serializable {
 		return Objects.equals(logradouro, endereco.logradouro) &&
 				Objects.equals(numero, endereco.numero) &&
 				Objects.equals(complemento, endereco.complemento) &&
-				Objects.equals(cep, endereco.cep) &&
-				Objects.equals(cidade, endereco.cidade) &&
-				Objects.equals(estado, endereco.estado);
+				Objects.equals(cep, endereco.cep);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(logradouro, numero, complemento, cep, cidade, estado);
+		return Objects.hash(logradouro, numero, complemento, cep);
 	}
 
 	@Override
@@ -97,8 +95,6 @@ public class Endereco implements Serializable {
 				", numero='" + numero + '\'' +
 				", complemento='" + complemento + '\'' +
 				", cep='" + cep + '\'' +
-				", cidade=" + cidade +
-				", estado=" + estado +
 				'}';
 	}
 }

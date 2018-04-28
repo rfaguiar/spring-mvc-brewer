@@ -35,10 +35,10 @@ public class Permissao extends BaseEntity{
 		return Objects.hash(super.hashCode(), nome);
 	}
 
-	@Override
-	public String toString() {
-		return "Permissao{" +
-				"nome='" + nome + '\'' +
-				'}';
-	}
+    @Override
+    public String toString() {
+        return "Permissao{" +
+                "nome='" + nome + '\'' +
+                '}';
+    }
 }

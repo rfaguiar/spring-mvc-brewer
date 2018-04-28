@@ -129,25 +129,22 @@ public class Cliente extends BaseEntity implements Serializable {
 				tipoPessoa == cliente.tipoPessoa &&
 				Objects.equals(cpfOuCnpj, cliente.cpfOuCnpj) &&
 				Objects.equals(telefone, cliente.telefone) &&
-				Objects.equals(email, cliente.email) &&
-				Objects.equals(endereco, cliente.endereco);
+				Objects.equals(email, cliente.email);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(super.hashCode(), nome, tipoPessoa, cpfOuCnpj, telefone, email, endereco);
+		return Objects.hash(super.hashCode(), nome, tipoPessoa, cpfOuCnpj, telefone, email);
 	}
 
-	@Override
-	public String toString() {
-		return "Cliente{" +
-				"nome='" + nome + '\'' +
-				", tipoPessoa=" + tipoPessoa +
-				", cpfOuCnpj='" + cpfOuCnpj + '\'' +
-				", telefone='" + telefone + '\'' +
-				", email='" + email + '\'' +
-				", endereco=" + endereco +
-				'}';
-	}
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "nome='" + nome + '\'' +
+                ", cpfOuCnpj='" + cpfOuCnpj + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

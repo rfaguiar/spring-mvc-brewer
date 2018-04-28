@@ -233,9 +233,6 @@ public class Cerveja extends BaseEntity implements Serializable{
                 Objects.equals(teorAlcoolico, cerveja.teorAlcoolico) &&
                 Objects.equals(comissao, cerveja.comissao) &&
                 Objects.equals(quantidadeEstoque, cerveja.quantidadeEstoque) &&
-                origem == cerveja.origem &&
-                sabor == cerveja.sabor &&
-                Objects.equals(estilo, cerveja.estilo) &&
                 Objects.equals(foto, cerveja.foto) &&
                 Objects.equals(contentType, cerveja.contentType) &&
                 Objects.equals(urlFoto, cerveja.urlFoto) &&
@@ -245,7 +242,7 @@ public class Cerveja extends BaseEntity implements Serializable{
     @Override
     public int hashCode() {
 
-        return Objects.hash(super.hashCode(), sku, nome, descricao, valor, teorAlcoolico, comissao, quantidadeEstoque, origem, sabor, estilo, foto, contentType, novaFoto, urlFoto, urlThumbnailFoto);
+        return Objects.hash(super.hashCode(), sku, nome, descricao, valor, teorAlcoolico, comissao, quantidadeEstoque, foto, contentType, novaFoto, urlFoto, urlThumbnailFoto);
     }
 
     @Override
@@ -258,9 +255,6 @@ public class Cerveja extends BaseEntity implements Serializable{
                 ", teorAlcoolico=" + teorAlcoolico +
                 ", comissao=" + comissao +
                 ", quantidadeEstoque=" + quantidadeEstoque +
-                ", origem=" + origem +
-                ", sabor=" + sabor +
-                ", estilo=" + estilo +
                 ", foto='" + foto + '\'' +
                 ", contentType='" + contentType + '\'' +
                 ", novaFoto=" + novaFoto +

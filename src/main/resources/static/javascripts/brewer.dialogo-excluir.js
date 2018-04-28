@@ -1,4 +1,4 @@
-Brewer = Brewer || {};
+var Brewer = Brewer || {};
 
 Brewer.DialogoExcluir = (function() {
 	
