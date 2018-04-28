@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,10 +20,7 @@ public class Estilo extends BaseEntity implements Serializable{
 
 	@NotBlank(message = "Nome é obrigatorio")
 	private String nome;
-	
-	@OneToMany(mappedBy = "estilo")
-	private List<Cerveja> cervejas;
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -37,21 +35,19 @@ public class Estilo extends BaseEntity implements Serializable{
 		if (!(o instanceof Estilo)) return false;
 		if (!super.equals(o)) return false;
 		Estilo estilo = (Estilo) o;
-		return Objects.equals(nome, estilo.nome) &&
-				Objects.equals(cervejas, estilo.cervejas);
+		return Objects.equals(nome, estilo.nome);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(super.hashCode(), nome, cervejas);
+		return Objects.hash(super.hashCode(), nome);
 	}
 
 	@Override
 	public String toString() {
 		return "Estilo{" +
 				"nome='" + nome + '\'' +
-				", cervejas=" + cervejas +
 				'}';
 	}
 }
