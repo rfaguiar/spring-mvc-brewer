@@ -28,12 +28,27 @@ import java.net.URISyntaxException;
 @EnableTransactionManagement
 public class JPAConfig {
 
-	@Bean
+    private JndiDataSourceLookup jndiDataSourceLookup;
+    private BasicDataSource basicDataSource;
+    private LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean;
+
+    public JPAConfig() {
+        this(new JndiDataSourceLookup(), new BasicDataSource(), new LocalContainerEntityManagerFactoryBean());
+    }
+
+    public JPAConfig(JndiDataSourceLookup jndiDataSourceLookup,
+                     BasicDataSource basicDataSource,
+                     LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean) {
+        this.jndiDataSourceLookup = jndiDataSourceLookup;
+        this.basicDataSource = basicDataSource;
+        this.localContainerEntityManagerFactoryBean = localContainerEntityManagerFactoryBean;
+    }
+
+    @Bean
 	@Profile("local-jndi")
 	public DataSource dataSourceLocalJndi(){
-		JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
-		dataSourceLookup.setResourceRef(true);
-		return dataSourceLookup.getDataSource("jdbc/brewerDB");
+        jndiDataSourceLookup.setResourceRef(true);
+		return jndiDataSourceLookup.getDataSource("jdbc/brewerDB");
 	}
 
 	@Bean
@@ -68,14 +83,13 @@ public class JPAConfig {
 	
 	@Bean
 	public EntityManagerFactory entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter){
-		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
-		factory.setDataSource(dataSource);
-		factory.setJpaVendorAdapter(jpaVendorAdapter);
-		factory.setPackagesToScan(Cerveja.class.getPackage().getName());
-		factory.setMappingResources("sql/consultas-nativas.xml");
-		factory.afterPropertiesSet();
+		localContainerEntityManagerFactoryBean.setDataSource(dataSource);
+		localContainerEntityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter);
+		localContainerEntityManagerFactoryBean.setPackagesToScan(Cerveja.class.getPackage().getName());
+		localContainerEntityManagerFactoryBean.setMappingResources("sql/consultas-nativas.xml");
+		localContainerEntityManagerFactoryBean.afterPropertiesSet();
 		
-		return factory.getObject();
+		return localContainerEntityManagerFactoryBean.getObject();
 	}
 	
 	@Bean
@@ -86,12 +100,11 @@ public class JPAConfig {
 	}
 
 	private BasicDataSource createBasicDatasource(String jdbUrl, String username, String password) {
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setUrl(jdbUrl);
-        dataSource.setUsername(username);
-        dataSource.setPassword(password);
-        dataSource.setInitialSize(9);
-        dataSource.setMaxTotal(9);
-        return dataSource;
+        basicDataSource.setUrl(jdbUrl);
+        basicDataSource.setUsername(username);
+        basicDataSource.setPassword(password);
+        basicDataSource.setInitialSize(9);
+        basicDataSource.setMaxTotal(9);
+        return basicDataSource;
     }
 }

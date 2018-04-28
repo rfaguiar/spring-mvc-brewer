@@ -1,4 +1,4 @@
-package com.brewer.brewer.mail;
+package com.brewer.mail;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import com.brewer.brewer.storage.FotoStorage;
+import com.brewer.storage.FotoStorage;
 import com.brewer.model.Cerveja;
 import com.brewer.model.ItemVenda;
 import com.brewer.model.Venda;

@@ -40,22 +40,22 @@ Brewer.UploadFoto = (function() {
 		this.novaFoto.val('true');
 		renderizarFoto.call(this, resposta);
 	}
-	
+
 	function renderizarFoto(resposta) {
 		this.inputNomeFoto.val(resposta.nome);
 		this.inputContentType.val(resposta.contentType);
-		
+
 		this.uploadDrop.addClass('hidden');
-		
+
 		var foto = '';
 		if(this.novaFoto.val() == 'true'){
-			foto = 'temp/';
+			foto = '/';
 		}
 		foto += resposta.nome;
-		
+
 		var htmlFotoCerveja = this.template({foto: foto});
 		this.containerFotoCerveja.append(htmlFotoCerveja);
-		
+
 		$('.js-remove-foto').on('click', onRemoverFoto.bind(this));
 	}
 	

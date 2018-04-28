@@ -1,6 +1,6 @@
 package com.brewer.controller;
 
-import com.brewer.brewer.mail.Mailer;
+import com.brewer.mail.Mailer;
 import com.brewer.controller.page.PageWrapper;
 import com.brewer.controller.validator.VendaValidator;
 import com.brewer.dto.VendaMes;

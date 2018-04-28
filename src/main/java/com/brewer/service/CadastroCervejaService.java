@@ -1,17 +1,15 @@
 package com.brewer.service;
 
-import javax.persistence.PersistenceException;
-
+import com.brewer.storage.FotoStorage;
+import com.brewer.model.Cerveja;
+import com.brewer.repository.Cervejas;
+import com.brewer.service.exception.ImpossivelExcluirEntidadeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.brewer.repository.Cervejas;
-import com.brewer.service.event.cerveja.CervejaSalvaEvent;
-import com.brewer.service.exception.ImpossivelExcluirEntidadeException;
-import com.brewer.brewer.storage.FotoStorage;
-import com.brewer.model.Cerveja;
+import javax.persistence.PersistenceException;
 
 @Service
 public class CadastroCervejaService {
@@ -28,8 +26,6 @@ public class CadastroCervejaService {
 	@Transactional
 	public void salvar(Cerveja cerveja){
 		cervejas.save(cerveja);
-		
-		publisher.publishEvent(new CervejaSalvaEvent(cerveja));
 	}
 	
 	@Transactional

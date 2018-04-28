@@ -1,6 +1,6 @@
 package com.brewer.repository.filter;
 
-import com.brewer.brewer.Constantes;
+import com.brewer.Constantes;
 import com.brewer.model.StatusVenda;
 import com.brewer.model.TipoPessoa;
 import org.hibernate.Criteria;

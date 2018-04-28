@@ -7,14 +7,16 @@
     > mvn clean package -Plocal  
     > mvn clean package -Pprod  
 * webrunner  
-    > java $JAVA_OPTS -Dspring.profiles.active=prod -jar target/dependency/webappp-runner.jar target/brewer.war --contex-xml target/brewer/META-INF/context.xml  
+    > java $JAVA_OPTS -Dspring.profiles.active=prod -jar target/dependency/webapp-runner.jar target/brewer.war --contex-xml target/brewer/META-INF/context.xml
 * serviço para envio de email  
     > https://sendgrid.com/  
 * variaveis de ambiente de producao  
     > JAWSDB_URL  
     > SEND_GRID_PASSWORD  
-    > AWS_ACESS_KEY_ID  
-    > AWS_SECRET_KEY_ID  
+    > BUCKET_NAME
+    > AWS_ACESS_KEY_ID
+    > AWS_SECRET_KEY_ID
+
 * flyway-migrações do bd  
     > mvn -Dflyway.user=root -Dflyway.password=root -Dflyway.url=jdbc:mysql://localhost:3306/brewer?useSSL=false flyway:migrate  
 

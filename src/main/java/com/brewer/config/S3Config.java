@@ -3,6 +3,7 @@ package com.brewer.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
@@ -22,6 +23,7 @@ public class S3Config {
 	private Environment env;
 	
 	@Bean
+	@Profile("prod")
 	public AmazonS3 amazonS3(){
 		AWSCredentials credenciais = new BasicAWSCredentials(env.getProperty("AWS_ACESS_KEY_ID"), env.getProperty("AWS_SECRET_KEY_ID"));
 		AmazonS3 amazonS3 = new AmazonS3Client(credenciais, new ClientConfiguration());

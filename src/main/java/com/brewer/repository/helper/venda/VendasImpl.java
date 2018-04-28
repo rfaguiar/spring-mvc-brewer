@@ -1,6 +1,6 @@
 package com.brewer.repository.helper.venda;
 
-import com.brewer.brewer.Constantes;
+import com.brewer.Constantes;
 import com.brewer.dto.VendaMes;
 import com.brewer.dto.VendaOrigem;
 import com.brewer.model.StatusVenda;
