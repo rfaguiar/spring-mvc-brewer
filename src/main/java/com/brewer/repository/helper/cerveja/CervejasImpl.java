@@ -1,10 +1,12 @@
 package com.brewer.repository.helper.cerveja;
 
+import com.brewer.Constantes;
 import com.brewer.dto.CervejaDTO;
 import com.brewer.dto.ValorItensEstoque;
 import com.brewer.model.Cerveja;
 import com.brewer.repository.filter.CervejaFilter;
 import com.brewer.repository.paginacao.PaginacaoUtil;
+import com.brewer.storage.FotoStorage;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
@@ -27,6 +29,8 @@ public class CervejasImpl implements CervejasQueries{
 	private EntityManager manager;
 	@Autowired
 	private PaginacaoUtil paginacaoUtil;
+    @Autowired
+    private FotoStorage fotoStorage;
 	
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
@@ -90,10 +94,13 @@ public class CervejasImpl implements CervejasQueries{
 		
 		String jpql = "select new com.brewer.dto.CervejaDTO(codigo, sku, nome, origem, valor, foto) "
 				+ "from Cerveja where lower(sku) like :skuOuNome or lower(nome) like :skuOuNome";
-		return manager.createQuery(jpql, CervejaDTO.class)
+        List<CervejaDTO> cervejasFiltradas = manager.createQuery(jpql, CervejaDTO.class)
 				.setParameter("skuOuNome", skuOuNome.toLowerCase() + "%")
 				.getResultList();
-	}
+        cervejasFiltradas.forEach(c -> c.setUrlThumbnailFoto(fotoStorage.getUrl(Constantes.THUMBNAIL_PREFIX + c.getFoto())));
+        return cervejasFiltradas;
+
+    }
 	
 	@Override
 	public ValorItensEstoque valorItensEstoque() {
