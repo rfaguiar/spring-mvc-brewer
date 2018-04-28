@@ -13,6 +13,7 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
+import org.springframework.cache.jcache.JCacheCacheManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.MessageSource;
@@ -42,7 +43,9 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
+import javax.cache.Caching;
 import java.math.BigDecimal;
+import java.net.URISyntaxException;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
@@ -128,8 +131,10 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
 	}
 	
 	@Bean
-	public CacheManager cacheManager(){
-		return new ConcurrentMapCacheManager();
+	public CacheManager cacheManager() throws URISyntaxException {
+		return new JCacheCacheManager(Caching.getCachingProvider().getCacheManager(
+				getClass().getResource("/cache/ehcache.xml").toURI(),
+				getClass().getClassLoader()));
 	}
 	
 	@Bean

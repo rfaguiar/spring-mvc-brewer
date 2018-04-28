@@ -75,6 +75,12 @@
 
         <!-- Apache Commons DBCP -->
         <commons-dbcp2.version>2.1.1</commons-dbcp2.version>
+
+        <!-- EhCache -->
+        <ehcache.version>3.4.0</ehcache.version>
+
+        <!-- JCache -->
+        <jcache.version>1.0.0</jcache.version>
 	</properties>
 
 	<build>
@@ -414,7 +420,19 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- EhCache -->
+        <dependency>
+            <groupId>org.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>${ehcache.version}</version>
+        </dependency>
 
+        <!-- JCache -->
+        <dependency>
+            <groupId>javax.cache</groupId>
+            <artifactId>cache-api</artifactId>
+            <version>${jcache.version}</version>
+        </dependency>
     </dependencies>
 	
 </project>
