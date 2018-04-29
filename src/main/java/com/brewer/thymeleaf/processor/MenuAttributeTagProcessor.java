@@ -2,6 +2,7 @@ package com.brewer.thymeleaf.processor;
 
 import org.thymeleaf.IEngineConfiguration;
 import org.thymeleaf.context.ITemplateContext;
+import org.thymeleaf.context.IWebContext;
 import org.thymeleaf.engine.AttributeName;
 import org.thymeleaf.model.IProcessableElementTag;
 import org.thymeleaf.processor.element.AbstractAttributeTagProcessor;
@@ -10,6 +11,8 @@ import org.thymeleaf.standard.expression.IStandardExpression;
 import org.thymeleaf.standard.expression.IStandardExpressionParser;
 import org.thymeleaf.standard.expression.StandardExpressions;
 import org.thymeleaf.templatemode.TemplateMode;
+
+import javax.servlet.http.HttpServletRequest;
 
 public class MenuAttributeTagProcessor extends AbstractAttributeTagProcessor {
 
@@ -30,8 +33,10 @@ public class MenuAttributeTagProcessor extends AbstractAttributeTagProcessor {
 		IStandardExpression expression = parser.parseExpression(context, attributeValue);
 		
 		String menu = (String) expression.execute(context);
+		HttpServletRequest request = ((IWebContext) context).getRequest();
+		String uri = request.getRequestURI();
 
-		if(menu.matches(menu)){
+		if(uri.matches(menu)){
 			String classesExistentes = tag.getAttributeValue("class");
 			structureHandler.setAttribute("class", classesExistentes + " is-active");
 		}

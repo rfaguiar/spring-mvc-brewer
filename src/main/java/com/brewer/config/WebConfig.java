@@ -72,6 +72,7 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
 		ThymeleafViewResolver resolver = new ThymeleafViewResolver();
 		resolver.setTemplateEngine(templateEngine());
 		resolver.setCharacterEncoding(UTF_8);
+		resolver.setOrder(1);
 		return resolver;
 	}
 
@@ -92,7 +93,6 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
 		resolver.setApplicationContext(applicationContext);
 		resolver.setPrefix("classpath:/templates/");
 		resolver.setSuffix(".html");
-		resolver.setCharacterEncoding(UTF_8);
 		resolver.setTemplateMode(TemplateMode.HTML);
 		return resolver;
 	}

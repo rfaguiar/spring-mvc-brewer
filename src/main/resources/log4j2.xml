@@ -10,7 +10,7 @@
 	<Loggers>
 		<logger name="com.brewer" level="debug"/>
 	
-		<Logger name="com.brewer.controller" level="error"/>
+		<Logger name="com.brewer.controller" level="debug"/>
 	
 		<logger name="org.hibernate.SQL" level="debug"/>
 		
