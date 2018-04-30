@@ -1,18 +1,17 @@
 package com.brewer.controller.page;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
 public class PageWrapper<T> {
 
-	private Page<T> page;
-	private UriComponentsBuilder uriBuilder;
+	private final Page<T> page;
+	private final UriComponentsBuilder uriBuilder;
 
 	public PageWrapper(Page<T> page, HttpServletRequest httpServletRequest) {
 		super();
@@ -57,7 +56,7 @@ public class PageWrapper<T> {
 		return uriBuilderOrder.replaceQueryParam("sort", valorSort).build(true).encode().toUriString();
 	}
 	
-	public String inverterDirecao(String propriedade){
+	private String inverterDirecao(String propriedade){
 		String direcao = "asc";		
 		Order order = page.getSort() != null ? page.getSort().getOrderFor(propriedade) : null;	
 		if(order != null){
@@ -77,6 +76,6 @@ public class PageWrapper<T> {
 			return false;
 		}
 		
-		return page.getSort().getOrderFor(propriedade) != null ? true : false;
+		return page.getSort().getOrderFor(propriedade) != null;
 	}
 }
