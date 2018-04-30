@@ -26,21 +26,22 @@ public class MailConfig {
 	@Bean
 	@Profile("local")
 	public JavaMailSender mailSenderLocal(){
-        return createJavaMailSender("email.username", "password");
+        return createJavaMailSender(env.getProperty("email.username"), env.getProperty("email.password"));
 	}
 
 	@Bean
 	@Profile("prod")
 	public JavaMailSender mailSenderProducao(){
-		return createJavaMailSender("email.username", "SEND_GRID_PASSWORD");
+		return createJavaMailSender(System.getenv("SEND_GRID_USERNAME"),
+                System.getenv("SEND_GRID_PASSWORD"));
 	}
 
 	private JavaMailSenderImpl createJavaMailSender(String username, String password) {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.sendgrid.net");
         mailSender.setPort(587);
-        mailSender.setUsername(env.getProperty(username));
-        mailSender.setPassword(env.getProperty(password));
+        mailSender.setUsername(username);
+        mailSender.setPassword(password);
 
         Properties props = new Properties();
         props.put("mail.transport.protocol", "smtp");

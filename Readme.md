@@ -11,7 +11,8 @@
 * serviço para envio de email  
     > https://sendgrid.com/  
 * variaveis de ambiente de producao  
-    > JAWSDB_URL  
+    > JAWSDB_URL
+    > SEND_GRID_USERNAME
     > SEND_GRID_PASSWORD  
     > BUCKET_NAME  
     > AWS_ACESS_KEY_ID  
