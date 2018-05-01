@@ -1,5 +1,6 @@
 package com.brewer.controller;
 
+import com.brewer.Constantes;
 import com.brewer.controller.page.PageWrapper;
 import com.brewer.dto.CervejaDTO;
 import com.brewer.model.Cerveja;
@@ -30,52 +31,53 @@ import java.util.List;
 @RequestMapping("/cervejas")
 public class CervejasController {
 
-	@Autowired
 	private CadastroCervejaService cadastroCervejaService;
-	
+	private Estilos estilosRepo;
+	private Cervejas cervejasRepo;
+
 	@Autowired
-	private Estilos estilos;
-	
-	@Autowired
-	private Cervejas cervejas;
+	public CervejasController(CadastroCervejaService cadastroCervejaService, Estilos estilos, Cervejas cervejas) {
+		this.cadastroCervejaService = cadastroCervejaService;
+		this.estilosRepo = estilos;
+		this.cervejasRepo = cervejas;
+	}
 
 	@RequestMapping("/novo")
 	public ModelAndView novo(Cerveja cerveja) {
-		ModelAndView mv = new ModelAndView("cerveja/CadastroCerveja");
-		mv.addObject("sabores", Sabor.values());
-		mv.addObject("estilos", estilos.findAll());
-		mv.addObject("origens", Origem.values());
+		ModelAndView mv = new ModelAndView(Constantes.CADASTRO_CERVEJA_VIEW);
+		mv.addObject(Constantes.SABORES, Sabor.values());
+		mv.addObject(Constantes.ESTILOS, estilosRepo.findAll());
+		mv.addObject(Constantes.ORIGENS, Origem.values());
 		return mv;
 	}
 	
 	@RequestMapping(value = {"/novo", "{\\d+}"}, method = RequestMethod.POST)
-	public ModelAndView salvar(@Valid Cerveja cerveja, BindingResult result, Model model, RedirectAttributes attributes){
+	public ModelAndView salvar(@Valid Cerveja cerveja, BindingResult result, RedirectAttributes attributes){
 		if(result.hasErrors()){
 			return novo(cerveja);
 		}
 		
 		cadastroCervejaService.salvar(cerveja);
 		
-		attributes.addFlashAttribute("mensagem", "Cerveja salva com sucesso");
-		return new ModelAndView("redirect:/cervejas/novo");
+		attributes.addFlashAttribute(Constantes.MENSAGEM_VIEW, "Cerveja salva com sucesso");
+		return new ModelAndView(Constantes.REDIRECT_CERVEJAS_NOVO_VIEW);
 	}
 	
 	@GetMapping
-	public ModelAndView pesquisar(CervejaFilter cervejaFilter, BindingResult result, @PageableDefault(size = 2) Pageable pageable, HttpServletRequest httpServletRequest){
-		ModelAndView mv = new ModelAndView("cerveja/PesquisaCervejas");
-		mv.addObject("sabores", Sabor.values());
-		mv.addObject("estilos", estilos.findAll());
-		mv.addObject("origens", Origem.values());
+	public ModelAndView pesquisar(CervejaFilter cervejaFilter, @PageableDefault(size = 2) Pageable pageable, HttpServletRequest httpServletRequest){
+		ModelAndView mv = new ModelAndView(Constantes.PESQUISA_CERVEJA_VIEW);
+		mv.addObject(Constantes.SABORES, Sabor.values());
+		mv.addObject(Constantes.ESTILOS, estilosRepo.findAll());
+		mv.addObject(Constantes.ORIGENS, Origem.values());
 		
-		
-		PageWrapper<Cerveja> paginaWrapper = new PageWrapper<>(cervejas.filtrar(cervejaFilter, pageable), httpServletRequest);
-		mv.addObject("pagina", paginaWrapper);
+		PageWrapper<Cerveja> paginaWrapper = new PageWrapper<>(cervejasRepo.filtrar(cervejaFilter, pageable), httpServletRequest);
+		mv.addObject(Constantes.PAGINADOR_VIEW, paginaWrapper);
 		return mv;
 	}
 	
 	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<CervejaDTO> pesquisar(String skuOuNome){
-		return cervejas.porSkuOuNome(skuOuNome);
+		return cervejasRepo.porSkuOuNome(skuOuNome);
 	}
 	
 	@DeleteMapping("/{codigo}")

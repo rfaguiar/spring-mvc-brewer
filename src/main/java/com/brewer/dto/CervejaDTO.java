@@ -15,6 +15,8 @@ public class CervejaDTO {
 	private BigDecimal valor;
 	private String foto;
 	private String urlThumbnailFoto;
+
+	public CervejaDTO() {};
 	
 	public CervejaDTO(Long codigo, String sku, String nome, Origem origem, BigDecimal valor, String foto) {
 		this.codigo = codigo;
