@@ -50,6 +50,9 @@ public class FotoStorageS3Test {
     @Mock
     private DeleteObjectsResult mockDeleteObj;
 
+    @Mock
+    private Logger mockLogger;
+
     @Before
     public void metodoIniciandoCenariosDeTeste() {
         MockitoAnnotations.initMocks(this);
@@ -58,6 +61,7 @@ public class FotoStorageS3Test {
         PowerMockito.mockStatic(LoggerFactory.class);
         PowerMockito.mockStatic(IOUtils.class);
         PowerMockito.mockStatic(System.class);
+        Mockito.when(LoggerFactory.getLogger(FotoStorageS3.class)).thenReturn(mockLogger);
         this.storage = new FotoStorageS3("bucketTeste", mockAmazonS3);
 
     }
