@@ -92,7 +92,6 @@ public class FotoStorageLocal implements FotoStorage {
         try {
             Files.createDirectories(this.path);
             logger.debug("Pastas criadas para salvar fotos.");
-            logger.debug(String.format("Pasta default: %s", this.path.toAbsolutePath()));
         } catch (IOException e) {
             throw new FotoStorageException("Erro criando pasta para salvar foto", e);
         }
