@@ -1,9 +1,8 @@
 package com.brewer.storage;
 
+import com.brewer.dto.FotoDTO;
 import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.brewer.dto.FotoDTO;
 
 public class FotoStorageRunnable implements Runnable {
 

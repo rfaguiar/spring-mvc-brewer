@@ -6,7 +6,6 @@ import com.amazonaws.services.s3.model.DeleteObjectsResult;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.util.IOUtils;
-import com.brewer.Constantes;
 import com.brewer.storage.exception.FotoStorageException;
 import net.coobird.thumbnailator.Thumbnails;
 import org.junit.Before;

@@ -1,6 +1,7 @@
 package com.brewer.storage;
 
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.UUID;
 
 public interface FotoStorage {
@@ -11,7 +12,7 @@ public interface FotoStorage {
 
 	public byte[] recuperarThumbnail(String fotoCerveja);
 
-	public void excluir(String foto);
+	public boolean excluir(String foto);
 
 	public String getUrl(String foto);
 
