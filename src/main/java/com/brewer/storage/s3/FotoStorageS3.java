@@ -88,6 +88,7 @@ public class FotoStorageS3 implements FotoStorage {
 
     @Override
     public void excluir(String foto) {
+        logger.debug(foto);
         if (!StringUtils.isEmpty(foto)) {
             amazonS3.deleteObjects(new DeleteObjectsRequest(bucketName).withKeys(foto, Constantes.THUMBNAIL_PREFIX + foto));
         }
