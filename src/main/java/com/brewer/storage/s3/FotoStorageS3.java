@@ -28,16 +28,27 @@ public class FotoStorageS3 implements FotoStorage {
 
     private String bucketName;
 
+    private AmazonS3 amazonS3;
+
     public FotoStorageS3() {
-        this.bucketName = System.getenv(Constantes.BUCKET_NAME);
+        this(System.getenv(Constantes.BUCKET_NAME));
     }
 
     public FotoStorageS3(String bucketName) {
         this.bucketName = bucketName;
     }
 
+    public FotoStorageS3(String bucketName, AmazonS3 amazonS3) {
+        this.bucketName = bucketName;
+        this.amazonS3 = amazonS3;
+    }
+
     @Autowired
-    private AmazonS3 amazonS3;
+    public FotoStorageS3(AmazonS3 amazonS3) {
+        this();
+        this.amazonS3 = amazonS3;
+    }
+
 
     @Override
     public String salvar(MultipartFile[] files) {
@@ -66,9 +77,8 @@ public class FotoStorageS3 implements FotoStorage {
         try {
             return IOUtils.toByteArray(is);
         } catch (IOException e) {
-            logger.error("Não conseguiu recuperar foto do S3", e);
+            throw new FotoStorageException("Não conseguiu recuperar foto do S3", e);
         }
-        return new byte[]{};
     }
 
     @Override
@@ -78,7 +88,6 @@ public class FotoStorageS3 implements FotoStorage {
 
     @Override
     public void excluir(String foto) {
-        logger.debug(foto);
         if (!StringUtils.isEmpty(foto)) {
             amazonS3.deleteObjects(new DeleteObjectsRequest(bucketName).withKeys(foto, Constantes.THUMBNAIL_PREFIX + foto));
         }
