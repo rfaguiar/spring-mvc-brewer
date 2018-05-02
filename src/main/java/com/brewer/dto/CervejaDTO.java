@@ -1,10 +1,9 @@
 package com.brewer.dto;
 
-import java.math.BigDecimal;
-
+import com.brewer.model.Origem;
 import org.springframework.util.StringUtils;
 
-import com.brewer.model.Origem;
+import java.math.BigDecimal;
 
 public class CervejaDTO {
 
@@ -16,7 +15,7 @@ public class CervejaDTO {
 	private String foto;
 	private String urlThumbnailFoto;
 
-	public CervejaDTO() {};
+	public CervejaDTO() {}
 	
 	public CervejaDTO(Long codigo, String sku, String nome, Origem origem, BigDecimal valor, String foto) {
 		this.codigo = codigo;
