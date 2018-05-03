@@ -1,5 +1,6 @@
 package com.brewer.controller;
 
+import com.brewer.Constantes;
 import com.brewer.controller.page.PageWrapper;
 import com.brewer.controller.validator.VendaValidator;
 import com.brewer.dto.VendaMes;
@@ -35,37 +36,34 @@ import java.util.UUID;
 public class VendasController {
 
     private static final Logger logger = LoggerFactory.getLogger(VendasController.class);
-    private static final String MENSAGEM = "mensagem";
-    private static final String REDIRECT_VENDAS_NOVA = "redirect:/vendas/nova";
 
-    @Autowired
-	private Cervejas cervejas;
-	
-	@Autowired
+	private Cervejas cervejasRepo;
 	private TabelasItensSession tabelaItens;
-	
-	@Autowired
 	private CadastroVendaService cadastroVendaService;
-	
-	@Autowired
 	private VendaValidator vendaValidator;
-	
-	@Autowired
-	private Vendas vendas;
-	
-	@Autowired
+	private Vendas vendasRepo;
 	private Mailer mailer;
+
+	@Autowired
+	public VendasController(Cervejas cervejasRepo, TabelasItensSession tabelaItens, CadastroVendaService cadastroVendaService, VendaValidator vendaValidator, Vendas vendasRepo, Mailer mailer) {
+		this.cervejasRepo = cervejasRepo;
+		this.tabelaItens = tabelaItens;
+		this.cadastroVendaService = cadastroVendaService;
+		this.vendaValidator = vendaValidator;
+		this.vendasRepo = vendasRepo;
+		this.mailer = mailer;
+	}
 
 	@GetMapping("/nova")
 	public ModelAndView nova(Venda venda) {
-		ModelAndView mv = new ModelAndView("venda/CadastroVenda");
+		ModelAndView mv = new ModelAndView(Constantes.CADASTRO_VENDA_VIEW);
 		
 		setUuid(venda);
 		
-		mv.addObject("itens", venda.getItens());
-		mv.addObject("valorFrete", venda.getValorFrete());
-		mv.addObject("valorDesconto", venda.getValorDesconto());
-		mv.addObject("valorTotalItens", tabelaItens.getValorTotal(venda.getUuid()));
+		mv.addObject(Constantes.ITENS, venda.getItens());
+		mv.addObject(Constantes.VALOR_FRETE, venda.getValorFrete());
+		mv.addObject(Constantes.VALOR_DESCONTO, venda.getValorDesconto());
+		mv.addObject(Constantes.VALOR_TOTAL_ITENS, tabelaItens.getValorTotal(venda.getUuid()));
 		
 		return mv;
 	}
@@ -80,8 +78,8 @@ public class VendasController {
 		venda.setUsuario(usuarioSistema.getUsuario());
 		
 		cadastroVendaService.salvar(venda);
-		attributes.addFlashAttribute(MENSAGEM, "Venda salva com sucesso");
-		return new ModelAndView(REDIRECT_VENDAS_NOVA);
+		attributes.addFlashAttribute(Constantes.MENSAGEM_VIEW, "Venda salva com sucesso");
+		return new ModelAndView(Constantes.REDIRECT_VENDAS_NOVA_VIEW);
 	}
 
 	@PostMapping(value = "/nova", params = "emitir")
@@ -94,8 +92,8 @@ public class VendasController {
 		venda.setUsuario(usuarioSistema.getUsuario());
 		
 		cadastroVendaService.emitir(venda);
-		attributes.addFlashAttribute(MENSAGEM, "Venda emitida com sucesso");
-		return new ModelAndView(REDIRECT_VENDAS_NOVA);
+		attributes.addFlashAttribute(Constantes.MENSAGEM_VIEW, "Venda emitida com sucesso");
+		return new ModelAndView(Constantes.REDIRECT_VENDAS_NOVA_VIEW);
 	}
 	
 	@PostMapping(value = "/nova", params = "enviarEmail")
@@ -112,13 +110,13 @@ public class VendasController {
 		mailer.enviar(venda);
         logger.debug("####### Logo depois da chama do metodo enviar.");
 		
-		attributes.addFlashAttribute(MENSAGEM, String.format("Venda n° %d salva e e-mail enviado", venda.getCodigo()));
-		return new ModelAndView(REDIRECT_VENDAS_NOVA);
+		attributes.addFlashAttribute(Constantes.MENSAGEM_VIEW, String.format("Venda n° %d salva e e-mail enviado", venda.getCodigo()));
+		return new ModelAndView(Constantes.REDIRECT_VENDAS_NOVA_VIEW);
 	}
 	
 	@PostMapping("/item")
 	public ModelAndView adicionarItem(Long codigoCerveja, String uuid) {
-		Cerveja cerveja = cervejas.findOne(codigoCerveja);
+		Cerveja cerveja = cervejasRepo.findOne(codigoCerveja);
 		tabelaItens.adicionarItem(uuid, cerveja, 1);
 		return mvTabelaItensVenda(uuid);
 	}
@@ -140,19 +138,19 @@ public class VendasController {
 	@GetMapping
 	public ModelAndView pesquisar(VendaFilter vendaFilter,
 			@PageableDefault(size = 3) Pageable pageable, HttpServletRequest httpServletRequest) {
-		ModelAndView mv = new ModelAndView("venda/PesquisaVendas");
-		mv.addObject("todosStatus", StatusVenda.values());
-		mv.addObject("tiposPessoa", TipoPessoa.values());
+		ModelAndView mv = new ModelAndView(Constantes.PESQUISA_VENDAS_VIEW);
+		mv.addObject(Constantes.TODOS_STATUS, StatusVenda.values());
+		mv.addObject(Constantes.TIPOS_PESOA, TipoPessoa.values());
 		
-		PageWrapper<Venda> paginaWrapper = new PageWrapper<>(vendas.filtrar(vendaFilter, pageable)
+		PageWrapper<Venda> paginaWrapper = new PageWrapper<>(vendasRepo.filtrar(vendaFilter, pageable)
 				, httpServletRequest);
-		mv.addObject("pagina", paginaWrapper);
+		mv.addObject(Constantes.PAGINA_WRAPPER, paginaWrapper);
 		return mv;
 	}
 	
 	@GetMapping("/{codigo}")
 	public ModelAndView editar(@PathVariable Long codigo){
-		Venda venda = vendas.buscarComItens(codigo);
+		Venda venda = vendasRepo.buscarComItens(codigo);
 		
 		setUuid(venda);
 		for (ItemVenda item : venda.getItens()) {
@@ -173,17 +171,17 @@ public class VendasController {
 		}
 		
 		attributes.addFlashAttribute("mensgaem", "Venda cancelada com sucesso");
-		return new ModelAndView("redirect:/vendas/" + venda.getCodigo());
+		return new ModelAndView(Constantes.REDIRECT_VENDAS_VIEW + venda.getCodigo());
 	}
 	
 	@GetMapping("/totalPorMes")
 	public @ResponseBody List<VendaMes> listarTotalTotalVendaPorMes(){
-		return vendas.totalPorMes();
+		return vendasRepo.totalPorMes();
 	}
 	
 	@GetMapping("/porOrigem")
 	public @ResponseBody List<VendaOrigem> vendasPorNacionalidade() {
-		return this.vendas.totalPorOrigem();
+		return this.vendasRepo.totalPorOrigem();
 	}
 	
 	private void setUuid(Venda venda) {
@@ -193,9 +191,9 @@ public class VendasController {
 	}
 
 	private ModelAndView mvTabelaItensVenda(String uuid) {
-		ModelAndView mv = new ModelAndView("venda/TabelaItensVenda");
-		mv.addObject("itens", tabelaItens.getItens(uuid));
-		mv.addObject("valorTotal", tabelaItens.getValorTotal(uuid));
+		ModelAndView mv = new ModelAndView(Constantes.TABELA_ITENS_VENDA_VIEW);
+		mv.addObject(Constantes.ITENS, tabelaItens.getItens(uuid));
+		mv.addObject(Constantes.VALOR_TOTAL, tabelaItens.getValorTotal(uuid));
 		return mv;
 	}
 	
