@@ -2,14 +2,11 @@ package com.brewer;
 
 public abstract class Constantes {
 
-
-
     private Constantes() {}
 
     public static final String STATUS = "status";
     public static final String THUMBNAIL_PREFIX = "thumbnail.";
     public static final String BUCKET_NAME = "BUCKET_NAME";
-
     public static final String PESQUISA_CERVEJA_VIEW = "cerveja/PesquisaCervejas";
     public static final String CADASTRO_CERVEJA_VIEW = "cerveja/CadastroCerveja";
     public static final String SABORES = "sabores";
@@ -31,4 +28,10 @@ public abstract class Constantes {
     public static final String VALOR_TOTAL = "valorTotal";
     public static final String REDIRECT_VENDAS_NOVA_VIEW = "redirect:/vendas/nova";
     public static final String REDIRECT_VENDAS_VIEW = "redirect:/vendas/";
+    public static final String CADASTRO_USUARIO_VIEW = "usuario/CadastroUsuario";
+    public static final String GRUPOS = "grupos";
+    public static final String EMAIL = "email";
+    public static final String SENHA = "senha";
+    public static final String USUARIO_NOVO_VIEW = "redirect:/usuarios/novo";
+    public static final String PESQUISA_USUARIOS_VIEW = "usuario/PesquisaUsuarios";
 }

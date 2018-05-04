@@ -1,5 +1,6 @@
 package com.brewer.controller;
 
+import com.brewer.Constantes;
 import com.brewer.controller.page.PageWrapper;
 import com.brewer.model.Usuario;
 import com.brewer.repository.Grupos;
@@ -25,20 +26,22 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/usuarios")
 public class UsuariosController {
-	
-	@Autowired
-	private CadastroUsuarioService cadastroUsuarioService;
 
-	@Autowired
-	private Grupos grupos;
-	
-	@Autowired
-	private Usuarios usuarios;
-	
-	@RequestMapping("/novo")
+	private CadastroUsuarioService cadastroUsuarioService;
+	private Grupos gruposRepo;
+	private Usuarios usuariosRepo;
+
+    @Autowired
+    public UsuariosController(CadastroUsuarioService cadastroUsuarioService, Grupos gruposRepo, Usuarios usuariosRepo) {
+        this.cadastroUsuarioService = cadastroUsuarioService;
+        this.gruposRepo = gruposRepo;
+        this.usuariosRepo = usuariosRepo;
+    }
+
+    @RequestMapping("/novo")
 	public ModelAndView novo(Usuario usuario) {
-		ModelAndView mv = new ModelAndView("usuario/CadastroUsuario");
-		mv.addObject("grupos", grupos.findAll());
+		ModelAndView mv = new ModelAndView(Constantes.CADASTRO_USUARIO_VIEW);
+		mv.addObject(Constantes.GRUPOS, gruposRepo.findAll());
 		return mv;
 	}
 	
@@ -51,24 +54,24 @@ public class UsuariosController {
 		try {
 			cadastroUsuarioService.salvar(usuario);
 		} catch (EmailUsuarioJaCadastradoException e) {
-			result.rejectValue("email", e.getMessage(), e.getMessage());
+			result.rejectValue(Constantes.EMAIL, e.getMessage(), e.getMessage());
 			return novo(usuario);
 		} catch (SenhaObrigatoriaUsuarioException e) {
-			result.rejectValue("senha", e.getMessage(), e.getMessage());
+			result.rejectValue(Constantes.SENHA, e.getMessage(), e.getMessage());
 			return novo(usuario);
 		}
 		
-		attributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso");
-		return new ModelAndView("redirect:/usuarios/novo");
+		attributes.addFlashAttribute(Constantes.MENSAGEM_VIEW, "Usuário salvo com sucesso");
+		return new ModelAndView(Constantes.USUARIO_NOVO_VIEW);
 	}
 	
 	@GetMapping
 	public ModelAndView pesquisar(UsuarioFilter usuarioFilter, @PageableDefault(size = 3) Pageable pageable, HttpServletRequest httpServletRequest) {
-		ModelAndView mv = new ModelAndView("usuario/PesquisaUsuarios");
-		mv.addObject("grupos", grupos.findAll());
+		ModelAndView mv = new ModelAndView(Constantes.PESQUISA_USUARIOS_VIEW);
+		mv.addObject(Constantes.GRUPOS, gruposRepo.findAll());
 		
-		PageWrapper<Usuario> paginaWrapper = new PageWrapper<>(usuarios.filtrar(usuarioFilter, pageable), httpServletRequest);
-		mv.addObject("pagina", paginaWrapper);
+		PageWrapper<Usuario> paginaWrapper = new PageWrapper<>(usuariosRepo.filtrar(usuarioFilter, pageable), httpServletRequest);
+		mv.addObject(Constantes.PAGINADOR_VIEW, paginaWrapper);
 		
 		return mv;
 	}
@@ -81,7 +84,7 @@ public class UsuariosController {
 	
 	@GetMapping("/{codigo}")
 	public ModelAndView editar(@PathVariable Long codigo){
-		Usuario usuario = usuarios.buscarComGrupos(codigo);
+		Usuario usuario = usuariosRepo.buscarComGrupos(codigo);
 		ModelAndView mv = novo(usuario);
 		mv.addObject(usuario);
 		return mv;

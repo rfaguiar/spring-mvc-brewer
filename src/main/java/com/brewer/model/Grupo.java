@@ -55,7 +55,7 @@ public class Grupo extends BaseEntity{
 
     @Override
     public String toString() {
-        return "Grupo{" +
+        return "GRUPOS{" +
                 "nome='" + nome + '\'' +
                 '}';
     }

@@ -4,6 +4,7 @@ import com.brewer.model.Grupo;
 import com.brewer.model.Usuario;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public final class UsuarioBuilder {
@@ -28,6 +29,12 @@ public final class UsuarioBuilder {
                 .grupos(GrupoBuilder.criarListaGrupos())
                 .dataNascimento(LocalDate.now())
                 .build();
+    }
+
+    public static List<Usuario> criarListaUsuarios() {
+        List<Usuario> lista = new ArrayList<>();
+        lista.add(UsuarioBuilder.criarUsuario());
+        return lista;
     }
 
     public UsuarioBuilder codigo(Long codigo) {
