@@ -1,5 +1,7 @@
 package com.brewer.controller;
 
+import com.brewer.Constantes;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -11,13 +13,13 @@ public class SegurancaController {
 	@GetMapping("/login")
 	public String login(@AuthenticationPrincipal User user){
 		if(user != null){
-			return "redirect:/cervejas";
+			return Constantes.REDIRECT_CRVEJAS_VIEW;
 		}
-		return "Login";
+		return Constantes.LOGIN_VIEW;
 	}
 	
 	@GetMapping("/403")
 	public String acessoNegado(){
-		return "403";
+		return HttpStatus.UNAUTHORIZED.toString();
 	}
 }

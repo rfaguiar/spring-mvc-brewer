@@ -51,4 +51,6 @@ public abstract class Constantes {
     public static final String TICKET_MEDIO = "ticketMedio";
     public static final String VALOR_ITENS_ESTOQUE = "valorItensEstoque";
     public static final String TOTAL_CLIENTES = "totalClientes";
+    public static final String REDIRECT_CRVEJAS_VIEW = "redirect:/cervejas";
+    public static final String LOGIN_VIEW = "Login";
 }
