@@ -29,7 +29,7 @@ public class EstilosImpl implements EstilosQueries {
 	
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
-	public Page<Estilos> filtrar(EstiloFilter filtro, Pageable pageable){
+	public Page<Estilo> filtrar(EstiloFilter filtro, Pageable pageable){
 		
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Estilo.class);
 		

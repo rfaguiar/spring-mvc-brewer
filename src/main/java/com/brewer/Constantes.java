@@ -42,4 +42,7 @@ public abstract class Constantes {
     public static final String NOME = "nome";
     public static final String REDIRECT_CIDADES_NOVO = "redirect:/cidades/novo";
     public static final String PESQUISA_CIDADE_VIEW = "cidade/PesquisaCidades";
+    public static final String CADASTRO_ESTILO_VIEW = "estilo/CadastroEstilo";
+    public static final String REDIRECT_ESTILOS_NOVO_VIEW = "redirect:/estilos/novo";
+    public static final String PESQUISA_ESTILOS_VIEW = "estilo/PesquisaEstilos";
 }
