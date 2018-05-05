@@ -299,7 +299,7 @@ public class VendasControllerTest {
         ModelAndView result = controller.pesquisar(mockVendFilter, mockPegeable, mockHttpRequest);
 
         StatusVenda[] statusVendasResult = (StatusVenda[]) result.getModel().get(Constantes.TODOS_STATUS);
-        TipoPessoa[] tipoPessoasResult = (TipoPessoa[]) result.getModel().get(Constantes.TIPOS_PESOA);
+        TipoPessoa[] tipoPessoasResult = (TipoPessoa[]) result.getModel().get(Constantes.TIPOS_PESSOA);
 
         assertEquals(Constantes.PESQUISA_VENDAS_VIEW, result.getViewName());
         assertArrayEquals(StatusVenda.values(), statusVendasResult);

@@ -4,6 +4,9 @@ import com.brewer.model.Cliente;
 import com.brewer.model.Endereco;
 import com.brewer.model.TipoPessoa;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class ClienteBuilder {
     private Cliente cliente;
 
@@ -25,6 +28,12 @@ public final class ClienteBuilder {
                 .email("email@teste.com")
                 .endereco(EnderecoBuilder.criarEndereco())
                 .build();
+    }
+
+    public static List<Cliente> criarListaCliente() {
+        List<Cliente> lista = new ArrayList<>();
+        lista.add(ClienteBuilder.criarCliente());
+        return lista;
     }
 
     public ClienteBuilder codigo(Long codigo) {

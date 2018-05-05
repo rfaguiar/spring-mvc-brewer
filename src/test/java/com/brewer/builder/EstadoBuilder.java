@@ -2,6 +2,9 @@ package com.brewer.builder;
 
 import com.brewer.model.Estado;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class EstadoBuilder {
     private Estado estado;
 
@@ -19,6 +22,12 @@ public final class EstadoBuilder {
                 .nome("EstadoTeste")
                 .sigla("ET")
                 .build();
+    }
+
+    public static List<Estado> criarListaEstados() {
+        List<Estado> lista = new ArrayList<>();
+        lista.add(EstadoBuilder.criarEstado());
+        return lista;
     }
 
     public EstadoBuilder nome(String nome) {

@@ -22,8 +22,7 @@ public abstract class Constantes {
     public static final String VALOR_TOTAL_ITENS = "valorTotalItens";
     public static final String PESQUISA_VENDAS_VIEW = "venda/PesquisaVendas";
     public static final String TODOS_STATUS = "todosStatus";
-    public static final String TIPOS_PESOA = "tiposPessoa";
-    public static final String PAGINA_WRAPPER = "pagina";
+    public static final String TIPOS_PESSOA = "tiposPessoa";
     public static final String TABELA_ITENS_VENDA_VIEW = "venda/TabelaItensVenda";
     public static final String VALOR_TOTAL = "valorTotal";
     public static final String REDIRECT_VENDAS_NOVA_VIEW = "redirect:/vendas/nova";
@@ -34,4 +33,9 @@ public abstract class Constantes {
     public static final String SENHA = "senha";
     public static final String USUARIO_NOVO_VIEW = "redirect:/usuarios/novo";
     public static final String PESQUISA_USUARIOS_VIEW = "usuario/PesquisaUsuarios";
+    public static final String CADASTRO_CLIENTE_VIEW = "cliente/CadastroCliente";
+    public static final String ESTADOS = "estados";
+    public static final String CPF_OU_CNPJ = "cpfOuCnpj";
+    public static final String REDIRECT_CLIENTES_NOVO = "redirect:/clientes/novo";
+    public static final String PESQUISA_CLIENTE_VIEW = "cliente/PesquisaClientes";
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import com.brewer.Constantes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -34,45 +35,48 @@ import com.brewer.service.exception.CpfCnpjClienteJaCadastradoException;
 @Controller
 @RequestMapping("/clientes")
 public class ClientesController {
-	
-	@Autowired
-	private Estados estados;
-	
-	@Autowired
-	CadastroClienteService cadastroClienteService;
-	
-	@Autowired
-	Clientes clientes;
+
+	private Estados estadosRepo;
+    private CadastroClienteService cadastroClienteService;
+    private Clientes clientesRepo;
+
+    @Autowired
+	public ClientesController(Estados estadosRepo, CadastroClienteService cadastroClienteService, Clientes clientesRepo) {
+		this.estadosRepo = estadosRepo;
+		this.cadastroClienteService = cadastroClienteService;
+		this.clientesRepo = clientesRepo;
+	}
 
 	@RequestMapping("/novo")
 	public ModelAndView novo(Cliente cliente){		
-		ModelAndView mv = new ModelAndView("cliente/CadastroCliente");
-		mv.addObject("tiposPessoa", TipoPessoa.values());
-		mv.addObject("estados", estados.findAll());
+		ModelAndView mv = new ModelAndView(Constantes.CADASTRO_CLIENTE_VIEW);
+		mv.addObject(Constantes.TIPOS_PESSOA, TipoPessoa.values());
+		mv.addObject(Constantes.ESTADOS, estadosRepo.findAll());
 		return mv;				
 	}
 	
 	@PostMapping(value = "/novo")
-	public ModelAndView cadastrar(@Valid Cliente cliente, BindingResult result, Model model, RedirectAttributes attributes){
+	public ModelAndView cadastrar(@Valid Cliente cliente, BindingResult result, RedirectAttributes attributes){
 		if(result.hasErrors()){
 			return novo(cliente);
 		}
 		try{
 			cadastroClienteService.salvar(cliente);
 		}catch(CpfCnpjClienteJaCadastradoException e){
-			result.rejectValue("cpfOuCnpj", e.getMessage(), e.getMessage());
+			result.rejectValue(Constantes.CPF_OU_CNPJ, e.getMessage(), e.getMessage());
 			return novo(cliente);
 		}
-		attributes.addFlashAttribute("mensagem", "Cliente salvo com sucesso");
-		return new ModelAndView("redirect:/clientes/novo");
+		attributes.addFlashAttribute(Constantes.MENSAGEM_VIEW, "Cliente salvo com sucesso");
+		return new ModelAndView(Constantes.REDIRECT_CLIENTES_NOVO);
 	}
 	
 	@GetMapping
-	public ModelAndView pesquisar(ClienteFilter clienteFilter, BindingResult result, @PageableDefault(size = 2) Pageable pageable, HttpServletRequest httpServletRequest){
-		ModelAndView mv = new ModelAndView("cliente/PesquisaClientes");
+	public ModelAndView pesquisar(ClienteFilter clienteFilter, BindingResult result, @PageableDefault(size = 2) Pageable pageable,
+                                  HttpServletRequest httpServletRequest){
+		ModelAndView mv = new ModelAndView(Constantes.PESQUISA_CLIENTE_VIEW);
 		
-		PageWrapper<Cliente> paginaWrapper = new PageWrapper<>(clientes.filtrar(clienteFilter, pageable), httpServletRequest);
-		mv.addObject("pagina", paginaWrapper);
+		PageWrapper<Cliente> paginaWrapper = new PageWrapper<>(clientesRepo.filtrar(clienteFilter, pageable), httpServletRequest);
+		mv.addObject(Constantes.PAGINADOR_VIEW, paginaWrapper);
 		return mv;
 	}
 	
@@ -81,7 +85,7 @@ public class ClientesController {
 		
 		validarTamanhoNome(nome);
 		
-		return clientes.findByNomeStartingWithIgnoreCase(nome);
+		return clientesRepo.findByNomeStartingWithIgnoreCase(nome);
 	}
 
 	private void validarTamanhoNome(String nome) {
@@ -91,7 +95,7 @@ public class ClientesController {
 	}
 	
 	@ExceptionHandler(IllegalArgumentException.class)
-	public ResponseEntity<Void> tratarIllegalArgumentException(IllegalArgumentException e){
+	public ResponseEntity<Void> tratarIllegalArgumentException(IllegalArgumentException exception){
 		return ResponseEntity.badRequest().build();
 	}
 }

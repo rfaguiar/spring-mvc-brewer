@@ -140,11 +140,11 @@ public class VendasController {
 			@PageableDefault(size = 3) Pageable pageable, HttpServletRequest httpServletRequest) {
 		ModelAndView mv = new ModelAndView(Constantes.PESQUISA_VENDAS_VIEW);
 		mv.addObject(Constantes.TODOS_STATUS, StatusVenda.values());
-		mv.addObject(Constantes.TIPOS_PESOA, TipoPessoa.values());
+		mv.addObject(Constantes.TIPOS_PESSOA, TipoPessoa.values());
 		
 		PageWrapper<Venda> paginaWrapper = new PageWrapper<>(vendasRepo.filtrar(vendaFilter, pageable)
 				, httpServletRequest);
-		mv.addObject(Constantes.PAGINA_WRAPPER, paginaWrapper);
+		mv.addObject(Constantes.PAGINADOR_VIEW, paginaWrapper);
 		return mv;
 	}
 	
