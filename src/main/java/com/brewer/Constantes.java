@@ -45,4 +45,10 @@ public abstract class Constantes {
     public static final String CADASTRO_ESTILO_VIEW = "estilo/CadastroEstilo";
     public static final String REDIRECT_ESTILOS_NOVO_VIEW = "redirect:/estilos/novo";
     public static final String PESQUISA_ESTILOS_VIEW = "estilo/PesquisaEstilos";
+    public static final String DASHBOARD_VIEW = "Dashboard";
+    public static final String VENDAS_NO_ANO = "vendasNoAno";
+    public static final String VENDAS_NO_MES = "vendasNoMes";
+    public static final String TICKET_MEDIO = "ticketMedio";
+    public static final String VALOR_ITENS_ESTOQUE = "valorItensEstoque";
+    public static final String TOTAL_CLIENTES = "totalClientes";
 }

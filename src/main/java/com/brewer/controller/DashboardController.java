@@ -1,5 +1,6 @@
 package com.brewer.controller;
 
+import com.brewer.Constantes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,25 +13,27 @@ import com.brewer.repository.Vendas;
 @Controller
 public class DashboardController {
 
+	private Vendas vendasRepo;
+	private Cervejas cervejasRepo;
+	private Clientes clientesRepo;
+
 	@Autowired
-	private Vendas vendas;
-	
-	@Autowired
-	private Cervejas cervejas;
-	
-	@Autowired
-	private Clientes clientes;
-	
+	public DashboardController(Vendas vendasRepo, Cervejas cervejasRepo, Clientes clientesRepo) {
+		this.vendasRepo = vendasRepo;
+		this.cervejasRepo = cervejasRepo;
+		this.clientesRepo = clientesRepo;
+	}
+
 	@GetMapping("/")
 	public ModelAndView dashboard() {
-		ModelAndView mv = new ModelAndView("Dashboard");
+		ModelAndView mv = new ModelAndView(Constantes.DASHBOARD_VIEW);
 		
-		mv.addObject("vendasNoAno", vendas.valorTotalNoAno());
-		mv.addObject("vendasNoMes", vendas.valorTotalNoMes());
-		mv.addObject("ticketMedio", vendas.valorTicketMedioNoAno());
+		mv.addObject(Constantes.VENDAS_NO_ANO, vendasRepo.valorTotalNoAno());
+		mv.addObject(Constantes.VENDAS_NO_MES, vendasRepo.valorTotalNoMes());
+		mv.addObject(Constantes.TICKET_MEDIO, vendasRepo.valorTicketMedioNoAno());
 		
-		mv.addObject("valorItensEstoque", cervejas.valorItensEstoque());
-		mv.addObject("totalClientes", clientes.count());
+		mv.addObject(Constantes.VALOR_ITENS_ESTOQUE, cervejasRepo.valorItensEstoque());
+		mv.addObject(Constantes.TOTAL_CLIENTES, clientesRepo.count());
 		
 		return mv;
 }
