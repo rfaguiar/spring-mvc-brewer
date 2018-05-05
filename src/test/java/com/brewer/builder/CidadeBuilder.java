@@ -3,6 +3,9 @@ package com.brewer.builder;
 import com.brewer.model.Cidade;
 import com.brewer.model.Estado;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class CidadeBuilder {
     private Cidade cidade;
 
@@ -20,6 +23,12 @@ public final class CidadeBuilder {
                 .nome("cidadeTeste")
                 .estado(EstadoBuilder.criarEstado())
                 .build();
+    }
+
+    public static List<Cidade> criarListaCidade() {
+        List<Cidade> lista = new ArrayList<>();
+        lista.add(CidadeBuilder.criarCidade());
+        return lista;
     }
 
     public CidadeBuilder nome(String nome) {

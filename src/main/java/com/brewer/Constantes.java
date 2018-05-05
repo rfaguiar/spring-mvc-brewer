@@ -38,4 +38,8 @@ public abstract class Constantes {
     public static final String CPF_OU_CNPJ = "cpfOuCnpj";
     public static final String REDIRECT_CLIENTES_NOVO = "redirect:/clientes/novo";
     public static final String PESQUISA_CLIENTE_VIEW = "cliente/PesquisaClientes";
+    public static final String CADASTRO_CIDADE_VIEW = "cidade/CadastroCidade";
+    public static final String NOME = "nome";
+    public static final String REDIRECT_CIDADES_NOVO = "redirect:/cidades/novo";
+    public static final String PESQUISA_CIDADE_VIEW = "cidade/PesquisaCidades";
 }

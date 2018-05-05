@@ -1,5 +1,6 @@
 package com.brewer.controller;
 
+import com.brewer.Constantes;
 import com.brewer.controller.page.PageWrapper;
 import com.brewer.model.Cidade;
 import com.brewer.repository.Cidades;
@@ -27,27 +28,28 @@ import java.util.List;
 @RequestMapping("/cidades")
 public class CidadesController {
 
-	@Autowired
-	private Cidades cidades;
-	
-	
-	@Autowired
-	private Estados estados;
-	
-	@Autowired
+	private Cidades cidadesRepo;
+	private Estados estadosRepo;
 	private CadastroCidadeService cadastroCidadeService;
-	
+
+    @Autowired
+	public CidadesController(Cidades cidadesRepo, Estados estadosRepo, CadastroCidadeService cadastroCidadeService) {
+		this.cidadesRepo = cidadesRepo;
+		this.estadosRepo = estadosRepo;
+		this.cadastroCidadeService = cadastroCidadeService;
+	}
+
 	@RequestMapping("/novo")
 	public ModelAndView nova(Cidade cidade) {
-		ModelAndView mv = new ModelAndView("cidade/CadastroCidade");
-		mv.addObject("estados", estados.findAll());
+		ModelAndView mv = new ModelAndView(Constantes.CADASTRO_CIDADE_VIEW);
+		mv.addObject(Constantes.ESTADOS, estadosRepo.findAll());
 		return mv;
 	}
 	
 	@Cacheable(value = "cidades", key = "#codigoEstado")
 	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<Cidade> pesquisarPorCodigoEstado(@RequestParam(name = "estado", defaultValue = "-1") Long codigoEstado){
-		return cidades.findByEstadoCodigo(codigoEstado);
+		return cidadesRepo.findByEstadoCodigo(codigoEstado);
 	}
 	
 	
@@ -61,23 +63,23 @@ public class CidadesController {
 		try {
 			cadastroCidadeService.salvar(cidade);
 		} catch (NomeCidadeJaCadastradaException e) {
-			result.rejectValue("nome", e.getMessage(), e.getMessage());
+			result.rejectValue(Constantes.NOME, e.getMessage(), e.getMessage());
 			return nova(cidade);
 		}
 		
-		attributes.addFlashAttribute("mensagem", "Cidade salva com sucesso!");
-		return new ModelAndView("redirect:/cidades/novo");
+		attributes.addFlashAttribute(Constantes.MENSAGEM_VIEW, "Cidade salva com sucesso!");
+		return new ModelAndView(Constantes.REDIRECT_CIDADES_NOVO);
 	}
 	
 	@GetMapping
-	public ModelAndView pesquisar(CidadeFilter cidadeFilter, BindingResult result
-			, @PageableDefault(size = 10) Pageable pageable, HttpServletRequest httpServletRequest) {
-		ModelAndView mv = new ModelAndView("cidade/PesquisaCidades");
-		mv.addObject("estados", estados.findAll());
+	public ModelAndView pesquisar(CidadeFilter cidadeFilter, @PageableDefault(size = 10) Pageable pageable,
+                                  HttpServletRequest httpServletRequest) {
+		ModelAndView mv = new ModelAndView(Constantes.PESQUISA_CIDADE_VIEW);
+		mv.addObject(Constantes.ESTADOS, estadosRepo.findAll());
 		
-		PageWrapper<Cidade> paginaWrapper = new PageWrapper<>(cidades.filtrar(cidadeFilter, pageable)
+		PageWrapper<Cidade> paginaWrapper = new PageWrapper<>(cidadesRepo.filtrar(cidadeFilter, pageable)
 				, httpServletRequest);
-		mv.addObject("pagina", paginaWrapper);
+		mv.addObject(Constantes.PAGINADOR_VIEW, paginaWrapper);
 		return mv;
 	}
 }
