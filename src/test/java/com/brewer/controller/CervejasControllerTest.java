@@ -87,8 +87,8 @@ public class CervejasControllerTest {
         List<Estilo> estilos = (List<Estilo>) result.getModel().get(Constantes.ESTILOS);
 
         assertEquals(Constantes.CADASTRO_CERVEJA_VIEW, result.getViewName());
-        assertEquals(Sabor.values().length, sabores.length);
-        assertEquals(Origem.values().length, origens.length);
+        assertArrayEquals(Sabor.values(), sabores);
+        assertArrayEquals(Origem.values(), origens);
         assertTrue(EstiloBuilder.validarListaEstilo(listaEstilos, estilos));
     }
 
@@ -106,8 +106,8 @@ public class CervejasControllerTest {
 
         Mockito.verifyZeroInteractions(mockCervejaService);
         assertEquals(Constantes.CADASTRO_CERVEJA_VIEW, result.getViewName());
-        assertEquals(Sabor.values().length, sabores.length);
-        assertEquals(Origem.values().length, origens.length);
+        assertArrayEquals(Sabor.values(), sabores);
+        assertArrayEquals(Origem.values(), origens);
         assertTrue(EstiloBuilder.validarListaEstilo(listaEstilos, estilos));
     }
 
@@ -138,8 +138,8 @@ public class CervejasControllerTest {
         PageWrapper<Cerveja> paginaWrapper = (PageWrapper<Cerveja>) result.getModel().get(Constantes.PAGINADOR_VIEW);
 
         assertEquals(Constantes.PESQUISA_CERVEJA_VIEW, result.getViewName());
-        assertEquals(Sabor.values().length, sabores.length);
-        assertEquals(Origem.values().length, origens.length);
+        assertArrayEquals(Sabor.values(), sabores);
+        assertArrayEquals(Origem.values(), origens);
         assertTrue(EstiloBuilder.validarListaEstilo(listaEstilos, estilos));
         assertTrue(CervejaBuilder.validarListaCerveja(listaCervejas, paginaWrapper.getConteudo()));
     }
@@ -185,8 +185,8 @@ public class CervejasControllerTest {
         List<Estilo> estilos = (List<Estilo>) result.getModel().get(Constantes.ESTILOS);
 
         assertEquals(Constantes.CADASTRO_CERVEJA_VIEW, result.getViewName());
-        assertEquals(Sabor.values().length, sabores.length);
-        assertEquals(Origem.values().length, origens.length);
+        assertArrayEquals(Sabor.values(), sabores);
+        assertArrayEquals(Origem.values(), origens);
         assertTrue(EstiloBuilder.validarListaEstilo(listaEstilos, estilos));
     }
 

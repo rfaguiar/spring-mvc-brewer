@@ -16,6 +16,7 @@ import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 public class EstilosImpl implements EstilosQueries {
 
@@ -24,7 +25,14 @@ public class EstilosImpl implements EstilosQueries {
 	
 	@Autowired
 	private PaginacaoUtil paginacaoUtil;
-	
+
+	public EstilosImpl() {}
+
+	public EstilosImpl(EntityManager manager, PaginacaoUtil paginacaoUtil) {
+		this.manager = manager;
+		this.paginacaoUtil = paginacaoUtil;
+	}
+
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
 	public Page<Estilo> filtrar(EstiloFilter filtro, Pageable pageable){
@@ -34,8 +42,10 @@ public class EstilosImpl implements EstilosQueries {
 		paginacaoUtil.preparar(criteria, pageable);
 		
 		//filtros e consulta
-		adicionarfiltro(filtro, criteria);		
-		return new PageImpl<>(criteria.list(), pageable, total(filtro));
+		adicionarfiltro(filtro, criteria);
+		List list = criteria.list();
+		Long total = total(filtro);
+		return new PageImpl<>(list, pageable, total);
 	}
 	
 	private Long total(EstiloFilter filtro) {

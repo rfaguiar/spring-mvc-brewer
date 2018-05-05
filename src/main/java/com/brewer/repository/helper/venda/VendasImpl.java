@@ -30,16 +30,23 @@ import java.util.Optional;
 public class VendasImpl implements VendasQueries {
 
 	@PersistenceContext
-	private EntityManager manager;
+	private EntityManager entityManager;
 	
 	@Autowired
 	private PaginacaoUtil paginacaoUtil;
-	
-	@SuppressWarnings("unchecked")
+
+    public VendasImpl() {}
+
+    public VendasImpl(EntityManager entityManager, PaginacaoUtil paginacaoUtil) {
+        this.entityManager = entityManager;
+        this.paginacaoUtil = paginacaoUtil;
+    }
+
+    @SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
 	@Override
 	public Page<Venda> filtrar(VendaFilter filtro, Pageable pageable) {
-		Criteria criteria = manager.unwrap(Session.class).createCriteria(Venda.class);
+		Criteria criteria = entityManager.unwrap(Session.class).createCriteria(Venda.class);
 		paginacaoUtil.preparar(criteria, pageable);
 		adicionarFiltro(filtro, criteria);
 		
@@ -50,7 +57,7 @@ public class VendasImpl implements VendasQueries {
 	@Transactional(readOnly = true)
 	@Override
 	public Venda buscarComItens(Long codigo) {
-		Criteria criteria = manager.unwrap(Session.class).createCriteria(Venda.class);
+		Criteria criteria = entityManager.unwrap(Session.class).createCriteria(Venda.class);
 		criteria.createAlias("itens", "i", JoinType.LEFT_OUTER_JOIN);
 		criteria.add(Restrictions.eq("codigo", codigo));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);		
@@ -60,7 +67,7 @@ public class VendasImpl implements VendasQueries {
 	@Override
 	public BigDecimal valorTotalNoAno() {
 		Optional<BigDecimal> optional = Optional.ofNullable(
-				manager.createQuery("select sum(valorTotal) from Venda where year(dataCriacao) = :ano and status = :status", BigDecimal.class)
+				entityManager.createQuery("select sum(valorTotal) from Venda where year(dataCriacao) = :ano and status = :status", BigDecimal.class)
 					.setParameter("ano", Year.now().getValue())
 					.setParameter(Constantes.STATUS, StatusVenda.EMITIDA)
 					.getSingleResult());
@@ -70,7 +77,7 @@ public class VendasImpl implements VendasQueries {
 	@Override
 	public BigDecimal valorTotalNoMes() {
 		Optional<BigDecimal> optional = Optional.ofNullable(
-				manager.createQuery("select sum(valorTotal) from Venda where month(dataCriacao) = :mes and status = :status", BigDecimal.class)
+				entityManager.createQuery("select sum(valorTotal) from Venda where month(dataCriacao) = :mes and status = :status", BigDecimal.class)
 					.setParameter("mes", MonthDay.now().getMonthValue())
 					.setParameter(Constantes.STATUS, StatusVenda.EMITIDA)
 					.getSingleResult());
@@ -80,7 +87,7 @@ public class VendasImpl implements VendasQueries {
 	@Override
 	public BigDecimal valorTicketMedioNoAno() {
 		Optional<BigDecimal> optional = Optional.ofNullable(
-				manager.createQuery("select sum(valorTotal)/count(*) from Venda where year(dataCriacao) = :ano and status = :status", BigDecimal.class)
+				entityManager.createQuery("select sum(valorTotal)/count(*) from Venda where year(dataCriacao) = :ano and status = :status", BigDecimal.class)
 					.setParameter("ano", Year.now().getValue())
 					.setParameter(Constantes.STATUS, StatusVenda.EMITIDA)
 					.getSingleResult());
@@ -90,7 +97,7 @@ public class VendasImpl implements VendasQueries {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<VendaMes> totalPorMes() {
-		List<VendaMes> vendasMes = manager.createNamedQuery("Vendas.totalPorMes").getResultList();
+		List<VendaMes> vendasMes = entityManager.createNamedQuery("Vendas.totalPorMes").getResultList();
 		LocalDate hoje = LocalDate.now();
 		
 		for(int i = 1; i <= 6; i++){
@@ -109,7 +116,7 @@ public class VendasImpl implements VendasQueries {
 	
 	@Override
 	public List<VendaOrigem> totalPorOrigem() {
-		List<VendaOrigem> vendasNacionalidade = manager.createNamedQuery("Vendas.porOrigem", VendaOrigem.class).getResultList();
+		List<VendaOrigem> vendasNacionalidade = entityManager.createNamedQuery("Vendas.porOrigem", VendaOrigem.class).getResultList();
 		
 		LocalDate now = LocalDate.now();
 		for (int i = 1; i <= 6; i++) {
@@ -128,7 +135,7 @@ public class VendasImpl implements VendasQueries {
 	}
 	
 	private Long total(VendaFilter filtro) {
-		Criteria criteria = manager.unwrap(Session.class).createCriteria(Venda.class);
+		Criteria criteria = entityManager.unwrap(Session.class).createCriteria(Venda.class);
 		adicionarFiltro(filtro, criteria);
 		criteria.setProjection(Projections.rowCount());
 		return (Long) criteria.uniqueResult();

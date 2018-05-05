@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+             xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+    <persistence-unit name="puTest" transaction-type="RESOURCE_LOCAL">
+
+        <class>com.brewer.model.Estilo</class>
+        <properties>
+            <!-- Configuring JDBC properties  -->
+            <!-- ;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM 'classpath:create.sql'\;RUNSCRIPT FROM 'classpath:data.sql' -->
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test"/>
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+
+            <!-- Hibernate properties -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <!-- <property name="hibernate.format_sql" value="true"/> -->
+            <property name="hibernate.show_sql" value="true"/>
+
+        </properties>
+    </persistence-unit>
+
+</persistence>
