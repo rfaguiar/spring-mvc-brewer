@@ -18,10 +18,14 @@ import com.brewer.storage.FotoStorageRunnable;
 @RequestMapping("/fotos")
 public class FotosController {
 
-	@Autowired
 	private FotoStorage fotoStorage;
 
-	@PostMapping
+    @Autowired
+    public FotosController(FotoStorage fotoStorage) {
+        this.fotoStorage = fotoStorage;
+    }
+
+    @PostMapping
 	public DeferredResult<FotoDTO> upload(@RequestParam("files[]") MultipartFile[] files) {
 		DeferredResult<FotoDTO> resultado = new DeferredResult<>();
 
