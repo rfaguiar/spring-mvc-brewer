@@ -91,30 +91,30 @@ public class VendaFilter {
 	}
 
     public Criteria getCriteriaFiltros(Criteria criteria) {
-		if (!StringUtils.isEmpty(codigo)) {
-			criteria.add(Restrictions.eq("codigo", codigo));
+		if (!StringUtils.isEmpty(getCodigo())) {
+			criteria.add(Restrictions.eq("codigo", getCodigo()));
 		}
 
-		if (status != null) {
-			criteria.add(Restrictions.eq(Constantes.STATUS, status));
+		if (getStatus() != null) {
+			criteria.add(Restrictions.eq(Constantes.STATUS, getStatus()));
 		}
 
-		if (desde != null) {
-			LocalDateTime desdeDate = LocalDateTime.of(this.desde, LocalTime.of(0, 0));
+		if (getDesde() != null) {
+			LocalDateTime desdeDate = LocalDateTime.of(this.getDesde(), LocalTime.of(0, 0));
 			criteria.add(Restrictions.ge("dataCriacao", desdeDate));
 		}
 
-		if (ate != null) {
-			LocalDateTime ateDate = LocalDateTime.of(this.ate, LocalTime.of(23, 59));
+		if (getAte() != null) {
+			LocalDateTime ateDate = LocalDateTime.of(this.getAte(), LocalTime.of(23, 59));
 			criteria.add(Restrictions.le("dataCriacao", ateDate));
 		}
 
-		if (valorMinimo != null) {
-			criteria.add(Restrictions.ge("valorTotal", valorMinimo));
+		if (getValorMinimo() != null) {
+			criteria.add(Restrictions.ge("valorTotal", getValorMinimo()));
 		}
 
-		if (valorMaximo != null) {
-			criteria.add(Restrictions.le("valorTotal", valorMaximo));
+		if (getValorMaximo() != null) {
+			criteria.add(Restrictions.le("valorTotal", getValorMaximo()));
 		}
 
         getCriteriaFiltrosCliente(criteria);
@@ -124,14 +124,14 @@ public class VendaFilter {
 
     private Criteria getCriteriaFiltrosCliente(Criteria criteria) {
 
-        boolean temNomeCliente = !StringUtils.isEmpty(nomeCliente);
-        boolean temCpfOuCnpjCliente = !StringUtils.isEmpty(cpfOuCnpjCliente);
+        boolean temNomeCliente = !StringUtils.isEmpty(getNomeCliente());
+        boolean temCpfOuCnpjCliente = !StringUtils.isEmpty(getCpfOuCnpjCliente());
 
         if (temNomeCliente || temCpfOuCnpjCliente) {
             criteria.createAlias("cliente", "c");
 
             if (temNomeCliente) {
-                criteria.add(Restrictions.ilike("c.nome", nomeCliente, MatchMode.ANYWHERE));
+                criteria.add(Restrictions.ilike("c.nome", getNomeCliente(), MatchMode.ANYWHERE));
             }
 
             if (temCpfOuCnpjCliente) {
