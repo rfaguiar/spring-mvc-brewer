@@ -20,13 +20,11 @@ public final class ClienteBuilder {
 
     public static Cliente criarCliente() {
         return ClienteBuilder.get()
-                .codigo(new Long(1))
                 .nome("nomeCliente")
                 .tipoPessoa(TipoPessoa.FISICA)
-                .cpfOuCnpj("12345678920")
+                .cpfOuCnpj("82078350877")
                 .telefone("19999999999")
                 .email("email@teste.com")
-                .endereco(EnderecoBuilder.criarEndereco())
                 .build();
     }
 

@@ -117,13 +117,27 @@ public class VendaFilter {
 			criteria.add(Restrictions.le("valorTotal", valorMaximo));
 		}
 
-		if (!StringUtils.isEmpty(nomeCliente)) {
-			criteria.add(Restrictions.ilike("c.nome", nomeCliente, MatchMode.ANYWHERE));
-		}
+        getCriteriaFiltrosCliente(criteria);
 
-		if (!StringUtils.isEmpty(cpfOuCnpjCliente)) {
-			criteria.add(Restrictions.eq("c.cpfOuCnpj", TipoPessoa.removerFormatacao(cpfOuCnpjCliente)));
-		}
 		return criteria;
+    }
+
+    private Criteria getCriteriaFiltrosCliente(Criteria criteria) {
+
+        boolean temNomeCliente = !StringUtils.isEmpty(nomeCliente);
+        boolean temCpfOuCnpjCliente = !StringUtils.isEmpty(cpfOuCnpjCliente);
+
+        if (temNomeCliente || temCpfOuCnpjCliente) {
+            criteria.createAlias("cliente", "c");
+
+            if (temNomeCliente) {
+                criteria.add(Restrictions.ilike("c.nome", nomeCliente, MatchMode.ANYWHERE));
+            }
+
+            if (temCpfOuCnpjCliente) {
+                criteria.add(Restrictions.eq("c.cpfOuCnpj", TipoPessoa.removerFormatacao(cpfOuCnpjCliente)));
+            }
+        }
+        return criteria;
     }
 }

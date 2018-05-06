@@ -37,8 +37,7 @@ public final class EstiloBuilder {
 
 
     public static boolean validarEstilo(Estilo estilo1, Estilo estilo2) {
-        return estilo1.getNome().equals(estilo2.getNome()) &&
-                estilo1.getCodigo().equals(estilo2.getCodigo());
+        return estilo1.equals(estilo2);
     }
 
     public static boolean validarListaEstilo(List<Estilo> listaEstilos1, List<Estilo> listaEstilos2) {
@@ -54,7 +53,6 @@ public final class EstiloBuilder {
 
     public static Estilo criarEstilo(){
         return EstiloBuilder.get()
-                .codigo(new Long(1))
                 .nome("estiloTest")
                 .build();
     }

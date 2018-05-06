@@ -22,8 +22,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.MonthDay;
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,8 +51,10 @@ public class VendasImpl implements VendasQueries {
 		Criteria criteria = entityManager.unwrap(Session.class).createCriteria(Venda.class);
 		paginacaoUtil.preparar(criteria, pageable);
 		adicionarFiltro(filtro, criteria);
-		
-		return new PageImpl<>(criteria.list(), pageable, total(filtro));
+
+        List list = criteria.list();
+        Long total = total(filtro);
+        return new PageImpl<>(list, pageable, total);
 	}
 	
 
@@ -60,8 +64,9 @@ public class VendasImpl implements VendasQueries {
 		Criteria criteria = entityManager.unwrap(Session.class).createCriteria(Venda.class);
 		criteria.createAlias("itens", "i", JoinType.LEFT_OUTER_JOIN);
 		criteria.add(Restrictions.eq("codigo", codigo));
-		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);		
-		return (Venda) criteria.uniqueResult();
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        Object result = criteria.uniqueResult();
+        return (Venda) result;
 	}
 
 	@Override
@@ -99,7 +104,7 @@ public class VendasImpl implements VendasQueries {
 	public List<VendaMes> totalPorMes() {
 		List<VendaMes> vendasMes = entityManager.createNamedQuery("Vendas.totalPorMes").getResultList();
 		LocalDate hoje = LocalDate.now();
-		
+
 		for(int i = 1; i <= 6; i++){
 			String mesIdeal = String.format("%d/%02d", hoje.getYear(), hoje.getMonthValue());
 			Optional<VendaMes> findOpt = vendasMes.stream()
@@ -142,8 +147,6 @@ public class VendasImpl implements VendasQueries {
 	}
 	
 	private void adicionarFiltro(VendaFilter filtro, Criteria criteria) {
-		criteria.createAlias("cliente", "c");
-		
 		if (filtro != null) {
 			filtro.getCriteriaFiltros(criteria);
 		}

@@ -27,7 +27,6 @@ public final class ItemVendaBuilder {
 
     private static ItemVenda criarItemVenda() {
         return ItemVendaBuilder.get()
-                .codigo(new Long(1))
                 .quantidade(10)
                 .valorUnitario(new BigDecimal(2))
                 .cerveja(CervejaBuilder.criarCerveja())
@@ -39,10 +38,7 @@ public final class ItemVendaBuilder {
     }
 
     public static boolean validarItemVenda(ItemVenda itemVenda1, ItemVenda itemVenda2) {
-        return itemVenda1.getCodigo().equals(itemVenda2.getCodigo()) &&
-                itemVenda1.getQuantidade().equals(itemVenda2.getQuantidade()) &&
-                itemVenda1.getValorTotal().equals(itemVenda2.getValorTotal()) &&
-                itemVenda1.getValorUnitario().equals(itemVenda2.getValorUnitario());
+        return itemVenda1.equals(itemVenda2);
     }
 
     public ItemVendaBuilder quantidade(Integer quantidade) {

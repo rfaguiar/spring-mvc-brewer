@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.data.domain.Page;
@@ -22,10 +23,9 @@ import static org.junit.Assert.assertNotNull;
 
 @PowerMockIgnore("javax.management.*")
 @RunWith(PowerMockRunner.class)
-public class EstilosImplTest extends JPAHibernateTest {
+public class EstilosImplTest {
 
     private EstilosImpl estilosImpl;
-
     @Mock
     private PaginacaoUtil mockPaginacaoUtil;
     @Mock
@@ -33,6 +33,8 @@ public class EstilosImplTest extends JPAHibernateTest {
 
     @Before
     public void init() {
+        MockitoAnnotations.initMocks(this);
+        EntityManager entityManager = JPAHibernateTest.getEntityManager();
 
         Estilo e1 = new Estilo();
         e1.setNome("Amber Lager");
@@ -43,10 +45,7 @@ public class EstilosImplTest extends JPAHibernateTest {
         Estilo e4 = new Estilo();
         e4.setNome("Pilsner");
 
-        EntityManager entityManager = getEntityManager();
-
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
+        entityManager.getTransaction().begin();
         entityManager.persist(e1);
         entityManager.persist(e2);
         entityManager.persist(e3);
@@ -57,8 +56,7 @@ public class EstilosImplTest extends JPAHibernateTest {
 
     @After
     public void end() {
-        getEntityManager().getTransaction().rollback();
-        closeEntityManager();
+        JPAHibernateTest.roolbackEcloseEntityManager();
     }
 
     @Test

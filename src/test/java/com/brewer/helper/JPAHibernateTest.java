@@ -1,5 +1,6 @@
 package com.brewer.helper;
 
+import com.brewer.model.Cerveja;
 import org.h2.tools.RunScript;
 import org.hibernate.Session;
 import org.hibernate.jdbc.Work;
@@ -17,13 +18,15 @@ import java.sql.SQLException;
 public abstract class JPAHibernateTest {
 
 	private static EntityManagerFactory emf;
-    private EntityManager em;
+    private static EntityManager em;
 
     static {
         emf = Persistence.createEntityManagerFactory("puTest");
     }
 
-    public EntityManager getEntityManager(String dataSQL) {
+    private JPAHibernateTest() {}
+
+    public static EntityManager getEntityManager(String dataSQL) {
         em = emf.createEntityManager();
         Session session = em.unwrap(Session.class);
         session.doWork(new Work() {
@@ -42,16 +45,23 @@ public abstract class JPAHibernateTest {
         return em;
     }
 
-    public EntityManager getEntityManager() {
-        if (em == null) {
+    public static EntityManager getEntityManager() {
+        if (em == null || !em.isOpen()) {
             em = emf.createEntityManager();
         }
         return em;
     }
 
-    public void closeEntityManager() {
+    public static void closeEntityManager() {
         if (em != null) {
             em.close();
         }
+    }
+
+    public static void roolbackEcloseEntityManager() {
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().rollback();
+        }
+        closeEntityManager();
     }
 }

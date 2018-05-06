@@ -6,6 +6,19 @@
     <persistence-unit name="puTest" transaction-type="RESOURCE_LOCAL">
 
         <class>com.brewer.model.Estilo</class>
+        <class>com.brewer.model.Venda</class>
+        <class>com.brewer.model.Cliente</class>
+        <class>com.brewer.model.Usuario</class>
+        <class>com.brewer.model.ItemVenda</class>
+        <class>com.brewer.model.Cidade</class>
+        <class>com.brewer.model.Endereco</class>
+        <class>com.brewer.model.Estado</class>
+        <class>com.brewer.model.Grupo</class>
+        <class>com.brewer.model.Permissao</class>
+        <class>com.brewer.model.UsuarioGrupo</class>
+        <class>com.brewer.model.UsuarioGrupoId</class>
+        <class>com.brewer.model.Cerveja</class>
+
         <properties>
             <!-- Configuring JDBC properties  -->
             <!-- ;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM 'classpath:create.sql'\;RUNSCRIPT FROM 'classpath:data.sql' -->

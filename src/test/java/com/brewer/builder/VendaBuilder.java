@@ -33,9 +33,6 @@ public final class VendaBuilder {
                 .usuario(UsuarioBuilder.criarUsuario())
                 .status(StatusVenda.EMITIDA)
                 .itens(ItemVendaBuilder.criarListaItenVenda())
-                .uuid("123456")
-                .dataEntrega(LocalDate.now())
-                .horarioEntrega(LocalTime.now())
                 .build();
     }
 

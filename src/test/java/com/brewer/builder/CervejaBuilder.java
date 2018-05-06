@@ -126,20 +126,7 @@ public final class CervejaBuilder {
     }
 
     public static boolean validarCerveja(Cerveja cerveja1, Cerveja cerveja2) {
-        return cerveja1.getCodigo().equals(cerveja2.getCodigo()) &&
-                cerveja1.getSku().equals(cerveja2.getSku()) &&
-                cerveja1.getNome().equals(cerveja2.getNome()) &&
-                cerveja1.getDescricao().equals(cerveja2.getDescricao()) &&
-                cerveja1.getValor().equals(cerveja2.getValor()) &&
-                cerveja1.getTeorAlcoolico().equals(cerveja2.getTeorAlcoolico()) &&
-                cerveja1.getComissao().equals(cerveja2.getComissao()) &&
-                cerveja1.getQuantidadeEstoque().equals(cerveja2.getQuantidadeEstoque()) &&
-                cerveja1.getOrigem().equals(cerveja2.getOrigem()) &&
-                cerveja1.getSabor().equals(cerveja2.getSabor()) &&
-                cerveja1.getEstilo().equals(cerveja2.getEstilo()) &&
-                cerveja1.getFoto().equals(cerveja2.getFoto()) &&
-                cerveja1.getUrlFoto().equals(cerveja2.getUrlFoto()) &&
-                cerveja1.getUrlThumbnailFoto().equals(cerveja2.getUrlThumbnailFoto());
+        return cerveja1.equals(cerveja2);
     }
 
     public static boolean validarListaCerveja(List<Cerveja> lista1, List<Cerveja> lista2) {
@@ -155,7 +142,6 @@ public final class CervejaBuilder {
 
     public static Cerveja criarCerveja() {
         return CervejaBuilder.get()
-                .codigo(new Long(1))
                 .sku("xx9999")
                 .nome("cervTeste")
                 .descricao("descrTeste")
@@ -165,7 +151,7 @@ public final class CervejaBuilder {
                 .quantidadeEstoque(500)
                 .origem(Origem.NACIONAL)
                 .sabor(Sabor.ADOCICADA)
-                .estilo(new Estilo())
+                .estilo(EstiloBuilder.criarEstilo())
                 .foto("fotTeste")
                 .contentType("png")
                 .novaFoto(true)
