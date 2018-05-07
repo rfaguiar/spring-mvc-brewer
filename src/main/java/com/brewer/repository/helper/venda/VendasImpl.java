@@ -22,10 +22,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.MonthDay;
 import java.time.Year;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

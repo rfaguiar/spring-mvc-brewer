@@ -37,7 +37,14 @@ public class UsuariosImpl implements UsuariosQueries {
 	
 	@Autowired
 	private PaginacaoUtil paginacaoUtil;
-	
+
+	public UsuariosImpl(EntityManager manager, PaginacaoUtil paginacaoUtil) {
+		this.manager = manager;
+		this.paginacaoUtil = paginacaoUtil;
+	}
+
+	public UsuariosImpl() {}
+
 	@Override
 	public Optional<Usuario> porEmailEAtivo(String email) {
 		return manager
@@ -65,8 +72,9 @@ public class UsuariosImpl implements UsuariosQueries {
 		
 		List<Usuario> filtrados = criteria.list();
 		filtrados.forEach(u -> Hibernate.initialize(u.getGrupos()));
-		
-		return new PageImpl<>(filtrados, pageable, total(filtro));
+
+        Long total = total(filtro);
+        return new PageImpl<>(filtrados, pageable, total);
 	}
 
 	@Transactional(readOnly = true)

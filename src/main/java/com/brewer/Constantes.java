@@ -53,4 +53,5 @@ public abstract class Constantes {
     public static final String TOTAL_CLIENTES = "totalClientes";
     public static final String REDIRECT_CRVEJAS_VIEW = "redirect:/cervejas";
     public static final String LOGIN_VIEW = "Login";
+    public static final String MOCK_CERVEJA = "mockCerveja";
 }

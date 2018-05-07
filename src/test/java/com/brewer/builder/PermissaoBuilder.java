@@ -24,7 +24,6 @@ public final class PermissaoBuilder {
 
     private static Permissao criarPermissao() {
         return PermissaoBuilder.get()
-                .codigo(new Long(1))
                 .nome("nomePermissao")
                 .build();
     }

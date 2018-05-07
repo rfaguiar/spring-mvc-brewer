@@ -2,9 +2,11 @@ package com.brewer.repository.helper.venda;
 
 import com.brewer.builder.ItemVendaBuilder;
 import com.brewer.builder.VendaBuilder;
-import com.brewer.dto.VendaMes;
 import com.brewer.helper.JPAHibernateTest;
-import com.brewer.model.*;
+import com.brewer.model.Cerveja;
+import com.brewer.model.Estilo;
+import com.brewer.model.ItemVenda;
+import com.brewer.model.Venda;
 import com.brewer.repository.filter.VendaFilter;
 import com.brewer.repository.paginacao.PaginacaoUtil;
 import org.junit.After;
@@ -19,13 +21,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 @PowerMockIgnore("javax.management.*")
 @RunWith(PowerMockRunner.class)

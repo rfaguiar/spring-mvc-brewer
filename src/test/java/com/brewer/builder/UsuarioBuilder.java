@@ -21,10 +21,9 @@ public final class UsuarioBuilder {
     public static Usuario criarUsuario() {
         return UsuarioBuilder.get()
                 .nome("usuarioTeste")
-                .codigo(new Long(1))
                 .senha("senhaTeste")
-                .email("emailteste@teste.com")
                 .confirmacaoSenha("senhaTeste")
+                .email("emailteste@teste.com")
                 .ativo(true)
                 .grupos(GrupoBuilder.criarListaGrupos())
                 .dataNascimento(LocalDate.now())

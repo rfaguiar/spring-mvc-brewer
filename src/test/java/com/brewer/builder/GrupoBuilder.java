@@ -25,7 +25,6 @@ public final class GrupoBuilder {
 
     private static Grupo criarGrupo() {
         return GrupoBuilder.get()
-                .codigo(new Long(1))
                 .nome("nomeGrupoTeste")
                 .permissoes(PermissaoBuilder.criarListaPermissao())
                 .build();

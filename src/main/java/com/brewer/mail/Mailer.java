@@ -1,12 +1,10 @@
 package com.brewer.mail;
 
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
+import com.brewer.Constantes;
+import com.brewer.model.Cerveja;
+import com.brewer.model.ItemVenda;
+import com.brewer.model.Venda;
+import com.brewer.storage.FotoStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +17,16 @@ import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import com.brewer.storage.FotoStorage;
-import com.brewer.model.Cerveja;
-import com.brewer.model.ItemVenda;
-import com.brewer.model.Venda;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 @Component
 public class Mailer {
 
 	private static final Logger logger = LoggerFactory.getLogger(Mailer.class);
-	private static final String MOCK_CERVEJA = "mockCerveja";
 
 	@Autowired
 	private JavaMailSender mailSender;
@@ -56,7 +54,7 @@ public class Mailer {
 				fotos.put(cid, cerveja.getFoto() + "|" + cerveja.getContentType());
 			} else {
 				adicionarMockCerveja = true;
-				context.setVariable(MOCK_CERVEJA, MOCK_CERVEJA);
+				context.setVariable(Constantes.MOCK_CERVEJA, Constantes.MOCK_CERVEJA);
 			}
 		}
 		
@@ -65,7 +63,7 @@ public class Mailer {
 			
 			MimeMessage mimeMessage = mailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-			helper.setFrom("teste@algaworks.com");
+			helper.setFrom("teste@brewer.com");
 			helper.setTo(venda.getCliente().getEmail());
 			helper.setSubject(String.format("Brewer - Vendan° %d realizada", venda.getCodigo()));
 			helper.setText(email, true);
@@ -73,7 +71,7 @@ public class Mailer {
 			helper.addInline("logo", new ClassPathResource("static/images/logo-gray.png"));
 			
 			if (adicionarMockCerveja) {
-				helper.addInline(MOCK_CERVEJA, new ClassPathResource("static/images/cerveja-mock.png"));
+				helper.addInline(Constantes.MOCK_CERVEJA, new ClassPathResource("static/images/cerveja-mock.png"));
 			}
 
 			for (Map.Entry<String, String> entry : fotos.entrySet()) {
