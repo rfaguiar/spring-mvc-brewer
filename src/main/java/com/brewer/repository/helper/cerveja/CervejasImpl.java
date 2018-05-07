@@ -31,7 +31,15 @@ public class CervejasImpl implements CervejasQueries{
 	private PaginacaoUtil paginacaoUtil;
     @Autowired
     private FotoStorage fotoStorage;
-	
+
+	public CervejasImpl() {}
+
+	public CervejasImpl(EntityManager manager, PaginacaoUtil paginacaoUtil, FotoStorage fotoStorage) {
+		this.manager = manager;
+		this.paginacaoUtil = paginacaoUtil;
+		this.fotoStorage = fotoStorage;
+	}
+
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
 	public Page<Cerveja> filtrar(CervejaFilter filtro, Pageable pageable){
@@ -44,49 +52,6 @@ public class CervejasImpl implements CervejasQueries{
 		adicionarFiltro(filtro, criteria);
 		List<Cerveja> list = criteria.list();
 		return new PageImpl<>(list, pageable, total(filtro));
-	}
-
-	private Long total(CervejaFilter filtro) {
-		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cerveja.class);
-		adicionarFiltro(filtro, criteria);
-		criteria.setProjection(Projections.rowCount());		
-		return (Long) criteria.uniqueResult();
-	}
-
-	private void adicionarFiltro(CervejaFilter filtro, Criteria criteria) {
-		if(filtro != null){
-			if(!StringUtils.isEmpty(filtro.getSku())){
-				criteria.add(Restrictions.eq("sku", filtro.getSku()));
-			}
-			
-			if(!StringUtils.isEmpty(filtro.getNome())){
-				criteria.add(Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE));
-			}
-			
-			if(isEstiloPresente(filtro)){
-				criteria.add(Restrictions.eq("estilo", filtro.getEstilo()));
-			}
-			
-			if(filtro.getSabor() != null){
-				criteria.add(Restrictions.eq("sabor", filtro.getSabor()));
-			}
-			
-			if(filtro.getOrigem() != null){
-				criteria.add(Restrictions.eq("origem", filtro.getOrigem()));
-			}
-			
-			if(filtro.getValorDe() != null){
-				criteria.add(Restrictions.ge("valor", filtro.getValorDe()));
-			}
-			
-			if(filtro.getValorAte() != null){
-				criteria.add(Restrictions.le("valor", filtro.getValorAte()));
-			}
-		}
-	}
-
-	private boolean isEstiloPresente(CervejaFilter filtro) {
-		return filtro.getEstilo() != null && filtro.getEstilo().getCodigo() != null;
 	}
 
 	@Override
@@ -107,4 +72,47 @@ public class CervejasImpl implements CervejasQueries{
 		String query = "select new com.brewer.dto.ValorItensEstoque(sum(valor * quantidadeEstoque), sum(quantidadeEstoque)) from Cerveja";
 		return manager.createQuery(query, ValorItensEstoque.class).getSingleResult();
 	}
+
+    private Long total(CervejaFilter filtro) {
+        Criteria criteria = manager.unwrap(Session.class).createCriteria(Cerveja.class);
+        adicionarFiltro(filtro, criteria);
+        criteria.setProjection(Projections.rowCount());
+        return (Long) criteria.uniqueResult();
+    }
+
+    private void adicionarFiltro(CervejaFilter filtro, Criteria criteria) {
+        if(filtro != null){
+            if(!StringUtils.isEmpty(filtro.getSku())){
+                criteria.add(Restrictions.eq("sku", filtro.getSku()));
+            }
+
+            if(!StringUtils.isEmpty(filtro.getNome())){
+                criteria.add(Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE));
+            }
+
+            if(isEstiloPresente(filtro)){
+                criteria.add(Restrictions.eq("estilo", filtro.getEstilo()));
+            }
+
+            if(filtro.getSabor() != null){
+                criteria.add(Restrictions.eq("sabor", filtro.getSabor()));
+            }
+
+            if(filtro.getOrigem() != null){
+                criteria.add(Restrictions.eq("origem", filtro.getOrigem()));
+            }
+
+            if(filtro.getValorDe() != null){
+                criteria.add(Restrictions.ge("valor", filtro.getValorDe()));
+            }
+
+            if(filtro.getValorAte() != null){
+                criteria.add(Restrictions.le("valor", filtro.getValorAte()));
+            }
+        }
+    }
+
+    private boolean isEstiloPresente(CervejaFilter filtro) {
+        return filtro.getEstilo() != null && filtro.getEstilo().getCodigo() != null;
+    }
 }
