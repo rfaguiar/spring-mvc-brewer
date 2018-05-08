@@ -26,7 +26,14 @@ public class CidadesImpl implements CidadesQueries {
 	
 	@Autowired
 	private PaginacaoUtil paginacaoUtil;
-	
+
+	public CidadesImpl() {}
+
+	public CidadesImpl(EntityManager manager, PaginacaoUtil paginacaoUtil) {
+		this.manager = manager;
+		this.paginacaoUtil = paginacaoUtil;
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = true)

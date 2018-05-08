@@ -26,7 +26,14 @@ public class ClientesImpl implements ClientesQueries {
 	
 	@Autowired
 	private PaginacaoUtil paginacaoUtil;
-	
+
+	public ClientesImpl() {}
+
+	public ClientesImpl(EntityManager manager, PaginacaoUtil paginacaoUtil) {
+		this.manager = manager;
+		this.paginacaoUtil = paginacaoUtil;
+	}
+
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
 	public Page<Cliente> filtrar(ClienteFilter filtro, Pageable pageable){
