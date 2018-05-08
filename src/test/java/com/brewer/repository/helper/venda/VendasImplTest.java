@@ -55,7 +55,6 @@ public class VendasImplTest {
 
         //persistencia Cliente
         entityManager.getTransaction().begin();
-        entityManager.persist(venda1.getCliente());
 
         //Persistencia ItemVenda, Cerveja e Estilo
         itemVendas = ItemVendaBuilder
@@ -73,9 +72,16 @@ public class VendasImplTest {
         venda1.setItens(itemVendas);
 
         //Persistencia Vendas
+        entityManager.persist(venda1.getCliente().getEndereco().getCidade().getEstado());
+        entityManager.persist(venda1.getCliente().getEndereco().getCidade());
+        entityManager.persist(venda1.getCliente().getEndereco().getEstado());
+        entityManager.persist(venda1.getCliente());
         Venda persistido = entityManager.merge(venda1);
         venda1.setCodigo(persistido.getCodigo());
 
+        entityManager.persist(venda2.getCliente().getEndereco().getCidade().getEstado());
+        entityManager.persist(venda2.getCliente().getEndereco().getCidade());
+        entityManager.persist(venda2.getCliente().getEndereco().getEstado());
         entityManager.persist(venda2.getCliente());
         entityManager.persist(venda2);
 

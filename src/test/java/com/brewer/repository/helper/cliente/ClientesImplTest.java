@@ -39,9 +39,15 @@ public class ClientesImplTest {
         entityManager.getTransaction().begin();
         this.cliente1 = ClienteBuilder.criarCliente();
         cliente1.setNome("cliente1");
+        entityManager.persist(cliente1.getEndereco().getCidade().getEstado());
+        entityManager.persist(cliente1.getEndereco().getCidade());
+        entityManager.persist(cliente1.getEndereco().getEstado());
         entityManager.persist(cliente1);
 
         Cliente cliente2 = ClienteBuilder.criarCliente();
+        entityManager.persist(cliente2.getEndereco().getCidade().getEstado());
+        entityManager.persist(cliente2.getEndereco().getCidade());
+        entityManager.persist(cliente2.getEndereco().getEstado());
         entityManager.persist(cliente2);
 
         this.clientesImpl = new ClientesImpl(entityManager, mockPaginacao);
@@ -72,6 +78,8 @@ public class ClientesImplTest {
 
         assertEquals(1, result.getContent().size());
         assertTrue(cliente3.equals(result.getContent().get(0)));
+        assertTrue(cliente3.getEndereco().equals(result.getContent().get(0).getEndereco()));
         assertEquals(cliente3.toString(), result.getContent().get(0).toString());
+        assertEquals(cliente3.getEndereco().toString(), result.getContent().get(0).getEndereco().toString());
     }
 }

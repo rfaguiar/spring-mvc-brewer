@@ -25,6 +25,7 @@ public final class ClienteBuilder {
                 .cpfOuCnpj("82078350877")
                 .telefone("19999999999")
                 .email("email@teste.com")
+                .endereco(EnderecoBuilder.criarEndereco())
                 .build();
     }
 
