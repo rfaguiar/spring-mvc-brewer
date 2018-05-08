@@ -89,17 +89,22 @@ public class UsuariosImplTest {
 
     @Test
     public void testeMetodoFiltrarQuandoFiltrosInformadoDeveRetornarUsuario() {
+        Usuario usuario3 = UsuarioBuilder.criarUsuario();
+        usuario3.setCodigo(usuario1.getCodigo());
+        usuario3.setGrupos(usuario1.getGrupos());
         UsuarioFilter filtro = new UsuarioFilter();
-        filtro.setNome(usuario1.getNome());
-        filtro.setEmail(usuario1.getEmail());
+        filtro.setNome(usuario3.getNome());
+        filtro.setEmail(usuario3.getEmail());
         List<Grupo> filtroGrupos = new ArrayList<>();
         Grupo grupo = new Grupo();
-        grupo.setCodigo(usuario1.getGrupos().get(0).getCodigo());
+        grupo.setCodigo(usuario3.getGrupos().get(0).getCodigo());
         filtroGrupos.add(grupo);
         filtro.setGrupos(filtroGrupos);
 
         Page<Usuario> result = usuariosImpl.filtrar(filtro, mockPageable);
         assertEquals(1, result.getContent().size());
+        assertTrue(usuario3.equals(result.getContent().get(0)));
+        assertEquals(usuario3.toString(), result.getContent().get(0).toString());
     }
 
     @Test
