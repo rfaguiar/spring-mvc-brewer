@@ -49,7 +49,7 @@ public class CervejasImplTest {
 
         cerveja1 = CervejaBuilder.criarCerveja();
         cerveja1.setNome("cerveja1");
-        cerveja1.setSku("ce9999");
+        cerveja1.setSku("CE9999");
         entityManager.getTransaction().begin();
         entityManager.persist(cerveja1.getEstilo());
         entityManager.persist(cerveja1);
@@ -76,6 +76,11 @@ public class CervejasImplTest {
 
     @Test
     public void testeMetodoFiltrarQuandoComFiltrosDeveRetornarCervejasPaginada() {
+        Cerveja cerveja3 = CervejaBuilder.criarCerveja();
+        cerveja3.setCodigo(cerveja1.getCodigo());
+        cerveja3.setNome("cerveja1");
+        cerveja3.setSku("CE9999");
+
         CervejaFilter filtro = new CervejaFilter();
         filtro.setSku(cerveja1.getSku());
         filtro.setNome(cerveja1.getNome());
@@ -87,7 +92,8 @@ public class CervejasImplTest {
 
         Page<Cerveja> result = cervejasImpl.filtrar(filtro, mockPageable);
         assertEquals(1, result.getContent().size());
-        assertEquals(cerveja1, result.getContent().get(0));
+        assertTrue(cerveja3.equals(result.getContent().get(0)));
+        assertEquals(cerveja3.toString(), result.getContent().get(0).toString());
     }
 
     @Test

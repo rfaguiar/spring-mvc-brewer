@@ -11,6 +11,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.brewer.Constantes;
 import com.brewer.repository.listener.CervejaEntityListener;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.util.StringUtils;
@@ -208,7 +209,7 @@ public class Cerveja extends BaseEntity implements Serializable{
     }
 
     public String getFotoOuMock() {
-		return !StringUtils.isEmpty(foto) ? foto : "cerveja-mock.png";
+		return !StringUtils.isEmpty(foto) ? foto : Constantes.IMAGEN_CERVEJA_MOCK;
 	}
 
 	public boolean isNovaFoto() {
