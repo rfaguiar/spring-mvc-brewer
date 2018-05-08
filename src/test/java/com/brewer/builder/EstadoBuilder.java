@@ -18,7 +18,6 @@ public final class EstadoBuilder {
 
     public static Estado criarEstado() {
         return EstadoBuilder.get()
-                .codigo(new Long(1))
                 .nome("EstadoTeste")
                 .sigla("ET")
                 .build();

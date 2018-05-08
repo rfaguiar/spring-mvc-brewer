@@ -19,7 +19,6 @@ public final class CidadeBuilder {
 
     public static Cidade criarCidade() {
         return CidadeBuilder.get()
-                .codigo(new Long(1))
                 .nome("cidadeTeste")
                 .estado(EstadoBuilder.criarEstado())
                 .build();
