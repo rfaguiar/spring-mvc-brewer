@@ -72,6 +72,8 @@ public class CidadesImplTest {
         filtro.setNome(cidade3.getNome());
         Page<Cidade> result = cidadesImpl.filtrar(filtro, mockPageable);
         assertEquals(1, result.getContent().size());
+        assertTrue(cidade3.getEstado().equals(result.getContent().get(0).getEstado()));
+        assertEquals(cidade3.getEstado().toString(), result.getContent().get(0).getEstado().toString());
         assertTrue(cidade3.equals(result.getContent().get(0)));
         assertEquals(cidade3.toString(), result.getContent().get(0).toString());
     }

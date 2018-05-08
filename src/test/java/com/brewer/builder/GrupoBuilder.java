@@ -23,7 +23,7 @@ public final class GrupoBuilder {
         return grupos;
     }
 
-    private static Grupo criarGrupo() {
+    public static Grupo criarGrupo() {
         return GrupoBuilder.get()
                 .nome("nomeGrupoTeste")
                 .permissoes(PermissaoBuilder.criarListaPermissao())
