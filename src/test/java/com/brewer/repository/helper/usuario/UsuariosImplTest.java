@@ -105,6 +105,10 @@ public class UsuariosImplTest {
         assertEquals(1, result.getContent().size());
         assertTrue(usuario3.equals(result.getContent().get(0)));
         assertEquals(usuario3.toString(), result.getContent().get(0).toString());
+        assertTrue(usuario3.getGrupos().get(0).getPermissoes().get(0)
+                .equals(result.getContent().get(0).getGrupos().get(0).getPermissoes().get(0)));
+        assertEquals(usuario3.getGrupos().get(0).getPermissoes().get(0).toString(),
+                result.getContent().get(0).getGrupos().get(0).getPermissoes().get(0).toString());
     }
 
     @Test

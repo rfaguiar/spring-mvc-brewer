@@ -33,6 +33,8 @@ public class TabelaItensVendaTest {
 		tabelaItensVenda.adicionarIten(cerveja, 1);
 		
 		assertEquals(valor, tabelaItensVenda.getValorTotal());
+		assertNotNull(tabelaItensVenda.getItens());
+		assertEquals("1", tabelaItensVenda.getUuid());
 	}
 	
 	@Test
