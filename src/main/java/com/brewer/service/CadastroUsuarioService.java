@@ -16,16 +16,19 @@ import com.brewer.service.exception.SenhaObrigatoriaUsuarioException;
 @Service
 public class CadastroUsuarioService {
 
-	@Autowired
-	private Usuarios usuarios;
-	
-	@Autowired
+	private Usuarios usuariosRepo;
 	private PasswordEncoder passwordEncoder;
-	
+
+	@Autowired
+	public CadastroUsuarioService(Usuarios usuariosRepo, PasswordEncoder passwordEncoder) {
+		this.usuariosRepo = usuariosRepo;
+		this.passwordEncoder = passwordEncoder;
+	}
+
 	@Transactional
 	public void salvar(Usuario usuario) {
-		Optional<Usuario> usuarioExistente = usuarios.findByEmail(usuario.getEmail());
-		if (usuarioExistente.isPresent() && !usuarioExistente.get().equals(usuario)) {
+		Optional<Usuario> usuarioExistente = usuariosRepo.findByEmail(usuario.getEmail());
+		if (usuarioExistente.isPresent() && usuarioExistente.get().equals(usuario)) {
 			throw new EmailUsuarioJaCadastradoException("E-mail já cadastrado");
 		}
 		
@@ -35,7 +38,6 @@ public class CadastroUsuarioService {
 		
 		if(usuario.isNovo() || !StringUtils.isEmpty(usuario.getSenha())){
 			usuario.setSenha(this.passwordEncoder.encode(usuario.getSenha()));
-			usuario.setConfirmacaoSenha(usuario.getSenha());
 		}else if(usuarioExistente.isPresent() && StringUtils.isEmpty(usuario.getSenha())){
 			usuario.setSenha(usuarioExistente.get().getSenha());
 		}
@@ -45,12 +47,12 @@ public class CadastroUsuarioService {
 			usuario.setAtivo(usuarioExistente.get().getAtivo());
 		}
 		
-		usuarios.save(usuario);
+		usuariosRepo.save(usuario);
 	}
 
 	@Transactional
 	public void alterarStatus(Long[] codigos, StatusUsuario statusUsuario) {
-		statusUsuario.executar(codigos, usuarios);		
+		statusUsuario.executar(codigos, usuariosRepo);
 	}
 	
 }
