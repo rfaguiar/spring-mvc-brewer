@@ -11,16 +11,19 @@ import com.brewer.repository.Cervejas;
 @Component
 public class VendaListener {
 
+	private Cervejas cervejasRepo;
+
 	@Autowired
-	private Cervejas cervejas;
-	
-	@EventListener	
+	public VendaListener(Cervejas cervejasRepo) {
+		this.cervejasRepo = cervejasRepo;
+	}
+
+	@EventListener
 	public void vendaEmitida(VendaEvent vendaEvent){
 		for(ItemVenda item :vendaEvent.getVenda().getItens()){
-			Cerveja cerveja = cervejas.findOne(item.getCerveja().getCodigo());
+			Cerveja cerveja = cervejasRepo.findOne(item.getCerveja().getCodigo());
 			cerveja.setQuantidadeEstoque(cerveja.getQuantidadeEstoque() - item.getQuantidade());
-			cervejas.save(cerveja);
-			
+			cervejasRepo.save(cerveja);
 		}
 	}
 }
