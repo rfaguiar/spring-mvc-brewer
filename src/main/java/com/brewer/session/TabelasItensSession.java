@@ -14,7 +14,15 @@ import com.brewer.model.ItemVenda;
 @Component
 public class TabelasItensSession {
 
-	private Set<TabelaItensVenda> tabelas = new HashSet<>();
+	private Set<TabelaItensVenda> tabelas;
+
+	public TabelasItensSession() {
+        tabelas = new HashSet<>();
+    }
+
+	public TabelasItensSession(Set<TabelaItensVenda> tabelas) {
+		this.tabelas = tabelas;
+	}
 
 	public void adicionarItem(String uuid, Cerveja cerveja, int quantidade) {
 		TabelaItensVenda tabela = buscarTabelaPorId(uuid);
@@ -47,7 +55,4 @@ public class TabelasItensSession {
 				.findAny()
 				.orElse(new TabelaItensVenda(uuid));
 	}
-
-
-	
 }
