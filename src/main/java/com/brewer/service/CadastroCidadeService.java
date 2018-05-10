@@ -13,17 +13,21 @@ import com.brewer.service.exception.NomeCidadeJaCadastradaException;
 @Service
 public class CadastroCidadeService {
 
+	private Cidades cidadesRepo;
+
 	@Autowired
-	private Cidades cidades;
-	
+	public CadastroCidadeService(Cidades cidadesRepo) {
+		this.cidadesRepo = cidadesRepo;
+	}
+
 	@Transactional
 	public void salvar(Cidade cidade) {
-		Optional<Cidade> cidadeExistente = cidades.findByNomeAndEstado(cidade.getNome(), cidade.getEstado());
+		Optional<Cidade> cidadeExistente = cidadesRepo.findByNomeAndEstado(cidade.getNome(), cidade.getEstado());
 		if (cidadeExistente.isPresent()) {
 			throw new NomeCidadeJaCadastradaException("Nome de cidade já cadastrado");
 		}
 		
-		cidades.save(cidade);
+		cidadesRepo.save(cidade);
 	}
 
 	
