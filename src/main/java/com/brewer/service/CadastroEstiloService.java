@@ -13,17 +13,21 @@ import com.brewer.model.Estilo;
 @Service
 public class CadastroEstiloService {
 
-	@Autowired
-	private Estilos estilos;
-	
+	private Estilos estilosRepo;
+
+    @Autowired
+	public CadastroEstiloService(Estilos estilosRepo) {
+		this.estilosRepo = estilosRepo;
+	}
+
 	@Transactional
 	public Estilo salvar(Estilo estilo) {
-		Optional<Estilo> estiloOptional = estilos.findByNomeIgnoreCase(estilo.getNome());
+		Optional<Estilo> estiloOptional = estilosRepo.findByNomeIgnoreCase(estilo.getNome());
 		if(estiloOptional.isPresent()){
 			throw new NomeEstiloJaCadastradoException("Nome do estilo já cadastrado");
 		}
 		
-		return estilos.saveAndFlush(estilo);		
+		return estilosRepo.saveAndFlush(estilo);
 	}
 
 }
