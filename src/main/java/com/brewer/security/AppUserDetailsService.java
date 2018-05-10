@@ -20,12 +20,16 @@ import com.brewer.repository.Usuarios;
 @Service
 public class AppUserDetailsService implements UserDetailsService {
 
+	private Usuarios usuariosRepo;
+
 	@Autowired
-	private Usuarios usuarios;
-	
+	public AppUserDetailsService(Usuarios usuariosRepo) {
+		this.usuariosRepo = usuariosRepo;
+	}
+
 	@Override
 	public UserDetails loadUserByUsername(String email) {
-		Optional<Usuario> usuarioOptional = usuarios.porEmailEAtivo(email);
+		Optional<Usuario> usuarioOptional = usuariosRepo.porEmailEAtivo(email);
 		Usuario usuario = usuarioOptional.orElseThrow(() -> new UsernameNotFoundException("Usuário e/ou senha incorretos"));
 		
 		
@@ -38,7 +42,7 @@ public class AppUserDetailsService implements UserDetailsService {
 		Set<SimpleGrantedAuthority> authorities = new HashSet<>();
 		
 		//LISTA de permissoes do usuario
-		List<String> permissoes = usuarios.permissoes(usuario);
+		List<String> permissoes = usuariosRepo.permissoes(usuario);
 		permissoes.forEach(p -> authorities.add(new SimpleGrantedAuthority(p.toUpperCase())));
 		
 		return authorities;
