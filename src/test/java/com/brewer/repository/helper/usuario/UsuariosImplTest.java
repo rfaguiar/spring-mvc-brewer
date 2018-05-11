@@ -85,6 +85,7 @@ public class UsuariosImplTest {
     public void testeMetodoFiltrarQuandoSemFiltrosDeveRetornarTodosUsuarios() {
         Page<Usuario> result = usuariosImpl.filtrar(new UsuarioFilter(), mockPageable);
         assertEquals(2, result.getContent().size());
+        usuariosImpl = new UsuariosImpl();
     }
 
     @Test

@@ -1,13 +1,13 @@
 package com.brewer.validation.validator;
 
+import com.brewer.validation.AtributoConfirmacao;
+import com.brewer.validation.validator.exception.ConfirmacaoValidatorException;
+import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.util.StringUtils;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.ConstraintValidatorContext.ConstraintViolationBuilder;
-
-import com.brewer.validation.validator.exception.ConfirmacaoValidatorException;
-import org.apache.commons.beanutils.BeanUtils;
-
-import com.brewer.validation.AtributoConfirmacao;
 
 public class AtributoConfirmacaoValidator implements ConstraintValidator<AtributoConfirmacao, Object> {
 
@@ -23,11 +23,11 @@ public class AtributoConfirmacaoValidator implements ConstraintValidator<Atribut
 
 	@Override
 	public boolean isValid(Object object, ConstraintValidatorContext context) {
-		boolean valido = false;
+		boolean valido;
 		try {
 			Object valorAtributo = BeanUtils.getProperty(object, this.atributo);
 			Object valorAtributoConfirmacao = BeanUtils.getProperty(object, this.atributoConfirmacao);
-			valido = ambosSaoNull(valorAtributo, valorAtributoConfirmacao) || ambosSaoIguais(valorAtributo, valorAtributoConfirmacao);
+			valido = !StringUtils.isEmpty(valorAtributo) && valorAtributo.equals(valorAtributoConfirmacao);
 			
 		} catch (Exception e) {
 			throw new ConfirmacaoValidatorException("Erro Recuperando valores dos atributos", e);
@@ -41,14 +41,6 @@ public class AtributoConfirmacaoValidator implements ConstraintValidator<Atribut
 		}
 		
 		return valido;
-	}
-
-	private boolean ambosSaoIguais(Object valorAtributo, Object valorAtributoConfirmacao) {		
-		return valorAtributo != null && valorAtributo.equals(valorAtributoConfirmacao);
-	}
-
-	private boolean ambosSaoNull(Object valorAtributo, Object valorAtributoConfirmacao) {		
-		return valorAtributo == null && valorAtributoConfirmacao == null;
 	}
 
 }
