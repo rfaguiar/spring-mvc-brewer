@@ -10,9 +10,11 @@ import javax.persistence.PostLoad;
 
 public class CervejaEntityListener {
 
+    @Autowired
     private FotoStorage fotoStorage;
 
-    @Autowired
+    public CervejaEntityListener() {}
+
     public CervejaEntityListener(FotoStorage fotoStorage) {
         this.fotoStorage = fotoStorage;
     }
