@@ -18,7 +18,7 @@ import java.nio.file.Path;
 
 import static java.nio.file.FileSystems.getDefault;
 
-@Profile({"local", "local-jndi"})
+@Profile({"local", "local-jndi", "docker-desenv"})
 @Component
 public class FotoStorageLocal implements FotoStorage {
 

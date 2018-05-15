@@ -21,6 +21,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.SQLException;
 
 @Configuration
 @ComponentScan(basePackageClasses = Cervejas.class)
@@ -53,14 +54,26 @@ public class JPAConfig {
 
 	@Bean
 	@Profile("local")
-	public DataSource dataSourceLocal(){
+	public DataSource dataSourceLocal() throws SQLException, ClassNotFoundException {
         return createBasicDatasource("jdbc:mysql://localhost:3306/brewer?useSSL=false", "root", "root");
+
+	}
+
+	@Bean
+	@Profile("docker-desenv")
+	public DataSource dataSourceDocker() throws SQLException, ClassNotFoundException {
+    	String url = System.getenv("JDBC_URL");
+    	String username = System.getenv("JDBC_USER");
+    	String password = System.getenv("JDBC_PASS");
+        BasicDataSource datasource = createBasicDatasource(url, username, password);
+        basicDataSource.setDriver(new com.mysql.jdbc.Driver());
+        return datasource;
 
 	}
 
     @Bean
     @Profile("prod")
-    public DataSource dataSourceProducao() throws URISyntaxException {
+    public DataSource dataSourceProducao() throws URISyntaxException, SQLException, ClassNotFoundException {
         URI jdbUri = new URI(System.getenv("JAWSDB_URL"));
 
         String username = jdbUri.getUserInfo().split(":")[0];
@@ -99,7 +112,7 @@ public class JPAConfig {
 		return transactionManager;
 	}
 
-	private BasicDataSource createBasicDatasource(String jdbUrl, String username, String password) {
+	private BasicDataSource createBasicDatasource(String jdbUrl, String username, String password) throws SQLException, ClassNotFoundException {
         basicDataSource.setUrl(jdbUrl);
         basicDataSource.setUsername(username);
         basicDataSource.setPassword(password);

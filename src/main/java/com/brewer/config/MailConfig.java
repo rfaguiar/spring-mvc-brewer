@@ -24,7 +24,7 @@ public class MailConfig {
     }
 
 	@Bean
-	@Profile("local")
+	@Profile({"local", "docker-desenv"})
 	public JavaMailSender mailSenderLocal(){
         return createJavaMailSender(env.getProperty("email.username"), env.getProperty("email.password"));
 	}
