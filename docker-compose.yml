@@ -6,13 +6,13 @@ networks:
 
 services:
   brewer-app:
-    build:
-      context: .
-      dockerfile: /Dockerfile
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
     ports:
       - "8080:8080"
       - "8000:8000" #remote debug port
-    image: brewer/tomcat8
+    image: rfaguiar/brewer
     container_name: brewer-app
 #    volumes:
 #      - ./webapps:/usr/local/tomcat/webapps
@@ -20,7 +20,7 @@ services:
       - brewer-network
     environment:
       - JAVA_OPTS='-Dspring.profiles.active=docker-desenv'
-      - JDBC_URL=jdbc:mysql://172.17.0.1:3306/brewer?useSSL=false
+      - JDBC_URL=jdbc:mysql://regerg:3306/brewer?useSSL=false
       - JDBC_USER=root
       - JDBC_PASS=root
 #    depends_on:
