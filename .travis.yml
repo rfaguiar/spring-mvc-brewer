@@ -12,9 +12,14 @@ addons:
       secure: $SONAR_TOKEN # encrypted value of your token
 
 script:
-  # maven limpa pasta target, habilita pluguin qualidade, gera pasta target com pacotes em profile produção, gera analise sonar e gera imagen docker
+  # maven limpa pasta target, habilita pluguin qualidade, gera pasta target com pacotes em profile produção,
+  # gera analise sonar e gera imagen docker
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Pprod sonar:sonar dockerfile:build
   - docker image list #lista de images locais
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD #login dockerhub
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin #login dockerhub
+  - docker tag brewer $DOCKER_USERNAME/brewer #registra tag da imagen para fazer push
+  - docker push $DOCKER_USERNAME/brewer #envia imagen docker para dockerhub
 
 deploy:
   provider: heroku
