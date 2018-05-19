@@ -21,7 +21,7 @@ deploy:
    secure: $HEROKU_API_KEY
   app: brewer-springmvc-app1
 
-before_install:
+after_install:
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD #login dockerhub
   - docker image list #lista de images locais
   - docker push rfaguiar/brewer #envia imagen docker para dockerhub
