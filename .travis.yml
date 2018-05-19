@@ -16,16 +16,14 @@ script:
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Pprod sonar:sonar dockerfile:build
 
 deploy:
-  provider: heroku
-  api-key:
-   secure: $HEROKU_API_KEY
-  app: brewer-springmvc-app1
-
-jobs:
-  include:
-    - stage: build docker image
-      script:
+  provider: script
+    script:
       - docker image list #lista de images locais
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin #login dockerhub
       - docker tag brewer $DOCKER_USERNAME/brewer #registra tag da imagen para fazer push
       - docker push $DOCKER_USERNAME/brewer #envia imagen docker para dockerhub
+
+  provider: heroku
+    api-key:
+     secure: $HEROKU_API_KEY
+    app: brewer-springmvc-app1
