@@ -10,10 +10,6 @@ addons:
     organization: "rfaguiar-github" # "sonarcloud_organization_key"  the key of the org you chose at step #3
     token:
       secure: $SONAR_TOKEN # encrypted value of your token
-#script:
-# - mvn clean install -Pprod
-  # maven limpa pasta target, habilita pluguin qualidade, gera pasta target com pacotes em profile produção, gera analise sonar e gera imagen docker
-  #- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Pprod sonar:sonar dockerfile:build
 
 deploy:
   provider: script
