@@ -10,18 +10,13 @@ addons:
     organization: "rfaguiar-github" # "sonarcloud_organization_key"  the key of the org you chose at step #3
     token:
       secure: $SONAR_TOKEN # encrypted value of your token
+
 script:
   # maven limpa pasta target, habilita pluguin qualidade, gera pasta target com pacotes em profile produção, gera analise sonar e gera imagen docker
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Pprod sonar:sonar dockerfile:build
-  - docker image list #lista de images locais
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin #login dockerhub
-  - docker tag brewer $DOCKER_USERNAME/brewer #registra tag da imagen para fazer push
-  - docker push $DOCKER_USERNAME/brewer #envia imagen docker para dockerhub
 
 deploy:
   provider: heroku
-    api-key:
-     secure: $HEROKU_API_KEY
-    app: brewer-springmvc-app1
-
-
+  api-key:
+   secure: $HEROKU_API_KEY
+  app: brewer-springmvc-app1
