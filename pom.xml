@@ -143,44 +143,6 @@
 		</plugins>
 	</build>
 
-    <profiles>
-        <profile>
-            <id>local-jndi</id>
-        </profile>
-
-        <profile>
-            <id>local</id>
-
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-
-            <dependencies>
-                <!-- MySQL Driver -->
-                <dependency>
-                    <groupId>mysql</groupId>
-                    <artifactId>mysql-connector-java</artifactId>
-                    <version>${mysql-connector-java.version}</version>
-                </dependency>
-            </dependencies>
-        </profile>
-
-        <profile>
-            <id>prod</id>
-
-            <dependencies>
-                <!-- MySQL Driver -->
-                <dependency>
-                    <groupId>mysql</groupId>
-                    <artifactId>mysql-connector-java</artifactId>
-                    <version>${mysql-connector-java.version}</version>
-                    <scope>compile</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-
-    </profiles>
-
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -288,7 +250,6 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql-connector-java.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		
 		<!-- Spring Data JPA -->

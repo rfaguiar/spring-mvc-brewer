@@ -13,8 +13,7 @@
     > docker-compose logs --tail="all" --follow  
 * compilação com maven 3.3  
     > mvn clean package -Plocal-jndi  
-    > mvn clean package -Plocal  
-    > mvn clean package -Pprod  
+    > mvn clean package -Plocal
 * webrunner  
     > java $JAVA_OPTS -Dspring.profiles.active=prod -jar target/dependency/webapp-runner.jar target/brewer.war --contex-xml target/brewer/META-INF/context.xml
 * serviço para envio de email  
