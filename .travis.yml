@@ -18,7 +18,7 @@ script:
   - docker image list #lista de images locais
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD #login dockerhub
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin #login dockerhub
-  - docker tag brewer $DOCKER_USERNAME/brewer #registra tag da imagen para fazer push
+  #- docker tag brewer $DOCKER_USERNAME/brewer #registra tag da imagen para fazer push
   - docker push $DOCKER_USERNAME/brewer #envia imagen docker para dockerhub
 
 deploy:
