@@ -21,18 +21,10 @@ script:
   #- docker tag brewer $DOCKER_USERNAME/brewer #registra tag da imagen para fazer push
   - docker push $DOCKER_USERNAME/brewer #envia imagen docker para dockerhub
 
-# deploy heroku via docker
-after_success:
-  # for local testing, needs to be set on travis, too:
-  # export HEROKU_TOKEN=$(heroku auth:token)
-  - docker login -u _ -p "$HEROKU_API_KEY"  registry.heroku.com # login docker registry do heroku
-  - docker build -t registry.heroku.com/brewer-springmvc-app1/web -f Dockerfile . #cria imagen docker para docker registry
-  - docker push registry.heroku.com/brewer-springmvc-app1/web # enviar imagen para heroku
-  - heroku run bash --app brewer-springmvc-app1 # executa imagen no docker
 
 # deploy com heroku via git
-#deploy:
-#  provider: heroku
-#  api-key:
-#   secure: $HEROKU_API_KEY
-#  app: brewer-springmvc-app1
+deploy:
+  provider: heroku
+  api-key:
+   secure: $HEROKU_API_KEY
+  app: brewer-springmvc-app1
