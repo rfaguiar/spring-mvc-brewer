@@ -5,6 +5,7 @@ import com.brewer.repository.filter.EstiloFilter;
 import com.brewer.repository.paginacao.PaginacaoUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,7 @@ public class EstilosImpl implements EstilosQueries {
 	
 	private void adicionarfiltro(EstiloFilter filtro, Criteria criteria) {
 		if(filtro != null && !StringUtils.isEmpty(filtro.getNome())){
-			criteria.add(Restrictions.eq("nome", filtro.getNome()));
+			criteria.add(Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE));
 		}
 	}
 

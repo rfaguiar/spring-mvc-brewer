@@ -77,4 +77,14 @@ public class EstilosImplTest {
         assertEquals(1, result.getContent().size());
         assertEquals("Amber Lager", result.getContent().get(0).getNome());
     }
+
+    @Test
+    public void testeMetodoFiltrarQuandoFiltroPorNomeComPartesDotextoDeveRetornarCompativeisComFiltro() {
+        EstiloFilter filtro = new EstiloFilter();
+        filtro.setNome("Amber");
+        Page<Estilo> result = estilosImpl.filtrar(filtro, mockPageable);
+        assertNotNull(result);
+        assertEquals(1, result.getContent().size());
+        assertEquals("Amber Lager", result.getContent().get(0).getNome());
+    }
 }
