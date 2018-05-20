@@ -5,6 +5,7 @@ import javax.persistence.PersistenceContext;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
@@ -61,7 +62,7 @@ public class ClientesImpl implements ClientesQueries {
 	private void adicionarfiltro(ClienteFilter filtro, Criteria criteria) {
 		if(filtro != null){
 			if(!StringUtils.isEmpty(filtro.getNome())){
-				criteria.add(Restrictions.eq("nome", filtro.getNome()));
+				criteria.add(Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE));
 			}
 			if(!StringUtils.isEmpty(filtro.getCpfOuCnpj())){
 				criteria.add(Restrictions.eq("cpfOuCnpj", filtro.getCpfOuCnpj()));

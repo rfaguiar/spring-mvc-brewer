@@ -82,4 +82,18 @@ public class ClientesImplTest {
         assertEquals(cliente3.toString(), result.getContent().get(0).toString());
         assertEquals(cliente3.getEndereco().toString(), result.getContent().get(0).getEndereco().toString());
     }
+
+    @Test
+    public void testeMetodoFiltrarComFiltroNomePorParteDoTextoDeveRetornarCliente() {
+        ClienteFilter filtro = new ClienteFilter();
+        filtro.setNome("nte1");
+
+        Page<Cliente> result = clientesImpl.filtrar(filtro, mockPageable);
+
+        assertEquals(1, result.getContent().size());
+        assertTrue(cliente1.equals(result.getContent().get(0)));
+        assertTrue(cliente1.getEndereco().equals(result.getContent().get(0).getEndereco()));
+        assertEquals(cliente1.toString(), result.getContent().get(0).toString());
+        assertEquals(cliente1.getEndereco().toString(), result.getContent().get(0).getEndereco().toString());
+    }
 }
