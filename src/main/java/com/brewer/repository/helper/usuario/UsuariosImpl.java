@@ -48,7 +48,7 @@ public class UsuariosImpl implements UsuariosQueries {
 	@Override
 	public Optional<Usuario> porEmailEAtivo(String email) {
 		return manager
-				.createQuery("from Usuario where lower(email) = lower(:email) and ativo = true", Usuario.class)
+				.createQuery("from Usuario where lower(email) = lower(:email) and ativo = true ", Usuario.class)
 				.setParameter("email", email).getResultList().stream().findFirst();
 	}
 
@@ -95,6 +95,7 @@ public class UsuariosImpl implements UsuariosQueries {
 	}
 
 	private void adicionarFiltro(UsuarioFilter filtro, Criteria criteria) {
+	    criteria.add(Restrictions.ne("nome", "Admin"));
 		if (filtro != null) {
 			if (!StringUtils.isEmpty(filtro.getNome())) {
 				criteria.add(Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE));
