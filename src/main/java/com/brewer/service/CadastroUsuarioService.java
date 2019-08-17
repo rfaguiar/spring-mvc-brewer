@@ -1,17 +1,16 @@
 package com.brewer.service;
 
-import java.util.Optional;
-
+import com.brewer.model.Usuario;
+import com.brewer.repository.Usuarios;
+import com.brewer.service.exception.EmailUsuarioJaCadastradoException;
+import com.brewer.service.exception.SenhaObrigatoriaUsuarioException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import com.brewer.model.Usuario;
-import com.brewer.repository.Usuarios;
-import com.brewer.service.exception.EmailUsuarioJaCadastradoException;
-import com.brewer.service.exception.SenhaObrigatoriaUsuarioException;
+import java.util.Optional;
 
 @Service
 public class CadastroUsuarioService {

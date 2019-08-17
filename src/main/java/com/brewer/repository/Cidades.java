@@ -1,13 +1,12 @@
 package com.brewer.repository;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.brewer.model.Cidade;
 import com.brewer.model.Estado;
 import com.brewer.repository.helper.cidade.CidadesQueries;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface Cidades extends JpaRepository<Cidade, Long>, CidadesQueries {
 

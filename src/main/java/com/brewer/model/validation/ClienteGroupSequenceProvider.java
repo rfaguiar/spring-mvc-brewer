@@ -1,11 +1,10 @@
 package com.brewer.model.validation;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.brewer.model.Cliente;
 import org.hibernate.validator.spi.group.DefaultGroupSequenceProvider;
 
-import com.brewer.model.Cliente;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClienteGroupSequenceProvider implements DefaultGroupSequenceProvider<Cliente> {
 

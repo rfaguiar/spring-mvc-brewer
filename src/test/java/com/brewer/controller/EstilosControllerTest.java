@@ -31,11 +31,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
-
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @PowerMockIgnore("javax.management.*")
 @RunWith(PowerMockRunner.class)

@@ -1,13 +1,12 @@
 package com.brewer.controller.validator;
 
-import java.math.BigDecimal;
-
+import com.brewer.model.Venda;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.brewer.model.Venda;
+import java.math.BigDecimal;
 
 @Component
 public class VendaValidator implements Validator {

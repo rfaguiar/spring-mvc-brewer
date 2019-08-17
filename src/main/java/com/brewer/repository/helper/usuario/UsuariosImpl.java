@@ -1,12 +1,10 @@
 package com.brewer.repository.helper.usuario;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
+import com.brewer.model.Grupo;
+import com.brewer.model.Usuario;
+import com.brewer.model.UsuarioGrupo;
+import com.brewer.repository.filter.UsuarioFilter;
+import com.brewer.repository.paginacao.PaginacaoUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -24,11 +22,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import com.brewer.model.Grupo;
-import com.brewer.model.Usuario;
-import com.brewer.model.UsuarioGrupo;
-import com.brewer.repository.filter.UsuarioFilter;
-import com.brewer.repository.paginacao.PaginacaoUtil;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class UsuariosImpl implements UsuariosQueries {
 

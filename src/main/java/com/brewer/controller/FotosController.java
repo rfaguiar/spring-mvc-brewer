@@ -1,5 +1,8 @@
 package com.brewer.controller;
 
+import com.brewer.dto.FotoDTO;
+import com.brewer.storage.FotoStorage;
+import com.brewer.storage.FotoStorageRunnable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,10 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.brewer.storage.FotoStorage;
-import com.brewer.dto.FotoDTO;
-import com.brewer.storage.FotoStorageRunnable;
 
 @RestController
 @RequestMapping("/fotos")

@@ -1,22 +1,30 @@
 package com.brewer.model;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Objects;
+import com.brewer.Constantes;
+import com.brewer.repository.listener.CervejaEntityListener;
+import com.brewer.validation.SKU;
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.util.StringUtils;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.brewer.Constantes;
-import com.brewer.repository.listener.CervejaEntityListener;
-import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.util.StringUtils;
-
-import com.brewer.validation.SKU;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Objects;
 
 @EntityListeners(CervejaEntityListener.class)
 @Entity

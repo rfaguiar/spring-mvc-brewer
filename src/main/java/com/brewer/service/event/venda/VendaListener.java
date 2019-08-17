@@ -1,12 +1,11 @@
 package com.brewer.service.event.venda;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Component;
-
 import com.brewer.model.Cerveja;
 import com.brewer.model.ItemVenda;
 import com.brewer.repository.Cervejas;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
+import org.springframework.stereotype.Component;
 
 @Component
 public class VendaListener {

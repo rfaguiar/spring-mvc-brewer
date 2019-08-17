@@ -1,8 +1,8 @@
 package com.brewer.repository.filter;
 
-import java.util.List;
-
 import com.brewer.model.Grupo;
+
+import java.util.List;
 
 public class UsuarioFilter {
 	

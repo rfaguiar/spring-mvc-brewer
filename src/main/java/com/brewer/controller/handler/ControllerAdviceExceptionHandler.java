@@ -1,10 +1,9 @@
 package com.brewer.controller.handler;
 
+import com.brewer.service.exception.NomeEstiloJaCadastradoException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import com.brewer.service.exception.NomeEstiloJaCadastradoException;
 
 @ControllerAdvice
 public class ControllerAdviceExceptionHandler {

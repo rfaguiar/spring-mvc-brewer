@@ -1,14 +1,19 @@
 package com.brewer.config.init;
 
+import com.brewer.config.JPAConfig;
+import com.brewer.config.MailConfig;
+import com.brewer.config.S3Config;
+import com.brewer.config.SecurityConfig;
+import com.brewer.config.ServiceConfig;
+import com.brewer.config.WebConfig;
+import org.springframework.web.filter.HttpPutFormContentFilter;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
 import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration.Dynamic;
-
-import com.brewer.config.*;
-import org.springframework.web.filter.HttpPutFormContentFilter;
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer{
 

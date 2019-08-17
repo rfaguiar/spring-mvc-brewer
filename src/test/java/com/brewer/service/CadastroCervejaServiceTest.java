@@ -8,17 +8,16 @@ import com.brewer.storage.FotoStorage;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.springframework.context.ApplicationEventPublisher;
 
 import javax.persistence.PersistenceException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 @PowerMockIgnore("javax.management.*")
 @RunWith(PowerMockRunner.class)

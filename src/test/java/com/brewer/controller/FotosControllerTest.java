@@ -13,7 +13,8 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.multipart.MultipartFile;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 @PowerMockIgnore("javax.management.*")
 @RunWith(PowerMockRunner.class)

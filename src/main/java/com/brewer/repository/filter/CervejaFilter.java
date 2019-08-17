@@ -1,10 +1,10 @@
 package com.brewer.repository.filter;
 
-import java.math.BigDecimal;
-
 import com.brewer.model.Estilo;
 import com.brewer.model.Origem;
 import com.brewer.model.Sabor;
+
+import java.math.BigDecimal;
 
 public class CervejaFilter {
 

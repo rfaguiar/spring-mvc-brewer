@@ -1,6 +1,10 @@
 package com.brewer.builder;
 
-import com.brewer.model.*;
+import com.brewer.model.Cliente;
+import com.brewer.model.ItemVenda;
+import com.brewer.model.StatusVenda;
+import com.brewer.model.Usuario;
+import com.brewer.model.Venda;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

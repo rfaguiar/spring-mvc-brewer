@@ -1,9 +1,12 @@
 package com.brewer.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
 import com.brewer.Constantes;
+import com.brewer.controller.page.PageWrapper;
+import com.brewer.model.Estilo;
+import com.brewer.repository.Estilos;
+import com.brewer.repository.filter.EstiloFilter;
+import com.brewer.service.CadastroEstiloService;
+import com.brewer.service.exception.NomeEstiloJaCadastradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -19,12 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.brewer.controller.page.PageWrapper;
-import com.brewer.model.Estilo;
-import com.brewer.repository.Estilos;
-import com.brewer.repository.filter.EstiloFilter;
-import com.brewer.service.CadastroEstiloService;
-import com.brewer.service.exception.NomeEstiloJaCadastradoException;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/estilos")

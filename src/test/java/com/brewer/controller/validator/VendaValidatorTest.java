@@ -17,7 +17,8 @@ import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @PowerMockIgnore("javax.management.*")
 @RunWith(PowerMockRunner.class)

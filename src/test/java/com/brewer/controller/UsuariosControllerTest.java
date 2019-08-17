@@ -5,7 +5,6 @@ import com.brewer.builder.GrupoBuilder;
 import com.brewer.builder.UsuarioBuilder;
 import com.brewer.model.Grupo;
 import com.brewer.model.Usuario;
-import com.brewer.model.Venda;
 import com.brewer.repository.Grupos;
 import com.brewer.repository.Usuarios;
 import com.brewer.repository.filter.UsuarioFilter;
@@ -34,7 +33,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @PowerMockIgnore("javax.management.*")
 @RunWith(PowerMockRunner.class)

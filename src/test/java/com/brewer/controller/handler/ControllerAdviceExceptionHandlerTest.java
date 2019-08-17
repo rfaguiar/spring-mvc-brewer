@@ -10,7 +10,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @PowerMockIgnore("javax.management.*")
 @RunWith(PowerMockRunner.class)

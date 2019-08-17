@@ -1,13 +1,12 @@
 package com.brewer.model;
 
-import java.util.List;
-import java.util.Objects;
-
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "grupo")

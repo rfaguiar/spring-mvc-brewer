@@ -14,8 +14,6 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import static org.junit.Assert.*;
-
 @PowerMockIgnore("javax.management.*")
 @RunWith(PowerMockRunner.class)
 public class VendaListenerTest {

@@ -1,17 +1,16 @@
 package com.brewer.thymeleaf;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import org.thymeleaf.dialect.AbstractProcessorDialect;
-import org.thymeleaf.processor.IProcessor;
-import org.thymeleaf.standard.StandardDialect;
-
 import com.brewer.thymeleaf.processor.ClassForErrorAttributeTagProcessor;
 import com.brewer.thymeleaf.processor.MenuAttributeTagProcessor;
 import com.brewer.thymeleaf.processor.MessageElementTagProcessor;
 import com.brewer.thymeleaf.processor.OrderElementTagProcessor;
 import com.brewer.thymeleaf.processor.PaginationElementTagProcessor;
+import org.thymeleaf.dialect.AbstractProcessorDialect;
+import org.thymeleaf.processor.IProcessor;
+import org.thymeleaf.standard.StandardDialect;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class BrewerDialect extends AbstractProcessorDialect{
 

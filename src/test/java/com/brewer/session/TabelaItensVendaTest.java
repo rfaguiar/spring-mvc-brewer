@@ -1,14 +1,13 @@
 package com.brewer.session;
 
-import static org.junit.Assert.*;
-
-import java.math.BigDecimal;
-
+import com.brewer.model.Cerveja;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.brewer.model.Cerveja;
-import com.brewer.session.TabelaItensVenda;
+import java.math.BigDecimal;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class TabelaItensVendaTest {
 

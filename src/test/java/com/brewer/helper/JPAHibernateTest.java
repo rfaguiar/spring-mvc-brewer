@@ -1,6 +1,5 @@
 package com.brewer.helper;
 
-import com.brewer.model.Cerveja;
 import org.h2.tools.RunScript;
 import org.hibernate.Session;
 import org.hibernate.jdbc.Work;

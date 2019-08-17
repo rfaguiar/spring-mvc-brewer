@@ -1,12 +1,12 @@
 package com.brewer.config.format;
 
+import org.springframework.format.Formatter;
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
-
-import org.springframework.format.Formatter;
 
 public class BigDecimalFormatter implements Formatter<BigDecimal>{
 

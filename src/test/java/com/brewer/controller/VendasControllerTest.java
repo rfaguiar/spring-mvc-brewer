@@ -1,12 +1,20 @@
 package com.brewer.controller;
 
 import com.brewer.Constantes;
-import com.brewer.builder.*;
+import com.brewer.builder.CervejaBuilder;
+import com.brewer.builder.ItemVendaBuilder;
+import com.brewer.builder.VendaBuilder;
+import com.brewer.builder.VendaMesBuilder;
+import com.brewer.builder.VendaOrigemBuilder;
 import com.brewer.controller.validator.VendaValidator;
 import com.brewer.dto.VendaMes;
 import com.brewer.dto.VendaOrigem;
 import com.brewer.mail.Mailer;
-import com.brewer.model.*;
+import com.brewer.model.Cerveja;
+import com.brewer.model.ItemVenda;
+import com.brewer.model.StatusVenda;
+import com.brewer.model.TipoPessoa;
+import com.brewer.model.Venda;
 import com.brewer.repository.Cervejas;
 import com.brewer.repository.Vendas;
 import com.brewer.repository.filter.VendaFilter;
@@ -39,7 +47,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @PowerMockIgnore("javax.management.*")
 @RunWith(PowerMockRunner.class)

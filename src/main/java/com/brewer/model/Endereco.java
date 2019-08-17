@@ -1,13 +1,12 @@
 package com.brewer.model;
 
-import java.io.Serializable;
-import java.util.Objects;
-
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
+import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable
 public class Endereco implements Serializable {

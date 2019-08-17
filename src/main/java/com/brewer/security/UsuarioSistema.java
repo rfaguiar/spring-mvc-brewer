@@ -1,12 +1,11 @@
 package com.brewer.security;
 
-import java.util.Collection;
-import java.util.Objects;
-
+import com.brewer.model.Usuario;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import com.brewer.model.Usuario;
+import java.util.Collection;
+import java.util.Objects;
 
 public class UsuarioSistema extends User {
 

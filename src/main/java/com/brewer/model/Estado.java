@@ -1,10 +1,9 @@
 package com.brewer.model;
 
-import java.io.Serializable;
-import java.util.Objects;
-
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "estado")

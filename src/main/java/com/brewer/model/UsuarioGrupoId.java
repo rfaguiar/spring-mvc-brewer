@@ -1,10 +1,9 @@
 package com.brewer.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
 @Embeddable
 public class UsuarioGrupoId implements Serializable {

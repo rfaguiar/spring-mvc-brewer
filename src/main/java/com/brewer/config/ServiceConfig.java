@@ -1,7 +1,7 @@
 package com.brewer.config;
 
-import com.brewer.storage.FotoStorage;
 import com.brewer.service.CadastroCervejaService;
+import com.brewer.storage.FotoStorage;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 

@@ -5,9 +5,6 @@ import com.brewer.dto.CervejaDTO;
 import com.brewer.dto.ValorItensEstoque;
 import com.brewer.helper.JPAHibernateTest;
 import com.brewer.model.Cerveja;
-import com.brewer.model.Estilo;
-import com.brewer.model.Origem;
-import com.brewer.model.Sabor;
 import com.brewer.repository.filter.CervejaFilter;
 import com.brewer.repository.paginacao.PaginacaoUtil;
 import com.brewer.storage.FotoStorage;
@@ -23,11 +20,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
-
 import java.math.BigDecimal;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @PowerMockIgnore("javax.management.*")
 @RunWith(PowerMockRunner.class)

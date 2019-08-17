@@ -1,8 +1,8 @@
 package com.brewer.repository.helper.cliente;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
+import com.brewer.model.Cliente;
+import com.brewer.repository.filter.ClienteFilter;
+import com.brewer.repository.paginacao.PaginacaoUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
@@ -16,9 +16,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import com.brewer.model.Cliente;
-import com.brewer.repository.filter.ClienteFilter;
-import com.brewer.repository.paginacao.PaginacaoUtil;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 public class ClientesImpl implements ClientesQueries {
 

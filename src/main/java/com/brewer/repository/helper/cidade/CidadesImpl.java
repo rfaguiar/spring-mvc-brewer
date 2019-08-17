@@ -1,8 +1,8 @@
 package com.brewer.repository.helper.cidade;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
+import com.brewer.model.Cidade;
+import com.brewer.repository.filter.CidadeFilter;
+import com.brewer.repository.paginacao.PaginacaoUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
@@ -15,9 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import com.brewer.model.Cidade;
-import com.brewer.repository.filter.CidadeFilter;
-import com.brewer.repository.paginacao.PaginacaoUtil;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 public class CidadesImpl implements CidadesQueries {
 

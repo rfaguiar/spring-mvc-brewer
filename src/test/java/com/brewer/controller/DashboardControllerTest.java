@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @PowerMockIgnore("javax.management.*")
 @RunWith(PowerMockRunner.class)

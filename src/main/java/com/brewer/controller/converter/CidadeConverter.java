@@ -1,9 +1,8 @@
 package com.brewer.controller.converter;
 
+import com.brewer.model.Cidade;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.util.StringUtils;
-
-import com.brewer.model.Cidade;
 
 public class CidadeConverter implements Converter<String, Cidade>{
 

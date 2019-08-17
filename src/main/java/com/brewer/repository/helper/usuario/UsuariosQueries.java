@@ -1,13 +1,12 @@
 package com.brewer.repository.helper.usuario;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.brewer.model.Usuario;
+import com.brewer.repository.filter.UsuarioFilter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.brewer.model.Usuario;
-import com.brewer.repository.filter.UsuarioFilter;
+import java.util.List;
+import java.util.Optional;
 
 public interface UsuariosQueries {
 

@@ -1,14 +1,13 @@
 package com.brewer.session;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import com.brewer.model.Cerveja;
+import com.brewer.model.ItemVenda;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
-import com.brewer.model.Cerveja;
-import com.brewer.model.ItemVenda;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @SessionScope
 @Component

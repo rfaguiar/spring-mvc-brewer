@@ -1,7 +1,14 @@
 package com.brewer.model;
 
-import java.io.Serializable;
-import java.util.Objects;
+import com.brewer.model.validation.ClienteGroupSequenceProvider;
+import com.brewer.model.validation.group.CnpjGroup;
+import com.brewer.model.validation.group.CpfGroup;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CNPJ;
+import org.hibernate.validator.constraints.br.CPF;
+import org.hibernate.validator.group.GroupSequenceProvider;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -13,17 +20,8 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.br.CNPJ;
-import org.hibernate.validator.constraints.br.CPF;
-import org.hibernate.validator.group.GroupSequenceProvider;
-
-import com.brewer.model.validation.ClienteGroupSequenceProvider;
-import com.brewer.model.validation.group.CnpjGroup;
-import com.brewer.model.validation.group.CpfGroup;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "cliente")

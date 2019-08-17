@@ -1,14 +1,13 @@
 package com.brewer.controller;
 
 import com.brewer.Constantes;
+import com.brewer.repository.Cervejas;
+import com.brewer.repository.Clientes;
+import com.brewer.repository.Vendas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.brewer.repository.Cervejas;
-import com.brewer.repository.Clientes;
-import com.brewer.repository.Vendas;
 
 @Controller
 public class DashboardController {
