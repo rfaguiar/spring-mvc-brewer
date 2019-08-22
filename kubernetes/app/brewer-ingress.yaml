@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: brewer
+  namespace: dev-to
+spec:
+  rules:
+    - host: dev.brewer.local
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: brewer
+              servicePort: 8080

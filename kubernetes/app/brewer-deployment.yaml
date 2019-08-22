@@ -1,0 +1,31 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: brewer
+  namespace: dev-to
+spec:
+  selector:
+    matchLabels:
+      app: brewer
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: brewer
+    spec:
+      containers:
+        - image: rfaguiar/brewer
+          name: brewer
+          env:
+            # Use secret in real usage
+            - name: JAVA_OPTS
+              value: '-Dspring.profiles.active=docker-desenv'
+            - name: JDBC_URL
+              value: 'jdbc:mysql://mysql:3306/brewer?useSSL=false'
+            - name: JDBC_USER
+              value: root
+            - name: JDBC_PASS
+              value: root_pwd
+          ports:
+            - containerPort: 8080

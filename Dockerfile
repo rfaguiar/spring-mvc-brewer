@@ -1,14 +1,14 @@
-FROM maven:3.3-jdk-8 as build
-COPY . ./app
-WORKDIR /app
-VOLUME "$USER_HOME_DIR/.m2"
-RUN mvn package
+#FROM maven:3.3-jdk-8 as build
+#COPY . ./app
+#WORKDIR /app
+#VOLUME "$USER_HOME_DIR/.m2"
+#RUN mvn package
 
 FROM tomcat:8.0-jre8
 MAINTAINER Rogerio Aguiar < rfaguiar1@gmail.com>
 ADD tomcat8/tomcat-users.xml  $CATALINA_HOME/conf/
 RUN rm -Rf $CATALINA_HOME/webapps/*
-COPY --from=build app/target/*.war $CATALINA_HOME/webapps/ROOT.war
+COPY ./target/*.war $CATALINA_HOME/webapps/ROOT.war
 
 VOLUME $CATALINA_HOME/webapps
 

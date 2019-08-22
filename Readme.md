@@ -2,22 +2,29 @@
 [![Build Status](https://travis-ci.org/rfaguiar/spring-mvc-brewer.svg?branch=master)](https://travis-ci.org/rfaguiar/spring-mvc-brewer) [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=com.brewer%3Abrewer&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.brewer%3Abrewer) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=com.brewer%3Abrewer&metric=coverage)](https://sonarcloud.io/component_measures?id=com.brewer%3Abrewer&metric=coverage)   
 
 # Tecnologias: SpringMVC, Spring Data, Spring Security, Thymeleaf 3, Java 8, Tomcat 8, Hibernate Validator, Maven 3, MySql 5, log4j  
+
 * Imagen DockerHub:  
     > rfaguiar/brewer  
+
 * compilação docker image com pluguin maven  
     > mvn clean package dockerfile:build  
+
 * commandos docker  
     > docker-compose up -d  
     > docker-compose ps  
     > docker-compose down  
     > docker-compose logs --tail="all" --follow  
+
 * compilação com maven 3.3  
     > mvn clean package -Plocal-jndi  
     > mvn clean package -Plocal
+
 * webrunner  
     > java $JAVA_OPTS -Dspring.profiles.active=prod -jar target/dependency/webapp-runner.jar target/brewer.war --contex-xml target/brewer/META-INF/context.xml
+
 * serviço para envio de email  
     > https://sendgrid.com/  
+
 * variaveis de ambiente de producao  
     > JAWSDB_URL  
     > SEND_GRID_USERNAME  
@@ -25,6 +32,15 @@
     > BUCKET_NAME  
     > AWS_ACESS_KEY_ID  
     > AWS_SECRET_KEY_ID  
+
+* mysql client instalação ubuntu  
+    > sudo apt-get mysql-client  
+
+* mysql connection  
+    > mysql -u root -p -h 127.0.0.1 -P 3306  
+
+* mysql criar banco de dados  
+    > create database brewer;  
 
 * flyway-migrações do bd  
     > mvn -Dflyway.user=root -Dflyway.password=root -Dflyway.url=jdbc:mysql://localhost:3306/brewer?useSSL=false flyway:migrate  
@@ -35,3 +51,5 @@
     
 user: admin@brewer.com  
 pass: admin  
+
+#### para subir a aplicação no kubernetes, olhar arquivo make e usar templates da pasta kubernetes  
