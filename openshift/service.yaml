@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: brewer
+    app.kubernetes.io/component: brewer
+    app.kubernetes.io/instance: brewer
+    app.kubernetes.io/part-of: brewer-app
+  name: brewer
+spec:
+  ports:
+  - name: 8080-tcp
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: brewer
+    deploymentconfig: brewer
+  sessionAffinity: None
+  type: ClusterIP

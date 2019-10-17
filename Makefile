@@ -8,7 +8,7 @@ help:
 	echo "Use make [rule]"
 	echo "Rules:"
 	echo ""
-	echo "build 		- build application and generate docker image"
+	echo "build-app 		- build application and generate docker image"
 	echo "run-db 		- run mysql database on docker"
 	echo "run-app		- run application on docker"
 	echo "stop-app	- stop application"
@@ -83,4 +83,7 @@ check:
 	minikube version && echo
 	echo "kubectl version" && kubectl version --short --client && echo
 	echo "virtualbox version" && vboxmanage --version  && echo
+
+oc-deploy-app
+	oc apply -f openshift/
 

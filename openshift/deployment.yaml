@@ -1,0 +1,63 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: brewer
+    app.kubernetes.io/component: brewer
+    app.kubernetes.io/instance: brewer
+    app.kubernetes.io/part-of: brewer-app
+  name: brewer
+spec:
+  replicas: 1
+  selector:
+    app: brewer
+    deploymentconfig: brewer
+  strategy:
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: Rolling
+  template:
+    metadata:
+      labels:
+        app: brewer
+        deploymentconfig: brewer
+    spec:
+      containers:
+      - env:
+        - name: BUCKET_NAME
+          value: brewer-s3
+        - name: JAVA_OPTS
+          value: -Dspring.profiles.active=prod
+        - name: AWS_ACESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              key: AWS_ACESS_KEY_ID
+              name: aws-secret
+        - name: AWS_SECRET_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              key: AWS_SECRET_KEY_ID
+              name: aws-secret
+        - name: SEND_GRID_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: SEND_GRID_PASSWORD
+              name: send-grid
+        - name: SEND_GRID_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: SEND_GRID_USERNAME
+              name: send-grid
+        - name: JAWSDB_URL
+          valueFrom:
+            secretKeyRef:
+              key: JAWSDB_URL
+              name: jawsdb
+        image: rfaguiar/brewer@sha256:a510fc92904967778f1ffbe0cd6e1d4bd176ea98f8ab3969186edb25ad421af2
+        imagePullPolicy: IfNotPresent
+        name: brewer
+        ports:
+        - containerPort: 8080
+          protocol: TCP
