@@ -8,7 +8,7 @@ FROM tomcat:8.0-jre8
 MAINTAINER Rogerio Aguiar < rfaguiar1@gmail.com>
 ADD tomcat8/tomcat-users.xml  $CATALINA_HOME/conf/
 RUN rm -Rf $CATALINA_HOME/webapps/*
-COPY ./target/*.war $CATALINA_HOME/webapps/ROOT.war
+COPY --from=build app/target/*.war $CATALINA_HOME/webapps/ROOT.war
 
 VOLUME $CATALINA_HOME/webapps
 
