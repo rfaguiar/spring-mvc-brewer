@@ -19,7 +19,7 @@ script:
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD #login dockerhub
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin #login dockerhub
   #- docker tag brewer $DOCKER_USERNAME/brewer #registra tag da $TRAVIS_JOB_IDimagen para fazer push
-  - docker push $DOCKER_USERNAME/brewer:$TRAVIS_JOB_ID #envia imagen docker para dockerhub
+  - docker push $DOCKER_USERNAME/brewer #envia imagen docker para dockerhub
 
 
 # deploy com heroku via git
