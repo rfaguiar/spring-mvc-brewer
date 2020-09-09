@@ -30,7 +30,7 @@
 		<thymeleaf.version>3.0.1.RELEASE</thymeleaf.version>
 		
 		<!-- Bean Validation / Hibernate Validator -->
-		<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
+		<hibernate-validator.version>5.3.6.Final</hibernate-validator.version>
 		
 		<!-- Thymeleaf - Layout Dialect -->
 		<thymeleaf-layout-dialect.version>2.0.1</thymeleaf-layout-dialect.version>
