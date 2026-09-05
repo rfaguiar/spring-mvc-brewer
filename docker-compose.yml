@@ -1,45 +1,50 @@
-version: '3'
-
 networks:
   brewer-network:
     driver: bridge
 
 services:
   brewer-app:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: rfaguiar/brewer:latest
+    container_name: brewer-app
     ports:
       - "8080:8080"
-      - "8000:8000" #remote debug port
-    image: rfaguiar/brewer
-    container_name: brewer-app
-#    volumes:
-#      - ./webapps:/usr/local/tomcat/webapps
+      - "8000:8000"
     networks:
       - brewer-network
     environment:
-      - JAVA_OPTS='-Dspring.profiles.active=docker-desenv'
-      - JDBC_URL=jdbc:mysql://172.17.0.1:3306/brewer?useSSL=false
+      - JAVA_OPTS=-Dspring.profiles.active=docker-desenv
+      - JDBC_URL=jdbc:mysql://db-mysql:3306/brewer?useSSL=false
       - JDBC_USER=root
       - JDBC_PASS=root
-#    depends_on:
-#      - db-mysql
-#    #conecta ao containers do banco pela url http://database
-#    links:
-#      - "db-mysql:database"
+    depends_on:
+      db-mysql:
+        condition: service_healthy
 
-#  docker run --name db-mysql -p 3306:3306 --network minha-rede -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=root -d mysql:5.6
+  db-mysql:
+    image: mysql:5.6
+    container_name: db-mysql
+    ports:
+      - "3306:3306"
+    networks:
+      brewer-network:
+        aliases:
+          - mysql56
+          - mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=brewer
+    volumes:
+      - ./src/main/resources/db/migration:/docker-entrypoint-initdb.d:ro
+      - brewer-db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
 
-#  db-mysql:
-#    image: mysql:5.6
-#    container_name: db-mysql
-#    ports:
-#      - "3307:3306"
-#    volumes:
-#      - ./banco:/var/lib/mysql
-#    networks:
-#      - brewer-network
-#    environment:
-#      - MYSQL_ROOT_PASSWORD=root
-#      - MYSQL_DATABASE=root
+volumes:
+  brewer-db-data:
