@@ -31,7 +31,7 @@ help:
 	echo "help		- show this message"
 
 build-app:
-	mvn clean package;
+	docker build --force-rm -t rfaguiar/brewer:latest .
 
 run-db:
 	docker run --name mysql56 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_PASSWORD=root -e MYSQL_DATABASE=brewer -d mysql:5.6
@@ -62,7 +62,7 @@ k-deploy-db:
 
 
 k-build-image: build-app
-	eval $$(minikube -p dev-to docker-env) && docker build --force-rm -t rfaguiar/brewer:latest .;
+	eval $$(minikube -p dev-to docker-env)
 
 k-deploy-app:
 	kubectl apply -f kubernetes/app/;
@@ -84,6 +84,6 @@ check:
 	echo "kubectl version" && kubectl version --short --client && echo
 	echo "virtualbox version" && vboxmanage --version  && echo
 
-oc-deploy-app
+oc-deploy-app:
 	oc apply -f openshift/
 
