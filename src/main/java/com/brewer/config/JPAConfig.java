@@ -29,25 +29,10 @@ import java.sql.SQLException;
 @EnableTransactionManagement
 public class JPAConfig {
 
-    private JndiDataSourceLookup jndiDataSourceLookup;
-    private BasicDataSource basicDataSource;
-    private LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean;
-
-    public JPAConfig() {
-        this(new JndiDataSourceLookup(), new BasicDataSource(), new LocalContainerEntityManagerFactoryBean());
-    }
-
-    public JPAConfig(JndiDataSourceLookup jndiDataSourceLookup,
-                     BasicDataSource basicDataSource,
-                     LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean) {
-        this.jndiDataSourceLookup = jndiDataSourceLookup;
-        this.basicDataSource = basicDataSource;
-        this.localContainerEntityManagerFactoryBean = localContainerEntityManagerFactoryBean;
-    }
-
     @Bean
 	@Profile("local-jndi")
 	public DataSource dataSourceLocalJndi(){
+        JndiDataSourceLookup jndiDataSourceLookup = new JndiDataSourceLookup();
         jndiDataSourceLookup.setResourceRef(true);
 		return jndiDataSourceLookup.getDataSource("jdbc/brewerDB");
 	}
@@ -66,7 +51,7 @@ public class JPAConfig {
     	String username = System.getenv("JDBC_USER");
     	String password = System.getenv("JDBC_PASS");
         BasicDataSource datasource = createBasicDatasource(url, username, password);
-        basicDataSource.setDriver(new com.mysql.jdbc.Driver());
+        datasource.setDriverClassName("com.mysql.jdbc.Driver");
         return datasource;
 
 	}
@@ -95,14 +80,15 @@ public class JPAConfig {
 	}
 	
 	@Bean
-	public EntityManagerFactory entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter){
-		localContainerEntityManagerFactoryBean.setDataSource(dataSource);
-		localContainerEntityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter);
-		localContainerEntityManagerFactoryBean.setPackagesToScan(Cerveja.class.getPackage().getName());
-		localContainerEntityManagerFactoryBean.setMappingResources("sql/consultas-nativas.xml");
-		localContainerEntityManagerFactoryBean.afterPropertiesSet();
-		
-		return localContainerEntityManagerFactoryBean.getObject();
+	public EntityManagerFactory entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) throws Exception {
+		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+		factory.setDataSource(dataSource);
+		factory.setJpaVendorAdapter(jpaVendorAdapter);
+		factory.setPackagesToScan(Cerveja.class.getPackage().getName());
+		factory.setMappingResources("sql/consultas-nativas.xml");
+		factory.afterPropertiesSet();
+
+		return factory.getObject();
 	}
 	
 	@Bean
@@ -113,11 +99,14 @@ public class JPAConfig {
 	}
 
 	private BasicDataSource createBasicDatasource(String jdbUrl, String username, String password) throws SQLException, ClassNotFoundException {
-        basicDataSource.setUrl(jdbUrl);
-        basicDataSource.setUsername(username);
-        basicDataSource.setPassword(password);
-        basicDataSource.setInitialSize(9);
-        basicDataSource.setMaxTotal(9);
-        return basicDataSource;
-    }
+	    BasicDataSource datasource = new BasicDataSource();
+	    datasource.setUrl(jdbUrl);
+	    datasource.setUsername(username);
+	    datasource.setPassword(password);
+	    datasource.setInitialSize(9);
+	    datasource.setMaxTotal(9);
+	    datasource.setDriverClassName("com.mysql.jdbc.Driver");
+	    Class.forName("com.mysql.jdbc.Driver");
+	    return datasource;
+	}
 }
