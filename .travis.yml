@@ -15,16 +15,16 @@ script:
   # maven limpa pasta target, habilita pluguin qualidade, gera pasta target com pacotes,
   # gera analise sonar e gera imagen docker
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar dockerfile:build
-  - docker image list #lista de images locais
-  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD #login dockerhub
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin #login dockerhub
-  - docker tag $DOCKER_USERNAME/brewer $DOCKER_USERNAME/brewer:$TRAVIS_JOB_ID #registra tag da $TRAVIS_JOB_IDimagen para fazer push
-  - docker push $DOCKER_USERNAME/brewer:$TRAVIS_JOB_ID #envia imagen docker para dockerhub
+#  - docker image list #lista de images locais
+#  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD #login dockerhub
+#  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin #login dockerhub
+#  - docker tag $DOCKER_USERNAME/brewer $DOCKER_USERNAME/brewer:$TRAVIS_JOB_ID #registra tag da $TRAVIS_JOB_IDimagen para fazer push
+#  - docker push $DOCKER_USERNAME/brewer:$TRAVIS_JOB_ID #envia imagen docker para dockerhub
 
 
 # deploy com heroku via git
-deploy:
-  provider: heroku
-  api-key:
-   secure: $HEROKU_API_KEY
-  app: brewer-springmvc-app1
+#deploy:
+#  provider: heroku
+#  api-key:
+#   secure: $HEROKU_API_KEY
+#  app: brewer-springmvc-app1
