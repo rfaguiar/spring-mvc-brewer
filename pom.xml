@@ -56,7 +56,7 @@
 		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
 
 		<!-- Apache Bean Utils -->
-		<commons-beanutils.version>1.9.2</commons-beanutils.version>
+		<commons-beanutils.version>1.11.0</commons-beanutils.version>
 		
 		<!-- Spring Security -->
 		<spring-security.version>4.1.1.RELEASE</spring-security.version>
