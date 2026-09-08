@@ -2,7 +2,7 @@ FROM maven:3.3-jdk-8 AS build
 COPY . ./app
 WORKDIR /app
 #VOLUME "$USER_HOME_DIR/.m2"
-RUN mvn -DskipTests package
+RUN mvn package
 
 FROM tomcat:8.0-jre8
 LABEL maintainer="Rogerio Aguiar <rfaguiar1@gmail.com>"
