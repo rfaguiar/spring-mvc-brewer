@@ -22,8 +22,10 @@
         <properties>
             <!-- Configuring JDBC properties  -->
             <!-- ;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM 'classpath:create.sql'\;RUNSCRIPT FROM 'classpath:data.sql' -->
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test;MODE=MYSQL;DB_CLOSE_DELAY=-1"/>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <!-- Ensure identity/auto-increment compatibility with MySQL-style DDL generation in H2 -->
+            <property name="hibernate.id.new_generator_mappings" value="true"/>
 
             <!-- Hibernate properties -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>

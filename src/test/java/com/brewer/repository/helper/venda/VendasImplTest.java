@@ -139,7 +139,7 @@ public class VendasImplTest {
     @Test
     public void valorTicketMedioNoAno() {
         BigDecimal result = vendasImpl.valorTicketMedioNoAno();
-        assertEquals("456", result.toString());
+        assertEquals("456", result.stripTrailingZeros().toPlainString());
     }
 
     @Test
