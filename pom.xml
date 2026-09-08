@@ -59,7 +59,7 @@
 		<commons-beanutils.version>1.11.0</commons-beanutils.version>
 		
 		<!-- Spring Security -->
-		<spring-security.version>4.1.1.RELEASE</spring-security.version>
+		<spring-security.version>6.5.11</spring-security.version>
 		
 		<!-- Thymeleaf - Extras Spring Security -->
 		<thymeleaf-extras-springsecurity.version>3.0.0.RELEASE</thymeleaf-extras-springsecurity.version>
