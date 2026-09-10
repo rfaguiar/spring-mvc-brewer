@@ -92,6 +92,7 @@ public class VendasControllerTest {
     @Before
     public void iniciarCenarioDeTeste() {
         MockitoAnnotations.initMocks(this);
+        Mockito.when(mockPegeable.toOptional()).thenReturn(java.util.Optional.of(mockPegeable));
         PowerMockito.mockStatic(Logger.class);
         PowerMockito.mockStatic(LoggerFactory.class);
         PowerMockito.mockStatic(UriComponentsBuilder.class);
@@ -245,7 +246,7 @@ public class VendasControllerTest {
     public void testMetodoAdicionarItemDeveAdicionarUmaCervejaERetornarAVendaView() {
         Cerveja cerveja = CervejaBuilder.criarCerveja();
         List<ItemVenda> itens = ItemVendaBuilder.criarListaItenVenda();
-        Mockito.when(mockCervejaRepo.findOne(Matchers.anyLong())).thenReturn(cerveja);
+        Mockito.when(mockCervejaRepo.findById(Matchers.anyLong())).thenReturn(java.util.Optional.of(cerveja));
         Mockito.doNothing().when(mockTabelaItens).adicionarItem("123", cerveja, 1);
         Mockito.when(mockTabelaItens.getItens("123")).thenReturn(itens);
         Mockito.when(mockTabelaItens.getValorTotal("123")).thenReturn(new BigDecimal(1234));

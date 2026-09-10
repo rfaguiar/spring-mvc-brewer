@@ -27,12 +27,12 @@ public class ErrosControllerTest {
     @Test
     public void testeMetodoPaginaNaoEncontradaDeveRetornarErro404() {
         String result = controller.paginaNaoEncontrada();
-        assertEquals(HttpStatus.NOT_FOUND.toString(), result);
+        assertEquals(String.valueOf(HttpStatus.NOT_FOUND.value()), result);
     }
 
     @Test
     public void testeMetodoErroServidorDeveRetornarErro500() {
         String result = controller.erroServidor();
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.toString(), result);
+        assertEquals(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()), result);
     }
 }

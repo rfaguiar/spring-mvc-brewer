@@ -63,6 +63,7 @@ public class CidadesControllerTest {
     @Before
     public void iniciarCenarioDeTeste() {
         MockitoAnnotations.initMocks(this);
+        Mockito.when(mockPageable.toOptional()).thenReturn(java.util.Optional.of(mockPageable));
         PowerMockito.mockStatic(UriComponentsBuilder.class);
         this.controller = new CidadesController(mockCidadesRepo, mockEstadosRepo, mockCidadeService);
     }

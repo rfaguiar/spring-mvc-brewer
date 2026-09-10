@@ -10,11 +10,11 @@ public class ErrosController {
 
 	@GetMapping("404")
 	public String paginaNaoEncontrada(){
-		return HttpStatus.NOT_FOUND.toString();
+		return String.valueOf(HttpStatus.NOT_FOUND.value());
 	}
 	
 	@RequestMapping("/500")
 	public String erroServidor() {
-		return HttpStatus.INTERNAL_SERVER_ERROR.toString();
+		return String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value());
 	}
 }

@@ -70,7 +70,7 @@ public class CadastroVendaServiceTest {
         Mockito.when(mockVendasRepo.saveAndFlush(Matchers.any(Venda.class))).thenReturn(venda);
         Venda venda1 = VendaBuilder.criarVenda();
         venda1.setDataCriacao(LocalDateTime.now());
-        Mockito.when(mockVendasRepo.findOne(new Long(1))).thenReturn(venda1);
+        Mockito.when(mockVendasRepo.findById(new Long(1))).thenReturn(java.util.Optional.of(venda1));
         venda.setCodigo(new Long(1));
         venda.setDataCriacao(null);
         venda.setDataEntrega(LocalDate.now());
@@ -83,7 +83,7 @@ public class CadastroVendaServiceTest {
     public void testeMetodoEmitirDeveMudarStatusParaEmitidaEAtualiarVendaEPublicarAVenda() {
         venda.setStatus(StatusVenda.ORCAMENTO);
         Mockito.when(mockVendasRepo.saveAndFlush(Matchers.any(Venda.class))).thenReturn(venda);
-        Mockito.when(mockVendasRepo.findOne(new Long(1))).thenReturn(venda);
+        Mockito.when(mockVendasRepo.findById(new Long(1))).thenReturn(java.util.Optional.of(venda));
         service.emitir(venda);
         Mockito.verify(mockApplicationPublisher).publishEvent(Matchers.any(VendaEvent.class));
         assertEquals(StatusVenda.EMITIDA, venda.getStatus());
@@ -93,7 +93,7 @@ public class CadastroVendaServiceTest {
     public void testeMetodoCancelarDeveMudarStatusParaCanceladaEAtualizarVenda() {
         venda.setStatus(StatusVenda.ORCAMENTO);
         Mockito.when(mockVendasRepo.saveAndFlush(Matchers.any(Venda.class))).thenReturn(venda);
-        Mockito.when(mockVendasRepo.findOne(new Long(1))).thenReturn(venda);
+        Mockito.when(mockVendasRepo.findById(new Long(1))).thenReturn(java.util.Optional.of(venda));
         service.cancelar(venda);
         assertEquals(StatusVenda.CANCELADA, venda.getStatus());
     }

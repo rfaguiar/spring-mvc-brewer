@@ -44,6 +44,7 @@ public class UsuariosImplTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+        Mockito.when(mockPageable.toOptional()).thenReturn(java.util.Optional.of(mockPageable));
         EntityManager entityManager = JPAHibernateTest.getEntityManager();
 
         entityManager.getTransaction().begin();
