@@ -126,7 +126,7 @@ public class VendasController {
 	
 	@PostMapping("/item")
 	public ModelAndView adicionarItem(Long codigoCerveja, String uuid) {
-		Cerveja cerveja = cervejasRepo.findOne(codigoCerveja);
+		Cerveja cerveja = cervejasRepo.findById(codigoCerveja).orElse(null);
 		tabelaItens.adicionarItem(uuid, cerveja, 1);
 		return mvTabelaItensVenda(uuid);
 	}

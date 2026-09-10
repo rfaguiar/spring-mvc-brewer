@@ -32,7 +32,7 @@ public class VendaListenerTest {
     public void testeVendaVendaEmitida() {
         VendaEvent vendaEvent = new VendaEvent(VendaBuilder.criarVenda());
         Cerveja cerveja = CervejaBuilder.criarCerveja();
-        Mockito.when(mockCervejasRepo.findOne(Matchers.anyLong())).thenReturn(cerveja);
+        Mockito.when(mockCervejasRepo.findById(Matchers.anyLong())).thenReturn(java.util.Optional.of(cerveja));
         listener.vendaEmitida(vendaEvent);
     }
 }

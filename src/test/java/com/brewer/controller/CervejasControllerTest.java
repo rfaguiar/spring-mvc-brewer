@@ -72,6 +72,7 @@ public class CervejasControllerTest {
     @Before
     public void metodoInicializaCenarioDeTeste() {
         MockitoAnnotations.initMocks(this);
+        Mockito.when(mockPegeable.toOptional()).thenReturn(java.util.Optional.of(mockPegeable));
         PowerMockito.mockStatic(UriComponentsBuilder.class);
         controller = new CervejasController(mockCervejaService, mockEstilosRepo, mockCervejasRepo);
         listaEstilos = EstiloBuilder.criarListaEstilos();
